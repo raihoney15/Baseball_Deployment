@@ -2,7 +2,7 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable, authentication_keys: [:login]
+         :recoverable, :rememberable, :validatable,:confirmable ,authentication_keys: [:login]
 
   enum role: [:user, :admin, :owner]
   after_initialize :set_default_role, :if => :new_record?

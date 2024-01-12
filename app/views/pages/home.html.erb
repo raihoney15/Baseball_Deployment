@@ -9,10 +9,13 @@
     You are successfully authenticated with your Devise account.
     You are now ready to interact with the Application.
     </p>
+    <%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link' %> |
     <%= link_to "Sign out", destroy_user_session_path, 'data-turbo-method': :delete %>
 <% else %> 
-    <p>  You are not signed in. </p>
-    <%= link_to "Sign Up!", new_user_registration_path %>
+    <h1>You are not signed in. </h1>
+    <%= link_to "Sign Up!", new_user_registration_path,class: 'btn btn-primary btn-sm' %>
     <br />
-    <%= link_to "Login", new_user_session_path %>
+    <br />
+    <%= link_to "Login", new_user_session_path ,class: 'btn btn-primary btn-sm'%>
 <% end %>
+
