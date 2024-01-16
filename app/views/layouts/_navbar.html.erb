@@ -1,0 +1,46 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<a class="navbar-brand" href="#">Baseball</a>
+<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+  <span class="navbar-toggler-icon"></span>
+</button>
+<div class="collapse navbar-collapse" id="navbarNav">
+  <ul class="navbar-nav ml-auto">
+    <!-- Add your navigation links here -->
+    <li class="nav-item">
+      <%= link_to "Home", root_path, class: "nav-link" %>
+    </li>
+    <li class="nav-item">
+    <%= link_to "Tournaments", new_tournament_path, class: "nav-link" %>
+  </li>
+  <li class="nav-item">
+  <%= link_to "Teams", new_team_url, class: "nav-link" %>
+</li>
+    <!-- Add more links as needed -->
+    <% if user_signed_in? %>
+      <li class="nav-item">
+        <%= link_to "Dashboard", class: "nav-link" %>
+      </li>
+      <% if current_user.image.attached? %>
+        <%= image_tag(current_user.image, style: "display:
+        inline-block;
+        width: 50px;
+        height: 50px;
+        object-fit:cover;
+        border-radius:50%") %>
+        <% else %>
+        <i class="material-icons right">account_circle </i>
+        <% end %>
+      <li class="nav-item">
+        <%= link_to "Logout",  destroy_user_session_path, 'data-turbo-method': :delete, class: "nav-link" %>
+      </li>
+    <% else %>
+      <li class="nav-item">
+        <%= link_to "Sign Up", new_user_registration_path, class: "nav-link" %>
+      </li>
+      <li class="nav-item">
+        <%= link_to "Login", new_user_session_path, class: "nav-link" %>
+      </li>
+    <% end %>
+  </ul>
+</div>
+</nav>

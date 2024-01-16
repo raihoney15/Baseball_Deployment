@@ -41,10 +41,12 @@ gem "tzinfo-data", platforms: %i[ windows jruby ]
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
 
-# gem "pry"
+gem "pundit"
+gem "pry"
 
 gem 'bootstrap', '~> 4.0.0'
-
+# gem 'webpacker', '~> 3.5'
+gem 'webpacker', git: 'https://github.com/rails/webpacker.git'
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
 
