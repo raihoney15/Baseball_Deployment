@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @rooster %>
+
+<div>
+  <%= link_to "Edit this rooster", edit_rooster_path(@rooster) %> |
+  <%= link_to "Back to roosters", roosters_path %>
+
+  <%= button_to "Destroy this rooster", @rooster, method: :delete %>
+</div>

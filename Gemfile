@@ -43,6 +43,7 @@ gem "bootsnap", require: false
 
 gem "pundit"
 gem "pry"
+gem "cancancan"
 
 gem 'bootstrap', '~> 4.0.0'
 # gem 'webpacker', '~> 3.5'

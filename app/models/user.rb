@@ -1,14 +1,14 @@
 class User < ApplicationRecord
-  # has_many :assignments
-  # has_many :roles, through: :assignments
-  has_many :roles
+  has_many :assignments
+  has_many :roles, through: :assignments
+  # has_many :roles
   has_one_attached :image
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable,:confirmable ,authentication_keys: [:login]
 
-  # enum role: [:user, :admin, :tournament_owner, :team_owner]
+  enum role: [:user, :admin, :tournament_owner, :team_owner]
   after_initialize :set_default_role, :if => :new_record?
   def set_default_role
      self.role ||= :user

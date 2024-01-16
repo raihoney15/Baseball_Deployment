@@ -1,0 +1,2 @@
+class Rooster < ApplicationRecord
+end

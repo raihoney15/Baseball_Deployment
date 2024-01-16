@@ -32,6 +32,8 @@
   <%= yield %>
   <% elsif controller_name == 'passwords' && action_name.in?(['new', 'create','show','index']) %>
   <%= yield %>
+  <% elsif controller_name == 'roosters' && action_name.in?(['new', 'create','show','index']) %>
+  <%= yield %>
   <% else %>
       <div class="row row-cols-1 row-cols-md-3 g-4">
         <div class="col">

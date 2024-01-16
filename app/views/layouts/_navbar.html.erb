@@ -10,10 +10,10 @@
       <%= link_to "Home", root_path, class: "nav-link" %>
     </li>
     <li class="nav-item">
-    <%= link_to "Tournaments", new_tournament_path, class: "nav-link" %>
+    <%= link_to "Tournaments", tournaments_path, class: "nav-link" %>
   </li>
   <li class="nav-item">
-  <%= link_to "Teams", new_team_url, class: "nav-link" %>
+  <%= link_to "Teams", teams_path, class: "nav-link" %>
 </li>
     <!-- Add more links as needed -->
     <% if user_signed_in? %>
