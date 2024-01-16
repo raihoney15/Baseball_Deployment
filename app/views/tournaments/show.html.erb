@@ -3,8 +3,13 @@
 <%= render @tournament %>
 
 <div>
+<% if can? :update, @tournament %>
   <%= link_to "Edit this tournament", edit_tournament_path(@tournament) %> |
+<% end %>
+
   <%= link_to "Back to tournaments", tournaments_path %>
 
+  <% if can? :destroy, @tournament %>
   <%= button_to "Destroy this tournament", @tournament, method: :delete %>
+  <% end %>
 </div>
