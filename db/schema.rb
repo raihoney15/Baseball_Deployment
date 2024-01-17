@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_01_16_123954) do
+ActiveRecord::Schema[7.1].define(version: 2024_01_17_102151) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -69,6 +69,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_16_123954) do
     t.string "short_name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_teams_on_user_id"
   end
 
   create_table "tournaments", force: :cascade do |t|
@@ -78,6 +80,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_16_123954) do
     t.string "location"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_tournaments_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -90,7 +94,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_16_123954) do
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string "unconfirmed_email"
-    t.integer "role", default: 2
+    t.integer "role"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "username"
@@ -103,4 +107,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_16_123954) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "assignments", "roles"
   add_foreign_key "assignments", "users"
+  add_foreign_key "teams", "users"
+  add_foreign_key "tournaments", "users"
 end

@@ -1,14 +1,18 @@
 class TournamentsController < ApplicationController
+  load_and_authorize_resource
   # load_and_authorize_resource :through => :current_user
   before_action :set_tournament, only: %i[ show edit update destroy ]
 
   # GET /tournaments or /tournaments.json
   def index
-    @tournaments = Tournament.all
+    # @tournaments = Tournament.all
+    @teams = Tournament.where(user_id:current_user.id)
   end
 
   # GET /tournaments/1 or /tournaments/1.json
   def show
+    @team = Tournament.find(params[:id])
+    # authorize! :read, @tournament
   end
 
   # GET /tournaments/new
@@ -22,8 +26,8 @@ class TournamentsController < ApplicationController
 
   # POST /tournaments or /tournaments.json
   def create
-
-    @tournament = Tournament.new(tournament_params)
+    @tournament = current_user.tournaments.build(tournament_params)
+    # @tournament = Tournament.new(tournament_params)
     if @tournament.save
       redirect_to @tournament, notice: 'Tournament was successfully created.'
     else

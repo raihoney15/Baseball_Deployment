@@ -1,14 +1,19 @@
 class TeamsController < ApplicationController
+  load_and_authorize_resource
   # load_and_authorize_resource :through => :current_user
   before_action :set_team, only: %i[ show edit update destroy ]
 
   # GET /teams or /teams.json
   def index
-    @teams = Team.all
+
+    # @teams = Team.all
+    @teams = Team.where(user_id:current_user.id)
   end
 
   # GET /teams/1 or /teams/1.json
   def show
+   
+    @team = Team.find(params[:id])
   end
 
   # GET /teams/new
@@ -22,7 +27,8 @@ class TeamsController < ApplicationController
 
   # POST /teams or /teams.json
   def create
-    @team = Team.new(team_params)
+    @team = current_user.teams.build(team_params)
+    # @team = Team.new(team_params)
 
     respond_to do |format|
       if @team.save
@@ -66,6 +72,6 @@ class TeamsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def team_params
-      params.require(:team).permit(:name, :short_name)
+      params.require(:team).permit(:name, :short_name) 
     end
 end

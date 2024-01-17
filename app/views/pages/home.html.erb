@@ -5,9 +5,7 @@
     <h1>Hello <%= current_user.username%></h1>
     
         <p> You are a [<%= current_user.role %>]</p>
-        <% if current_user.admin? %>
-            There are <%= User.count %> users in the system.
-        <% end %>
+
         <p>  
         You are successfully authenticated with your Devise account.
         You are now ready to interact with the Application.

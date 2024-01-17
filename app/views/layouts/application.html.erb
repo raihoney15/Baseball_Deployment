@@ -28,10 +28,11 @@
   <%= yield %>
   <% elsif controller_name == 'teams' && action_name.in?(['new', 'create','show','index']) %>
   <%= yield %>
-  <% elsif controller_name == 'registrations' && action_name.in?(['new', 'create','show','index']) %>
+  <% elsif controller_name == 'registrations' && action_name.in?(['new','edit', 'create','show','index']) %>
   <%= yield %>
-  <% elsif controller_name == 'passwords' && action_name.in?(['new', 'create','show','index']) %>
+  <% elsif controller_name == 'sessions' && action_name.in?(['new','edit','create','show','index']) %>
   <%= yield %>
+
   <% elsif controller_name == 'roosters' && action_name.in?(['new', 'create','show','index']) %>
   <%= yield %>
   <% else %>
