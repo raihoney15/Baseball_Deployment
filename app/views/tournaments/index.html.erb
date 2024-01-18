@@ -2,17 +2,15 @@
 
 <h1>Tournaments</h1>
 
-<div>
-<%= link_to "Create New Team", new_team_path %>
-</div>
-
-<div>
-<%= link_to "Add New Rooster", new_rooster_path %>
-</div>
-
 <div id="tournaments">
   <% @tournaments.each do |tournament| %>
-    <%= render tournament %>
+    <div id="<%= dom_id tournament %>">
+    <p>
+      <strong>Name:</strong>
+      <%= tournament.name %>
+    </p>
+  
+  </div>
     <p>
       <%= link_to "Show this tournament", tournament %>
     </p>

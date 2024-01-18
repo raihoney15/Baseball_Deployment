@@ -6,7 +6,7 @@
 <% if can? :update, @tournament %>
   <%= link_to "Edit this tournament", edit_tournament_path(@tournament) %> |
 <% end %>
-
+  <%= link_to "Create New Team", new_team_path %> |
   <%= link_to "Back to tournaments", tournaments_path %>
 
   <% if can? :destroy, @tournament %>

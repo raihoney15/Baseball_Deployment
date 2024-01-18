@@ -7,10 +7,9 @@
   <%= link_to "Edit this team", edit_team_path(@team) %> |
   <% end %>
 
+  <%= link_to "Add New Rooster", new_rooster_path %> |
   <%= link_to "Back to teams", teams_path %>
-  <div>
-<%= link_to "Add New Rooster", new_rooster_path %>
-</div>
+
 
 <% if can? :destroy, @team %>
   <%= button_to "Destroy this team", @team, method: :delete %>

@@ -4,7 +4,12 @@
 
 <div id="teams">
   <% @teams.each do |team| %>
-    <%= render team %>
+    <div id="<%= dom_id team %>">
+  <p>
+    <strong>Name:</strong>
+    <%= team.name %>
+  </p>
+</div>
     <p>
       <%= link_to "Show this team", team %>
     </p>
