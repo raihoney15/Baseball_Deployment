@@ -3,7 +3,7 @@ class Ability
 
   def initialize(user)
 
-    # user ||= User.new # Guest user (not logged in)
+    user ||= User.new # Guest user (not logged in)
 
     if user.roles.exists?(role_name: 'admin')
       can :manage, :all
@@ -12,6 +12,8 @@ class Ability
       can :create, Team
       can [:read, :edit, :destroy], Tournament,  user: user
       can [:read, :edit, :destroy], Team, user: user
+    else 
+      can :read, Tournament
 
     end
   end

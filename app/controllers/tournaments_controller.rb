@@ -6,7 +6,12 @@ class TournamentsController < ApplicationController
   # GET /tournaments or /tournaments.json
   def index
     # @tournaments = Tournament.all
-    @teams = Tournament.where(user_id:current_user.id)
+    if !current_user.nil?
+      @tournaments = Tournament.all
+    else
+    # @teams = Tournament.where(user_id:current_user.id)
+    end
+    
   end
 
   # GET /tournaments/1 or /tournaments/1.json
