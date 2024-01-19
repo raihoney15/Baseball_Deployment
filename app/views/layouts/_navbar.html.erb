@@ -1,39 +1,44 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-<a class="navbar-brand" href="#">Baseball</a>
-<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-  <span class="navbar-toggler-icon"></span>
-</button>
-<div class="collapse navbar-collapse" id="navbarNav">
-  <ul class="navbar-nav ml-auto">
-    <!-- Add your navigation links here -->
-    <li class="nav-item">
-      <%= link_to "Home", root_path, class: "nav-link" %>
-    </li>
-    <li class="nav-item">
-    <%= link_to "Tournaments", tournaments_path, class: "nav-link" %>
-  </li>
-  <li class="nav-item">
-  <%= link_to "Teams", teams_path, class: "nav-link" %>
-</li>
-    <!-- Add more links as needed -->
-    <% if user_signed_in? %>
-
-      <% if current_user.image.attached? %>
-      <%= link_to edit_user_registration_path do %>
-        <%= image_tag(current_user.image, style: "display: inline-block; width: 50px; height: 50px; object-fit: cover; border-radius: 50%;") %>
-      <% end %>
-    <% else %>
-        <i class="material-icons right">account_circle </i>
+  <!-- Replace "Baseball" with the logo -->
+  <a class="navbar-brand" href="#">
+    <%= image_tag("Logo.png", alt: "Logo", class: "img-fluid rounded-circle", style: "width: 50px; height: 50px;") %>
+  </a>
+  
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav ml-auto">
+      <!-- Add your navigation links here -->
+      <li class="nav-item">
+        <%= link_to "Home", root_path, class: "nav-link" %>
+      </li>
+      <li class="nav-item">
+        <%= link_to "Tournaments", tournaments_path, class: "nav-link" %>
+      </li>
+      <li class="nav-item">
+        <%= link_to "Teams", teams_path, class: "nav-link" %>
+      </li>
+      
+      <!-- Add more links as needed -->
+      
+      <% if user_signed_in? %>
+        <% if current_user.image.attached? %>
+          <%= link_to edit_user_registration_path do %>
+            <%= image_tag(current_user.image, alt: "User Avatar", class: "img-fluid rounded-circle", style: "width: 50px; height: 50px; object-fit: cover;") %>
+          <% end %>
+        <% else %>
+          <i class="material-icons right">account_circle</i>
         <% end %>
-
-    <% else %>
-      <li class="nav-item">
-        <%= link_to "Sign Up", new_user_registration_path, class: "nav-link" %>
-      </li>
-      <li class="nav-item">
-        <%= link_to "Login", new_user_session_path, class: "nav-link" %>
-      </li>
-    <% end %>
-  </ul>
-</div>
+      <% else %>
+        <li class="nav-item">
+          <%= link_to "Sign Up", new_user_registration_path, class: "nav-link" %>
+        </li>
+        <li class="nav-item">
+          <%= link_to "Login", new_user_session_path, class: "nav-link" %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
 </nav>

@@ -45,7 +45,9 @@ gem "pundit"
 gem "pry"
 gem "cancancan"
 
-gem 'bootstrap', '~> 4.0.0'
+gem 'bootstrap', '~> 5.0.0'
+gem 'jquery-rails'
+
 # gem 'webpacker', '~> 3.5'
 gem 'webpacker', git: 'https://github.com/rails/webpacker.git'
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]

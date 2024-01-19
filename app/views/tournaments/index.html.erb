@@ -1,20 +1,35 @@
-<p style="color: green"><%= notice %></p>
+<!-- app/views/tournaments/index.html.erb -->
 
-<h1>Tournaments</h1>
+<p style="color: blue"><%= notice %></p>
 
-<div id="tournaments">
-  <% @tournaments.each do |tournament| %>
-    <div id="<%= dom_id tournament %>">
-    <p>
-      <strong>Name:</strong>
-      <%= tournament.name %>
-    </p>
-  
+<div class="container mt-5">
+  <h1 class="text-center mb-4">Tournaments</h1>
+
+  <div class="d-flex justify-content-end mb-3">
+    <%= link_to "New Tournament", new_tournament_path, class: "btn btn-success" %>
   </div>
-    <p>
-      <%= link_to "Show this tournament", tournament %>
-    </p>
-  <% end %>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @tournaments.each do |tournament| %>
+        <tr>
+          <td><%= tournament.name %></td>
+          <td>
+            <%= link_to "Show", tournament, class: "btn btn-primary btn-sm" %>
+            <% if can? :update, tournament %>
+              <%= link_to "Edit", edit_tournament_path(tournament), class: "btn btn-warning btn-sm" %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 </div>
 
-<%= link_to "New tournament", new_tournament_path %>
+

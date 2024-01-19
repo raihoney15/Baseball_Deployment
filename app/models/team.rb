@@ -1,8 +1,4 @@
-# class Team < ApplicationRecord
-#     belongs_to :user
-# end
 
-# app/models/team.rb
 class Team < ApplicationRecord
     belongs_to :user
     belongs_to :tournament, optional: true
