@@ -1,56 +1,57 @@
 class TournamentsController < ApplicationController
   load_and_authorize_resource
-  # load_and_authorize_resource :through => :current_user
+
   before_action :set_tournament, only: %i[ show edit update destroy ]
 
-  # GET /tournaments or /tournaments.json
   def index
-    # @tournaments = Tournament.all
-    if !current_user.nil?
-      @tournaments = Tournament.all
+    if current_user.nil?
+      @tournament = Tournament.all
     else
-    # @teams = Tournament.where(user_id:current_user.id)
+       @tournament = Tournament.where(user_id:current_user.id)
     end
     
   end
 
-  # GET /tournaments/1 or /tournaments/1.json
-  def show
-    @team = Tournament.find(params[:id])
-    # authorize! :read, @tournament
+  def search
+    @search_term = params[:search]
+    @tournament = Tournament.where("name LIKE ?", "%#{@search_term}%")
   end
 
-  # GET /tournaments/new
+  def show
+    @tournament = Tournament.find(params[:id])
+    @teams = @tournament.teams
+  end
+
   def new
     @tournament = Tournament.new
+    # binding.pry
+    # @user.tournament.save
+    # @user.tournament.save
   end
 
-  # GET /tournaments/1/edit
   def edit
   end
 
-  # POST /tournaments or /tournaments.json
   def create
-    @tournament = current_user.tournaments.build(tournament_params)
-    # @tournament = Tournament.new(tournament_params)
-    if @tournament.save
-      redirect_to @tournament, notice: 'Tournament was successfully created.'
-    else
-      render :new
-    end
-
-    # respond_to do |format|
-    #   if @tournament.save
-    #     format.html { redirect_to tournament_url(@tournament), notice: "Tournament was successfully created." }
-    #     format.json { render :show, status: :created, location: @tournament }
-    #   else
-    #     format.html { render :new, status: :unprocessable_entity }
-    #     format.json { render json: @tournament.errors, status: :unprocessable_entity }
-    #   end
+    # @tournament = current_user.tournaments.build(tournament_params)
+    # # @tournament = Tournament.new(tournament_params)
+    # if @tournament.save
+    #   redirect_to @tournament, notice: 'Tournament was successfully created.'
+    # else
+    #   render :new
     # end
+
+    respond_to do |format|
+      if @tournament.save
+        format.html { redirect_to tournament_url(@tournament), notice: "Tournament was successfully created." }
+        format.json { render :show, status: :created, location: @tournament }
+      else
+        format.html { render :new, status: :unprocessable_entity }
+        format.json { render json: @tournament.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
-  # PATCH/PUT /tournaments/1 or /tournaments/1.json
   def update
     respond_to do |format|
       if @tournament.update(tournament_params)
@@ -63,7 +64,6 @@ class TournamentsController < ApplicationController
     end
   end
 
-  # DELETE /tournaments/1 or /tournaments/1.json
   def destroy
     @tournament.destroy!
 
@@ -74,12 +74,9 @@ class TournamentsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_tournament
       @tournament = Tournament.find(params[:id])
     end
-
-    # Only allow a list of trusted parameters through.
     def tournament_params
       params.require(:tournament).permit(:name, :start_date, :end_date, :location)
     end

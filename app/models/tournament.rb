@@ -1,10 +1,6 @@
-# class Tournament < ApplicationRecord
-#     belongs_to :user
-# end
 
-# app/models/tournament.rb
 class Tournament < ApplicationRecord
-    belongs_to :user
+    belongs_to :user ,:optional => true
     has_many :teams, dependent: :destroy
   
     before_create :set_user_id

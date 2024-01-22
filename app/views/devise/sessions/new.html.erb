@@ -1,33 +1,51 @@
-<div class="container">
-  <div class="row justify-content-center">
-    <div class="col-md-6">        
-        <h2>Log in</h2>
+<div style="display: flex; max-width: 100%; max-height: 100%; overflow: hidden;">
 
-        <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-          <div class="field">
-            <%= f.label :login %><br />
-            <%= f.text_field :login, autofocus: true, autocomplete: "email" %>
-          </div>
+  <!-- Left Section (40%) with Baseball Image -->
+  <div style="flex: 60%; background-image: url('<%= asset_path('Baseball.png') %>'); background-size: cover; background-repeat: no-repeat;">
 
-          <div class="field">
-            <%= f.label :password %><br />
-            <%= f.password_field :password, autocomplete: "current-password" %>
-          </div>
+  </div>
 
-          <% if devise_mapping.rememberable? %>
-            <div class="field">
-              <%= f.check_box :remember_me %>
-              <%= f.label :remember_me %>
+  <!-- Right Section (60%) with Form -->
+  <div style="flex: 40%; padding: 20px; border: 1px solid #ccc; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); display: flex; flex-direction: column; justify-content: center; align-items: center;">
+
+    <!-- Logo at the top -->
+    <div style="text-align: center; margin-bottom: 20px;">
+      <img src="<%= asset_path('Logo.png') %>" alt="Logo" style="max-width: 40%; height: auto;">
+    </div>
+
+    <!-- Form Section -->
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-8">        
+          <h2 class="text-center">Log in</h2>
+
+          <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+            <div class="form-group">
+              <%= f.label :login, class: 'sr-only' %>
+              <%= f.text_field :login, autofocus: true, autocomplete: "email", class: 'form-control', placeholder: 'Email or Username' %>
+            </div>
+
+            <div class="form-group">
+              <%= f.label :password, class: 'sr-only' %>
+              <%= f.password_field :password, autocomplete: "current-password", class: 'form-control', placeholder: 'Password' %>
+            </div>
+
+            <% if devise_mapping.rememberable? %>
+              <div class="form-group">
+                <%= f.check_box :remember_me %>
+                <%= f.label :remember_me %>
+              </div>
+            <% end %>
+
+            <div class="form-group text-center">
+              <%= f.submit "Log in", data: { turbo: false }, class: 'btn btn-secondary' %>
             </div>
           <% end %>
 
-          <div class="actions">
-            <%= f.submit "Log in",data: {turbo: false}  %>
-          </div>
-        <% end %>
-
-        <%= render "devise/shared/links" %>
+          <%= render "devise/shared/links" %>
+        </div>
+      </div>
     </div>
-  </div>
-</div>        
 
+  </div>
+</div>

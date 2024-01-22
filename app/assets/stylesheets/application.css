@@ -16,3 +16,9 @@
 /* app/assets/stylesheets/application.scss */
 /* app/assets/stylesheets/application.css */
 @import 'bootstrap';
+.button1 {
+    font-size: 20px;
+    background-color: #555555;
+    color: black;
+
+  }

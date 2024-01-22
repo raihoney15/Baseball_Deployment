@@ -1,17 +1,18 @@
-<p style="color: green"><%= notice %></p>
+<div class="container">
+  <h1><%= @team.name %></h1>
 
-<%= render @team %>
+  <%= render @team %>
 
-<div>
-<% if can? :update, @team %>
-  <%= link_to "Edit this team", edit_team_path(@team) %> |
+  <div class="actions">
+
+
+    <%= link_to "Add New Rooster", new_rooster_path, class: "btn btn-success" %> |
+    <% if can? :update, @team %>
+    <%= link_to "Edit this team", edit_team_path(@team), class: "btn btn-primary" %> |
   <% end %>
-
-  <%= link_to "Add New Rooster", new_rooster_path %> |
-  <%= link_to "Back to teams", teams_path %>
-
-
-<% if can? :destroy, @team %>
-  <%= button_to "Destroy this team", @team, method: :delete %>
-  <% end %>
-</div>  
+    <%= link_to "Back to Teams", teams_path, class: "btn btn-secondary" %>
+    <% if can? :destroy, @team %>
+      <%= button_to "Destroy this team", @team, method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger" %>
+    <% end %>
+  </div>
+</div>

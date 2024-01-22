@@ -1,31 +1,43 @@
+<div style="max-width: 100%; margin: 10px; display: flex;">
 
-<div style="max-width: 400px; margin: 0 auto; padding: 40px; border: 1px solid #ccc; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
- 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+  <!-- Left Section (40%) with Baseball Image -->
+  <div style="flex: 60%; background-image: url('<%= asset_path('Baseball.png') %>'); background-size: 100% 100%; background-repeat: no-repeat;">
 
+  </div>
 
-    <div style="margin-bottom: 15px;">
-      <%= f.label :email %><br>
-      <%= f.email_field :email, class: 'form-control', required: true %>
+  <!-- Right Section (60%) with Form -->
+  <div style="flex: 40%; padding: 40px; border: 1px solid #ccc; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
+
+    <!-- Logo at the top -->
+    <div style="text-align: center; margin-bottom: 20px;">
+      <img src="<%= asset_path('Logo.png') %>" alt="Logo" style="max-width: 50%; height: auto;">
     </div>
 
-    <div style="margin-bottom: 15px;">
-      <%= f.label :username %><br>
-      <%= f.text_field :username, class: 'form-control', required: true %>
-    </div>
+    <!-- Form Section -->
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+      <div style="margin-bottom: 15px;">
+        <%= f.label :email %><br>
+        <%= f.email_field :email, class: 'form-control', required: true %>
+      </div>
 
-    <div style="margin-bottom: 15px;">
-      <%= f.label :password %><br>
-      <%= f.password_field :password, class: 'form-control', required: true %>
-    </div>
+      <div style="margin-bottom: 15px;">
+        <%= f.label :username %><br>
+        <%= f.text_field :username, class: 'form-control', required: true %>
+      </div>
 
-    <div style="margin-bottom: 15px;">
-      <%= f.label :password_confirmation %><br>
-      <%= f.password_field :password_confirmation, class: 'form-control', required: true %>
-    </div>
+      <div style="margin-bottom: 15px;">
+        <%= f.label :password %><br>
+        <%= f.password_field :password, class: 'form-control', required: true %>
+      </div>
 
-    <div>
-      <%= f.submit 'Sign Up', class: 'btn btn-primary' %>
-    </div>
-  <% end %>
+      <div style="margin-bottom: 15px;">
+        <%= f.label :password_confirmation %><br>
+        <%= f.password_field :password_confirmation, class: 'form-control', required: true %>
+      </div>
+
+      <div class="d-grid gap-3 col-6 mx-auto">
+      <%= f.submit 'Sign Up', class: 'btn btn-secondary' %>
+      </div>
+    <% end %>
+  </div>
 </div>

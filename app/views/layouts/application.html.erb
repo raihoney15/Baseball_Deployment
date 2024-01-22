@@ -22,7 +22,9 @@
 
 
   <body>
+
   <%= render partial: 'layouts/navbar' %>
+  
 <br />
 <% if controller_name == 'tournaments' && action_name.in?(['new', 'create','show','index']) %>
   <%= yield %>
@@ -32,7 +34,6 @@
   <%= yield %>
   <% elsif controller_name == 'sessions' && action_name.in?(['new','edit','create','show','index']) %>
   <%= yield %>
-
   <% elsif controller_name == 'roosters' && action_name.in?(['new', 'create','show','index']) %>
   <%= yield %>
   <% else %>

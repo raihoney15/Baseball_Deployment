@@ -1,27 +1,41 @@
-<!-- app/views/tournaments/index.html.erb -->
 
 <p style="color: blue"><%= notice %></p>
 
-<div class="container mt-5">
-  <h1 class="text-center mb-4">Tournaments</h1>
+<div class="container mt-6">
+  <h1 class="text-center mb-4">TOURNAMENTS</h1>
 
-  <div class="d-flex justify-content-end mb-3">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <!-- Search Bar -->
+    <div class="input-group">
+
+      <input type="text" class="form-control" placeholder="Search..." aria-label="Search" aria-describedby="basic-addon2">
+      <div class="input-group-append">
+        <button class="btn btn-outline-secondary" type="button">Search</button>
+      </div>
+      
+    </div>
+  
+
+    <!-- New Tournament Button -->
     <%= link_to "New Tournament", new_tournament_path, class: "btn btn-success" %>
   </div>
 
   <table class="table">
     <thead>
       <tr>
-        <th>Name</th>
+        <th>Tournament</th>
         <th>Actions</th>
       </tr>
     </thead>
     <tbody>
       <% @tournaments.each do |tournament| %>
         <tr>
-          <td><%= tournament.name %></td>
           <td>
-            <%= link_to "Show", tournament, class: "btn btn-primary btn-sm" %>
+            <strong><%= tournament.name %></strong><br>
+            <%= tournament.start_date.strftime('%B %e, %Y') %>
+          </td>
+          <td>
+            <%= link_to "Show", tournament, class: "btn btn-primary btn-sm" %> 
             <% if can? :update, tournament %>
               <%= link_to "Edit", edit_tournament_path(tournament), class: "btn btn-warning btn-sm" %>
             <% end %>
@@ -31,5 +45,3 @@
     </tbody>
   </table>
 </div>
-
-
