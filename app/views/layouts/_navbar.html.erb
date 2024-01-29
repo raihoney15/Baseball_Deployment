@@ -20,19 +20,28 @@
       <li class="nav-item">
         <%= link_to "Teams", teams_path, class: "nav-link" %>
       </li>
-      
+
+
       <!-- Add more links as needed -->
       
       <% if user_signed_in? %>
         <% if current_user.image.attached? %>
-          <%= link_to edit_user_registration_path do %>
+            <%= link_to edit_user_registration_path do %>
             <%= image_tag(current_user.image, alt: "User Avatar", class: "img-fluid rounded-circle", style: "width: 50px; height: 50px; object-fit: cover;") %>
-          <% end %>
+        <% end %>
         <% else %>
-        <%= link_to edit_user_registration_path do %>
-        <%= image_tag("profile.png", alt: "profile", class: "img-fluid rounded-circle", style: "width: 50px; height: 50px; object-fit: cover;") %>
+            <%= link_to edit_user_registration_path do %>
+            <%= image_tag("profile.png", alt: "profile", class: "img-fluid rounded-circle", style: "width: 50px; height: 50px; object-fit: cover;") %>
         <% end %>
-        <% end %>
+
+         <%#       
+         <% elsif user.is_admin? %>   
+         <li class="nav-item">                
+         <%= link_to "All users", users_path, class: "nav-link" %>     
+           </li>  %> 
+          
+        
+     <% end %>
       <% else %>
         <li class="nav-item">
           <%= link_to "Sign Up", new_user_registration_path, class: "nav-link" %>

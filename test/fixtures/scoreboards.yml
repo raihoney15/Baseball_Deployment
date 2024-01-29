@@ -1,0 +1,21 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  balls: 1
+  hit: 1
+  run: 1
+  strike: 1
+  home_team: false
+  home_away: false
+  event: one
+  inning: one
+
+two:
+  balls: 1
+  hit: 1
+  run: 1
+  strike: 1
+  home_team: false
+  home_away: false
+  event: two
+  inning: two

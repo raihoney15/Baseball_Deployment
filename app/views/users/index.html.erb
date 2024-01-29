@@ -1,0 +1,21 @@
+<table class="table">
+<thead>
+  <tr>
+    <th>Users</th>
+    <th>Actions</th>
+  </tr>
+</thead>
+<tbody>
+<% @users.each do |user| %>
+    <tr>
+      <td>
+        <strong><%= user.username %></strong><br>
+      </td>
+      <td>
+        <%= link_to "Edit", edit_user_registration_path, class: "btn btn-warning btn-sm" %> | <%= button_to "Destroy", destroy_user_session_path%>
+        
+      </td>
+    </tr>
+  <% end %>
+</tbody>
+</table>

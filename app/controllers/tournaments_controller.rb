@@ -12,34 +12,20 @@ class TournamentsController < ApplicationController
     
   end
 
-  def search
-    @search_term = params[:search]
-    @tournament = Tournament.where("name LIKE ?", "%#{@search_term}%")
-  end
 
   def show
     @tournament = Tournament.find(params[:id])
-    @teams = @tournament.teams
+    @team = @tournament.teams
   end
 
   def new
     @tournament = Tournament.new
-    # binding.pry
-    # @user.tournament.save
-    # @user.tournament.save
   end
 
   def edit
   end
 
   def create
-    # @tournament = current_user.tournaments.build(tournament_params)
-    # # @tournament = Tournament.new(tournament_params)
-    # if @tournament.save
-    #   redirect_to @tournament, notice: 'Tournament was successfully created.'
-    # else
-    #   render :new
-    # end
 
     respond_to do |format|
       if @tournament.save

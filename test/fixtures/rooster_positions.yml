@@ -1,0 +1,27 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  b_catcher: 1
+  b_firstbase: 1
+  b_secondbase: 1
+  b_thirdbase: 1
+  f_pitcher: 1
+  f_shortstop: 1
+  f_rightfield: 1
+  f_leftfield: 1
+  f_centerfield: 1
+  user: one
+  scoreboard: one
+
+two:
+  b_catcher: 1
+  b_firstbase: 1
+  b_secondbase: 1
+  b_thirdbase: 1
+  f_pitcher: 1
+  f_shortstop: 1
+  f_rightfield: 1
+  f_leftfield: 1
+  f_centerfield: 1
+  user: two
+  scoreboard: two

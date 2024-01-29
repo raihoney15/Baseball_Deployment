@@ -1,0 +1,27 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  team: MyString
+  op_team: MyString
+  start_date: MyString
+  date: MyString
+  end_date: 2024-01-24
+  location: MyString
+  is_live: false
+  winning_team_id: 1
+  team: one
+  tournament: one
+
+two:
+  name: MyString
+  team: MyString
+  op_team: MyString
+  start_date: MyString
+  date: MyString
+  end_date: 2024-01-24
+  location: MyString
+  is_live: false
+  winning_team_id: 1
+  team: two
+  tournament: two

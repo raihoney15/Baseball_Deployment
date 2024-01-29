@@ -39,6 +39,7 @@
             <% if can? :update, tournament %>
               <%= link_to "Edit", edit_tournament_path(tournament), class: "btn btn-warning btn-sm" %>
             <% end %>
+            <%= button_to "Invite", tournament, class: "btn btn-secondary btn-sm" %>
           </td>
         </tr>
       <% end %>

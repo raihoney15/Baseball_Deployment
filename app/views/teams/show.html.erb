@@ -14,5 +14,6 @@
     <% if can? :destroy, @team %>
       <%= button_to "Destroy this team", @team, method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger" %>
     <% end %>
+    <%= link_to "Show Roaster", rooster_path, class: "btn btn-secondary" %>
   </div>
 </div>

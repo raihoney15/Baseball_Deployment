@@ -1,6 +1,7 @@
 class TeamsController < ApplicationController
   load_and_authorize_resource
   before_action :set_team, only: %i[ show edit update destroy ]
+  # before_action :set_tournament
 
   def index
 
@@ -18,13 +19,17 @@ class TeamsController < ApplicationController
 
   def new
     @team = Team.new
+    # @team = @tournament.teams.build
+      
   end
 
   def edit
   end
 
   def create
+
     @team = current_user.teams.build(team_params)
+    # @team = @tournament.teams.build(team_params)
 
 
     respond_to do |format|
@@ -64,7 +69,15 @@ class TeamsController < ApplicationController
       @team = Team.find(params[:id])
     end
 
+    # def set_tournament
+    #   @tournament = Tournament.find(params[:tournament_id])
+    # end
+
     def team_params
-      params.require(:team).permit(:name, :short_name) 
+      params.require(:team).permit(:name, :short_name ) 
     end
+
+    # def team_params
+    #   params.require(:team).permit(:name, :short_name, :tournament_id) 
+    # end
 end

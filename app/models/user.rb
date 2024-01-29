@@ -3,17 +3,14 @@ class User < ApplicationRecord
   has_many :teams
   has_many :tournaments
   has_many :roles, through: :assignments
-  # has_many :roles
   has_one_attached :image
+  has_many :roosters
+  has_many :teamlineups
+  has_many :staff_invites
+  has_many :rooster_positions
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable,:confirmable ,authentication_keys: [:login]
-
-  # enum role: [:user, :admin, :tournament_owner, :team_owner]
-  # after_initialize :set_default_role, :if => :new_record?
-  # def set_default_role
-  #    self.role ||= :user
-  #  end  
 
   def assign_default_roles
     self.roles << Role.find_by(role_name: 'tournament_owner') if self.roles.empty?

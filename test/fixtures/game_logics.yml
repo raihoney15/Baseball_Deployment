@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  move_id: 1
+  event: one
+  move: one
+
+two:
+  move_id: 1
+  event: two
+  move: two

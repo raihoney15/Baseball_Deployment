@@ -1,0 +1,21 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  email: MyString
+  resource_type: MyString
+  resouces_id: 1
+  sender_id: 1
+  reciver_id: 1
+  team: one
+  tournament: one
+  user: one
+
+two:
+  email: MyString
+  resource_type: MyString
+  resouces_id: 1
+  sender_id: 1
+  reciver_id: 1
+  team: two
+  tournament: two
+  user: two

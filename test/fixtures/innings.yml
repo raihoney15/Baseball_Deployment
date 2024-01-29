@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  inning_number: 1
+  top: false
+  bottom: false
+  event: one
+
+two:
+  inning_number: 1
+  top: false
+  bottom: false
+  event: two

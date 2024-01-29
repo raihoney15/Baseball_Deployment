@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_01_19_063345) do
+ActiveRecord::Schema[7.1].define(version: 2024_01_24_110603) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -51,10 +51,78 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_19_063345) do
     t.index ["user_id"], name: "index_assignments_on_user_id"
   end
 
+  create_table "events", force: :cascade do |t|
+    t.string "name"
+    t.string "team"
+    t.string "op_team"
+    t.string "start_date"
+    t.string "date"
+    t.date "end_date"
+    t.string "location"
+    t.boolean "is_live"
+    t.integer "winning_team_id"
+    t.bigint "team_id", null: false
+    t.bigint "tournament_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["team_id"], name: "index_events_on_team_id"
+    t.index ["tournament_id"], name: "index_events_on_tournament_id"
+  end
+
+  create_table "game_logics", force: :cascade do |t|
+    t.string "move_name"
+    t.bigint "event_id", null: false
+    t.bigint "move_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["event_id"], name: "index_game_logics_on_event_id"
+    t.index ["move_id"], name: "index_game_logics_on_move_id"
+  end
+
+  create_table "innings", force: :cascade do |t|
+    t.integer "inning_number"
+    t.boolean "top"
+    t.boolean "bottom"
+    t.bigint "event_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["event_id"], name: "index_innings_on_event_id"
+  end
+
+  create_table "moves", force: :cascade do |t|
+    t.string "move_name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "positions", force: :cascade do |t|
+    t.string "position_name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "roles", force: :cascade do |t|
     t.string "role_name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "rooster_positions", force: :cascade do |t|
+    t.integer "b_catcher"
+    t.integer "b_firstbase"
+    t.integer "b_secondbase"
+    t.integer "b_thirdbase"
+    t.integer "f_pitcher"
+    t.integer "f_shortstop"
+    t.integer "f_rightfield"
+    t.integer "f_leftfield"
+    t.integer "f_centerfield"
+    t.bigint "user_id", null: false
+    t.bigint "scoreboard_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["scoreboard_id"], name: "index_rooster_positions_on_scoreboard_id"
+    t.index ["user_id"], name: "index_rooster_positions_on_user_id"
   end
 
   create_table "roosters", force: :cascade do |t|
@@ -62,6 +130,59 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_19_063345) do
     t.integer "jersey_number"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "scoreboards", force: :cascade do |t|
+    t.integer "balls"
+    t.integer "hit"
+    t.integer "run"
+    t.integer "strike"
+    t.boolean "home_team"
+    t.boolean "home_away"
+    t.bigint "event_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "scoreboard_id", null: false
+    t.index ["event_id"], name: "index_scoreboards_on_event_id"
+    t.index ["scoreboard_id"], name: "index_scoreboards_on_scoreboard_id"
+  end
+
+  create_table "setups", force: :cascade do |t|
+    t.integer "inning_rounds"
+    t.bigint "event_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["event_id"], name: "index_setups_on_event_id"
+  end
+
+  create_table "staff_invites", force: :cascade do |t|
+    t.string "email"
+    t.string "resource_type"
+    t.integer "resouces_id"
+    t.integer "sender_id"
+    t.integer "reciver_id"
+    t.bigint "team_id", null: false
+    t.bigint "tournament_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["team_id"], name: "index_staff_invites_on_team_id"
+    t.index ["tournament_id"], name: "index_staff_invites_on_tournament_id"
+    t.index ["user_id"], name: "index_staff_invites_on_user_id"
+  end
+
+  create_table "team_line_ups", force: :cascade do |t|
+    t.integer "batter_order"
+    t.bigint "event_id", null: false
+    t.bigint "user_id", null: false
+    t.bigint "rooster_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "position_id", null: false
+    t.index ["event_id"], name: "index_team_line_ups_on_event_id"
+    t.index ["position_id"], name: "index_team_line_ups_on_position_id"
+    t.index ["rooster_id"], name: "index_team_line_ups_on_rooster_id"
+    t.index ["user_id"], name: "index_team_line_ups_on_user_id"
   end
 
   create_table "teams", force: :cascade do |t|
@@ -109,6 +230,23 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_19_063345) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "assignments", "roles"
   add_foreign_key "assignments", "users"
+  add_foreign_key "events", "teams"
+  add_foreign_key "events", "tournaments"
+  add_foreign_key "game_logics", "events"
+  add_foreign_key "game_logics", "moves"
+  add_foreign_key "innings", "events"
+  add_foreign_key "rooster_positions", "scoreboards"
+  add_foreign_key "rooster_positions", "users"
+  add_foreign_key "scoreboards", "events"
+  add_foreign_key "scoreboards", "scoreboards"
+  add_foreign_key "setups", "events"
+  add_foreign_key "staff_invites", "teams"
+  add_foreign_key "staff_invites", "tournaments"
+  add_foreign_key "staff_invites", "users"
+  add_foreign_key "team_line_ups", "events"
+  add_foreign_key "team_line_ups", "positions"
+  add_foreign_key "team_line_ups", "roosters"
+  add_foreign_key "team_line_ups", "users"
   add_foreign_key "teams", "tournaments"
   add_foreign_key "teams", "users"
   add_foreign_key "tournaments", "users"
