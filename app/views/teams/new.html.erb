@@ -4,8 +4,10 @@
   <%= render "form", team: @team %>
 
   <br>
-
+<% if false %>
   <div class="actions">
-    <%= link_to "Back to Teams", teams_path, class: "btn btn-secondary" %>
+    <%= link_to "Back to Teams", tournament_teams_path(@team.tournament), class: "btn btn-secondary" %>
   </div>
+<% end %>    
 </div>
+

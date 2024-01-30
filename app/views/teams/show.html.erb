@@ -1,19 +1,25 @@
 <div class="container">
-  <h1><%= @team.name %></h1>
-
-  <%= render @team %>
-
+`  <h1><%= @team.name %></h1>
+   <%= render @team %>
   <div class="actions">
-
-
+<% if false %>
     <%= link_to "Add New Rooster", new_rooster_path, class: "btn btn-success" %> |
-    <% if can? :update, @team %>
-    <%= link_to "Edit this team", edit_team_path(@team), class: "btn btn-primary" %> |
-  <% end %>
-    <%= link_to "Back to Teams", teams_path, class: "btn btn-secondary" %>
-    <% if can? :destroy, @team %>
-      <%= button_to "Destroy this team", @team, method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger" %>
-    <% end %>
     <%= link_to "Show Roaster", rooster_path, class: "btn btn-secondary" %>
+<% end %> 
+        <% if can? :update, @team %>
+            <%= link_to "Edit this team", edit_tournament_team_path, class: "btn btn-primary" %> |
+        <% end %>
+  
+            <%= link_to "Back to Teams", tournament_team_path, class: "btn btn-secondary" %> 
+
+        <% if can? :destroy, @team %>
+            <%= link_to "Destroy",[@team.tournament, @team], method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger" %>
+        <% end %>
+            
   </div>
+ 
 </div>
+
+
+
+

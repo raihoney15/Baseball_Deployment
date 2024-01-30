@@ -18,30 +18,30 @@
 
   <div class="tab-content mt-3">
 
-    <div class="tab-pane fade show active" id="overview" role="tabpanel" aria-labelledby="overview-tab">
-      <div class="card">
-        <div class="card-body">
-          <%= render @tournament %>
-          <div class="mt-3">
-            <% if can? :update, @tournament %>
-              <%= link_to "Edit this Tournament", edit_tournament_path(@tournament), class: "btn btn-warning" %> |
-            <% end %>
-            <%= link_to "Create New Team", new_team_path, class: "btn btn-success" %> |
-            <%= link_to "Back to Tournaments", tournaments_path, class: "btn btn-primary" %>
-            <% if can? :destroy, @tournament %>
-              <%= button_to "Destroy this Tournament", @tournament,method: :delete,data: {confirm: "Are you sure?"}, class: "btn btn-danger" %>
-            <% end %>
-          </div>
-        </div>
+  <div class="tab-pane fade show active" id="overview" role="tabpanel" aria-labelledby="overview-tab">
+  <div class="card">
+    <div class="card-body">
+      <%= render @tournament %>
+      <div class="mt-3">
+        <% if can? :update, @tournament %>
+          <%= link_to "Edit this Tournament", edit_tournament_path(@tournament), class: "btn btn-warning" %> |
+        <% end %>
+        <%= link_to "Create New Team", new_tournament_team_path(@tournament), class: "btn btn-success" %> |
+        <%= link_to "Back to Tournaments", tournaments_path, class: "btn btn-primary" %>
+        <% if can? :destroy, @tournament %>
+          <%= button_to "Destroy this Tournament", @tournament, method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger" %>
+        <% end %>
       </div>
     </div>
+  </div>
+</div>
 
-    <!-- Participating Teams Tab Content -->
-    <div class="tab-pane fade" id="teams" role="tabpanel" aria-labelledby="teams-tab">
-      <div class="card">
-        <div class="card-body">
-        <h3>Participating Teams</h3>
-        <table class="table">
+<!-- Participating Teams Tab Content -->
+<div class="tab-pane fade" id="teams" role="tabpanel" aria-labelledby="teams-tab">
+  <div class="card">
+    <div class="card-body">
+      <h3>Participating Teams</h3>
+      <table class="table">
         <thead>
           <tr>
             <th>Teams</th>
@@ -49,23 +49,22 @@
           </tr>
         </thead>
         <tbody>
-        <% @team.each do |team| %>
-          <tr>
-          <td>
-          <p><%= team.name %></p>
-          </td>
-          <td>
-          <%= link_to "Show",team, class: "btn btn-success" %>
-          </td>
-          </tr>
-        <% end %>
+          <% @tournament.teams.each do |team| %>
+            <tr>
+              <td>
+                <p><%= team.name %></p>
+              </td>
+              <td>
+                <%= link_to "Show", tournament_team_path(@tournament, team), class: "btn btn-success" %>
+              </td>
+            </tr>
+          <% end %>
         </tbody>
-        </table>
-        </div>
-      </div>
+      </table>
     </div>
   </div>
 </div>
+
 
 <script>
   $(document).ready(function() {
@@ -75,3 +74,7 @@
     })
   });
 </script>
+
+
+
+

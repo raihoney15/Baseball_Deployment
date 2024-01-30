@@ -1,15 +1,11 @@
 Rails.application.routes.draw do
-  # resources :roosters
-  # resources :teams 
-    # resources :users
-  # resources :tournaments do 
-  #   resources :teams do 
-  #     resources :roosters
-  #   end 
-  # end
-  resources :tournaments 
-  resources :teams 
-  resources :roosters
+
+  resources :tournaments do
+    resources :teams do
+      resources :roosters
+    end
+  end
+  
  
   root 'pages#home'
   devise_for :users, controllers: { registrations: 'users/registrations' }
@@ -17,3 +13,5 @@ Rails.application.routes.draw do
    
   
 end
+
+
