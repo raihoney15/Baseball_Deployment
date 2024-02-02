@@ -1,15 +1,16 @@
 class TournamentsController < ApplicationController
   load_and_authorize_resource
+  # before_action :set_tournament, only: %i[ show edit update destroy ]
+  
 
-  before_action :set_tournament, only: %i[ show edit update destroy ]
+  before_action :set_tournament, only: %i[ show edit  ]
 
   def index
     if current_user.nil?
-      @tournament = Tournament.all
+      @tournament = Tournament.all.page(params[:page])
     else
-       @tournament = Tournament.where(user_id:current_user.id)
+       @tournament = Tournament.where(user_id:current_user.id).page(params[:page])
     end
-    
   end
 
 
@@ -19,6 +20,7 @@ class TournamentsController < ApplicationController
   end
 
   def new
+    # binding.pry
     @tournament = Tournament.new
   end
 
@@ -26,37 +28,31 @@ class TournamentsController < ApplicationController
   end
 
   def create
-
-    respond_to do |format|
-      if @tournament.save
-        format.html { redirect_to tournament_url(@tournament), notice: "Tournament was successfully created." }
-        format.json { render :show, status: :created, location: @tournament }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @tournament.errors, status: :unprocessable_entity }
-      end
+    @tournament = @current_user.tournaments.create(tournament_params)
+    if @tournament.save
+      redirect_to tournament_path(@tournament)
+    else
+      render "new"
     end
+
   end
 
   def update
-    respond_to do |format|
-      if @tournament.update(tournament_params)
-        format.html { redirect_to tournament_url(@tournament), notice: "Tournament was successfully updated." }
-        format.json { render :show, status: :ok, location: @tournament }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @tournament.errors, status: :unprocessable_entity }
-      end
+    @tournament = Tournament.find(params[:id])
+    if @tournament.update(tournament_params)
+        redirect_to tournament_path
+    else
+        render "edit"
     end
+
+
   end
 
   def destroy
-    @tournament.destroy!
+    @tournament = Tournament.find(params[:id])
+    @tournament.destroy
+    redirect_to tournaments_path
 
-    respond_to do |format|
-      format.html { redirect_to tournaments_url, notice: "Tournament was successfully destroyed." }
-      format.json { head :no_content }
-    end
   end
 
   private
@@ -64,6 +60,9 @@ class TournamentsController < ApplicationController
       @tournament = Tournament.find(params[:id])
     end
     def tournament_params
-      params.require(:tournament).permit(:name, :start_date, :end_date, :location)
+      params.require(:tournament).permit(:name, :start_date, :end_date, :location, :user_id)
     end
+
+
+
 end

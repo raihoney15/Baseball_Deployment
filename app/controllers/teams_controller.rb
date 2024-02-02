@@ -14,15 +14,13 @@ class TeamsController < ApplicationController
   end
 
   def show
-    # @team = Team.find(params[:id])
-    @tournament = Tournament.find(params[:tournament_id])
-    @team = @tournament.teams.find(params[:id])
+    @tournament = Tournament.find(params[:tournament_id]) 
+    @team = @tournament.teams.find(params[:id]) 
   end
 
   def new
     @tournament = Tournament.find(params[:tournament_id])
     @team = Team.new
-      
   end
 
   def edit
@@ -33,41 +31,26 @@ class TeamsController < ApplicationController
   def create
     # binding.pry
     @team = current_user.teams.build(team_params.merge(tournament_id:@tournament.id ))
-    # @team = @tournament.teams.build(team_params)
-
-
-    respond_to do |format|
-      if @team.save
-        format.html { redirect_to tournament_team_url(@tournament, @team), notice: "Team was successfully created." }
-        format.json { render :show, status: :created, location:  @team }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @team.errors, status: :unprocessable_entity }
-      end
+    if @team.save
+      redirect_to tournament_team_path(@tournament, @team)
+    else
+      render "new"
     end
   end
 
   def update
-    respond_to do |format|
-      if @team.update(team_params)
-        # format.html { redirect_to team_url(@team), notice: "Team was successfully updated." }
-        format.html { redirect_to tournament_team_url(@tournament, @team), notice: "Team was successfully updated." }
-
-        format.json { render :show, status: :ok, location: @team }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @team.errors, status: :unprocessable_entity }
-      end
+    if @team.update(team_params)
+        redirect_to tournament_team_path(@tournament, @team)
+    else
+        render "edit"
     end
+ 
   end
 
   def destroy
-    @team.destroy!
 
-    respond_to do |format|
-      format.html { redirect_to teams_url, notice: "Team was successfully destroyed." }
-      format.json { head :no_content }
-    end
+    @team.destroy
+    redirect_to tournament_teams_path
   end
 
   private
@@ -81,7 +64,7 @@ class TeamsController < ApplicationController
 
 
     def team_params
-      params.require(:team).permit(:name, :short_name ) 
+      params.require(:team).permit(:name, :short_name,:user_id,:tournament_id ) 
     end
 
 

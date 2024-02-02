@@ -2,7 +2,8 @@
 class Team < ApplicationRecord
     belongs_to :user
     belongs_to :tournament
-    has_many :roosters
+    belongs_to :event
+    has_many :roosters, dependent: :destroy
   
     before_create :set_user_id
     # before_create :set_tournament_id

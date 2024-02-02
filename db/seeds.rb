@@ -7,3 +7,9 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
+
+opponent_teams = ['Mumbai','MU',16,21]
+opponent_teams.each do |name|
+  OpponentTeam.find_or_create_by!(name: name)
+end
+opponent_team.save(validate: false)

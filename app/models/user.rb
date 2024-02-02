@@ -1,7 +1,9 @@
 class User < ApplicationRecord
   has_many :assignments
   has_many :teams
-  has_many :tournaments
+  has_many :opponent_teams
+  has_many :events
+  has_many :tournaments ,dependent: :destroy
   has_many :roles, through: :assignments
   has_one_attached :image
   has_many :roosters

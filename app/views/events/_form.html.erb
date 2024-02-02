@@ -1,0 +1,20 @@
+<%= form_with model: [@tournament, @event]   do |form| %>
+    <%= @event.errors.full_messages.first if @event.errors.any? %><br/>
+
+    <%= form.label :game_type %>
+    <%= form.text_field :game_type, required: true ,autocomplete:'off' %><br/>
+    <%= form.label :team_id %>
+    <%= form.collection_select :team_id, Team.all, :id, :name, { prompt: "Select home_team" },required: true ,autocomplete:'off'  %><br />
+    <%= form.label :opponent_team_id %>
+    <%= form.collection_select :opponent_team_id, OpponentTeam.all, :id, :name, { prompt: "Select away_team" },required: true ,autocomplete:'off'  %><br />
+    <%= form.label :location %>
+    <%= form.text_field :location, required: true ,autocomplete:'off' %><br/>
+    <%= form.label :start_date %>
+    <%= form.date_field :start_date, required: true, autocomplete:'off' %><br/>
+    <%= form.label :belongs %>
+    <%= form.text_field :belongs, required: true ,autocomplete:'off' %><br/>
+    <%= form.label :memo %>
+    <%= form.text_field :memo, required: true ,autocomplete:'off' %><br/>
+    <br/>  
+    <%= form.submit %>
+  <% end %>

@@ -1,39 +1,15 @@
-
-
-<%= form_with(model: tournament, class: 'container mt-5') do |form| %>
-  <% if tournament.errors.any? %>
-    <div class="alert alert-danger">
-      <h2><%= pluralize(tournament.errors.count, "error") %> prohibited this tournament from being saved:</h2>
-
-      <ul>
-        <% tournament.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
-    </div>
+<%= form_with model: @tournament do |form| %>
+  <%= @tournament.errors.full_messages.first if @tournament.errors.any? %><br/>
+    <%= form.label :Name %>
+    <%= form.text_field :name, required: true ,autocomplete:'off' %><br/>
+    <%= form.label :start_date %>
+    <%= form.date_field :start_date, required: true, autocomplete:'off' %><br/>
+    <%= form.label :end_date %>
+    <%= form.date_field :end_date, required: true,autocomplete:'off' %><br/>
+    <%= form.label :location %>
+    <%= form.text_field :location, required: true ,autocomplete:'off'%><br/>
+    <br/>    
+    <%= form.submit %>
   <% end %>
+  
 
-  <div class="form-group">
-    <%= form.label :name, class: 'form-label' %>
-    <%= form.text_field :name, class: 'form-control', placeholder: 'Enter tournament name' %>
-  </div>
-
-  <div class="form-group">
-    <%= form.label :start_date, class: 'form-label' %>
-    <%= form.date_field :start_date, class: 'form-control', placeholder: 'Select start date' %>
-  </div>
-
-  <div class="form-group">
-    <%= form.label :end_date, class: 'form-label' %>
-    <%= form.date_field :end_date, class: 'form-control', placeholder: 'Select end date' %>
-  </div>
-
-  <div class="form-group">
-    <%= form.label :location, class: 'form-label' %>
-    <%= form.text_field :location, class: 'form-control', placeholder: 'Enter location' %>
-  </div>
-
-  <div class="form-group">
-    <%= form.submit "Save", class: 'btn btn-primary' %>
-  </div>
-<% end %>

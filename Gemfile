@@ -44,7 +44,7 @@ gem "bootsnap", require: false
 gem "pundit"
 gem "pry"
 gem "cancancan"
-
+gem 'kaminari'
 gem 'bootstrap', '~> 5.0.0'
 gem 'jquery-rails'
 

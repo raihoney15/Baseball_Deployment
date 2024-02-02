@@ -1,5 +1,5 @@
-<%= form_with model: [@tournament, @team]   do |form| %>
-    <%= @team.errors.full_messages.first if @team.errors.any? %><br/>
+<%= form_with model: [@tournament, @opponent_team]   do |form| %>
+    <%= @opponent_team.errors.full_messages.first if @opponent_team.errors.any? %><br/>
 
     <%= form.label :full_name %>
     <%= form.text_field :name, required: true ,autocomplete:'off' %><br/>

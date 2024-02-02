@@ -1,14 +1,28 @@
-<p style="color: green"><%= notice %></p>
-
 <h1>Roosters</h1>
 
-<div id="roosters">
-  <% @roosters.each do |rooster| %>
-    <%= render rooster %>
-    <p>
-      <%= link_to "Show this rooster", rooster %>
-    </p>
-  <% end %>
-</div>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Jersey Number</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @roosters.each do |rooster| %>
+      <tr>
+        <td><%= rooster.name %></td>
+        <td><%= rooster.jersey_number %></td>
+        <td>
+          <%= link_to 'Show', tournament_team_rooster_path(@tournament,@team, rooster) %>
+          <%= link_to 'Edit', edit_team_rooster_path(@tournament,@team, rooster) %>
+          <%= link_to 'Destroy', team_rooster_path(@tournament,@team, rooster), method: :delete, data: { confirm: 'Are you sure?' } %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
 
-<%= link_to "New rooster", new_rooster_path %>
+<br>
+
+<%= link_to 'New Rooster', new_tournament_team_rooster_path(@rooster) %>

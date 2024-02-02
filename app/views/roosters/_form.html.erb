@@ -1,28 +1,16 @@
-<%= form_with(model: rooster) do |form| %>
-  <% if rooster.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(rooster.errors.count, "error") %> prohibited this rooster from being saved:</h2>
 
-      <ul>
-        <% rooster.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div>
-    <%= form.label :name, style: "display: block" %>
-    <%= form.text_field :name %>
-  </div>
-
-  <div>
-    <%= form.label :jersey_number, style: "display: block" %>
-    <%= form.number_field :jersey_number %>
-  </div>
-
-
-  <div>
+<%= form_with(model: [@tournament, @team, @rooster], path: tournament_team_roosters_path(@tournament, @team)) do |form| %>
+    <%= @rooster.errors.full_messages.first if @rooster.errors.any? %><br/>
+    <%= form.label :full_name %>
+    <%= form.text_field :name, required: true ,autocomplete:'off' %><br/>
+    <%= form.label :jersey_number %>
+    <%= form.text_field :jersey_number, required: true ,autocomplete:'off'%><br/>
+    <% if false %>
+    <%= form.label :image %>
+    <%= form.file_field :image, autocomplete: 'off' %><br/>
+    <%= form.label :preferences %>
+    <%= form.select :preferences, ['bats', 'throws','all_rounder']%>
+    <% end %>
+    <br/>  
     <%= form.submit %>
-  </div>
-<% end %>
+  <% end %>

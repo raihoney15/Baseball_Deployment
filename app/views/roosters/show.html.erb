@@ -1,10 +1,7 @@
-<p style="color: green"><%= notice %></p>
-
-<%= render @rooster %>
-
-<div>
-  <%= link_to "Edit this rooster", edit_rooster_path(@rooster) %> |
-  <%= link_to "Back to roosters", roosters_path %>
-
-  <%= button_to "Destroy this rooster", @rooster, method: :delete %>
-</div>
+  <%= @rooster.name %>
+  <br/>
+  <%= @rooster.jersey_number %>
+  <br/>
+<%= link_to 'Edit', edit_tournament_team_rooster_path(@tournament,@team, @rooster) , class: "btn btn-primary btn-sm"%> |
+<%= link_to 'Back to teams' ,tournament_team_path(@tournament,@team), class: "btn btn-primary btn-sm"%>|
+<%= button_to "Destroy", tournament_team_rooster_path, method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger" %>

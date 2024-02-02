@@ -1,70 +1,124 @@
 class RoostersController < ApplicationController
-  before_action :set_rooster, only: %i[ show edit update destroy ]
+    before_action :set_rooster, only: %i[ show edit update destroy ]
+    before_action :set_team
+    before_action :set_tournament
 
-  # GET /roosters or /roosters.json
-  def index
-    @roosters = Rooster.all
-  end
+def index
+    if current_user.nil?
+      @rooster = Rooster.all
+    else
+      @rooster = Rooster.where(user_id:current_user.id)
+    end
+end
 
-  # GET /roosters/1 or /roosters/1.json
-  def show
-  end
+def show
+    @tournament = Tournament.find(params[:tournament_id])
+    @team = Team.find(params[:team_id])
+    @rooster = @team.roosters.find(params[:id])
+end
 
-  # GET /roosters/new
-  def new
+def new
+    @tournament = Tournament.find(params[:tournament_id])
+    @team = Team.find(params[:team_id])
     @rooster = Rooster.new
-  end
+end
 
-  # GET /roosters/1/edit
-  def edit
-  end
-
-  # POST /roosters or /roosters.json
-  def create
-    @rooster = Rooster.new(rooster_params)
-
-    respond_to do |format|
-      if @rooster.save
-        format.html { redirect_to rooster_url(@rooster), notice: "Rooster was successfully created." }
-        format.json { render :show, status: :created, location: @rooster }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @rooster.errors, status: :unprocessable_entity }
-      end
+def create
+    @rooster = current_user.roosters.build(rooster_params.merge(team_id:@team.id ).merge(tournament_id:@tournament.id))
+    if @rooster.save
+        redirect_to tournament_team_path(@tournament,@team)
+    else
+        render "new"
     end
-  end
 
-  # PATCH/PUT /roosters/1 or /roosters/1.json
-  def update
-    respond_to do |format|
-      if @rooster.update(rooster_params)
-        format.html { redirect_to rooster_url(@rooster), notice: "Rooster was successfully updated." }
-        format.json { render :show, status: :ok, location: @rooster }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @rooster.errors, status: :unprocessable_entity }
-      end
+end
+
+def update
+    if @rooster.update(rooster_params)
+        redirect_to tournament_team_path(@tournament,@team)
+    else
+        render "edit"
     end
-  end
+end
 
-  # DELETE /roosters/1 or /roosters/1.json
-  def destroy
-    @rooster.destroy!
-
-    respond_to do |format|
-      format.html { redirect_to roosters_url, notice: "Rooster was successfully destroyed." }
-      format.json { head :no_content }
-    end
-  end
+def destroy
+    @rooster.destroy
+    redirect_to tournament_team_path(@tournament,@team)
+end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
+
     def set_rooster
       @rooster = Rooster.find(params[:id])
     end
 
-    # Only allow a list of trusted parameters through.
+    def set_team
+        @team = Team.find(params[:team_id])
+    end
+
+    def set_tournament
+        @tournament = Tournament.find(params[:tournament_id])
+      end
+
     def rooster_params
       params.require(:rooster).permit(:name, :jersey_number)
+    #   params.require(:rooster).permit(:name, :jersey_number, :image, :preferences)
     end
+
 end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

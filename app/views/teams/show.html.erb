@@ -1,24 +1,48 @@
 <div class="container">
-`  <h1><%= @team.name %></h1>
-   <%= render @team %>
-  <div class="actions">
-<% if false %>
-    <%= link_to "Add New Rooster", new_rooster_path, class: "btn btn-success" %> |
-    <%= link_to "Show Roaster", rooster_path, class: "btn btn-secondary" %>
-<% end %> 
-        <% if can? :update, @team %>
-            <%= link_to "Edit this team", edit_tournament_team_path, class: "btn btn-primary" %> |
-        <% end %>
-  
-            <%= link_to "Back to Teams", tournament_team_path, class: "btn btn-secondary" %> 
+  <h1><%= @team.name %></h1>
 
-        <% if can? :destroy, @team %>
-            <%= link_to "Destroy",[@team.tournament, @team], method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger" %>
-        <% end %>
-            
+  <%= render @team %>
+
+  <div class="actions">
+    <%= link_to "Add New Rooster", new_tournament_team_rooster_path(@team.tournament, @team), class: "btn btn-success" %> |
+    <%= link_to "Back to Tournament", tournament_path(@tournament), class: "btn btn-secondary" %>
+
+    <% if can? :update, @team %>
+      <%= link_to "Edit this team", edit_tournament_team_path(@team.tournament, @team), class: "btn btn-primary" %> |
+    <% end %>
+
+    <% if can? :destroy, @team %>
+      <%= button_to "Destroy", [@team.tournament, @team], method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger" %>
+    <% end %>
+    
   </div>
- 
+  <br/>
+  <h2>Rosters</h2>
+  <table class="table">
+  <thead>
+    <tr>
+      <th>Roosters</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @team.roosters.each do |rooster| %>
+      <tr>
+        <td>
+          <p><%= rooster.name %></p>
+        </td>
+        <td>
+          <%= link_to "Show", tournament_team_rooster_path(@tournament,@team,rooster), class: "btn btn-success" %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+
+  
 </div>
+
 
 
 
