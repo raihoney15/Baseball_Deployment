@@ -1,15 +1,12 @@
 class TournamentsController < ApplicationController
   load_and_authorize_resource
-  # before_action :set_tournament, only: %i[ show edit update destroy ]
-  
-
-  before_action :set_tournament, only: %i[ show edit  ]
+  before_action :set_tournament, only: %i[ show edit update destroy ]
 
   def index
     if current_user.nil?
-      @tournament = Tournament.all.page(params[:page])
+      @tournament = Tournament.all.page(params[:page]).per(3)
     else
-       @tournament = Tournament.where(user_id:current_user.id).page(params[:page])
+       @tournament = Tournament.where(user_id:current_user.id).page(params[:page]).per(3)
     end
   end
 

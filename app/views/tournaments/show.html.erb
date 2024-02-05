@@ -5,7 +5,24 @@
 <div class="container mt-5">
   <h1 class="text-center mb-4"><%= @tournament.name %></h1>
 
-<%= link_to "New Event", new_tournament_event_path(@tournament,@event), class: "btn btn-success" %><br/>
+
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <!-- Search Bar -->
+    <div class="input-group">
+
+      <input type="text" class="form-control" placeholder="Search..." aria-label="Search" aria-describedby="basic-addon2">
+      <div class="input-group-append">
+        <button class="btn btn-outline-secondary" type="button">Search</button>
+      </div>
+      
+    </div>
+    <% if can? :update, @tournament %>
+    <%= link_to "New Event", new_tournament_event_path(@tournament,@event), class: "btn btn-success" %><br/>
+    <% end %>
+  </div>
+
+
+
   <ul class="nav nav-tabs" id="tournamentTabs" role="tablist">
     <li class="nav-item">
       <a class="nav-link active" id="overview-tab" data-toggle="tab" href="#overview" role="tab" aria-controls="overview" aria-selected="true">Overview</a>
@@ -26,7 +43,9 @@
         <% if can? :update, @tournament %>
           <%= link_to "Edit this Tournament", edit_tournament_path(@tournament), class: "btn btn-warning" %> |
         <% end %>
+        <% if can? :update,@tournament %>
         <%= link_to "Create New Team", new_tournament_team_path(@tournament), class: "btn btn-success" %> |
+        <% end %>
         <%= link_to "Back to Tournaments", tournaments_path, class: "btn btn-primary" %>
         <% if can? :destroy, @tournament %>
           <%= button_to "Destroy this Tournament", @tournament, method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger" %>
@@ -34,9 +53,29 @@
       </div>
     </div>
   </div>
+
+  <table class="table">
+  <thead>
+    <tr>
+      <th>Events</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @tournament.events.each do |event| %>
+      <tr>
+        <td>
+          <p><%= event.game_type %></p>
+        </td>
+        <td>
+          <%= link_to "Show", tournament_event_path(@tournament, event), class: "btn btn-success" %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
 </div>
 
-<!-- Participating Teams Tab Content -->
 <div class="tab-pane fade" id="teams" role="tabpanel" aria-labelledby="teams-tab">
   <div class="card">
     <div class="card-body">

@@ -1,7 +1,15 @@
-<div class="container">
-<h1>Welcome to your Event</h1><br/>
-  <h1>Your game type is <%= @event.game_type%><br/>
-  </h1>
-  
-</div>
+<p>Welcome to your Event</p>
+<p>Your game type is <%= @event.game_type%><br/>
+</p>
 
+<div style="max-width: 100%; margin: 10px; display: flex;">
+
+  <div style="flex: 60%;  padding: 210px;background-image: url('<%= asset_path('Field.png') %>'); background-size: 100% 100%; background-repeat: no-repeat;">
+  </div>
+  <div style="flex: 40%;">
+  <div class="container">
+  <p> START </p>
+
+  </div>
+</div>
+</div>

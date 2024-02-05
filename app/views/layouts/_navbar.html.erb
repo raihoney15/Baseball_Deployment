@@ -21,10 +21,7 @@
       <li class="nav-item">
         <%= link_to "Teams", teams_path, class: "nav-link" %>
       </li> 
-      
 
-
-      <!-- Add more links as needed -->
       
       <% if user_signed_in? %>
         <% if current_user.image.attached? %>
