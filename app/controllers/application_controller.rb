@@ -1,6 +1,14 @@
 class ApplicationController < ActionController::Base
 
     before_action :configure_permitted_parameters, if: :devise_controller?
+    protect_from_forgery
+    before_action :redirect_if_unverified
+
+    def redirect_if_unverified
+      return unless signed_in? && !current_user.verified?
+  
+      redirect_to verify_path, notice: "Please verify your email address"
+    end
 
     # protect_from_forgery with: :exception
 
@@ -12,7 +20,6 @@ class ApplicationController < ActionController::Base
     protected
   
     def configure_permitted_parameters
-      # CrudNotificationMailer.create_notification(@user).deliver_now
       added_attrs = [:username, :email, :password, :password_confirmation, :remember_me]
       
       devise_parameter_sanitizer.permit :sign_up, keys: added_attrs

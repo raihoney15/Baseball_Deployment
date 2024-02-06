@@ -1,0 +1,20 @@
+  <%= @opponent_rooster.name %>
+  <br/>
+  <%= @opponent_rooster.jersey_number %>
+  <br/>
+  <% if can? :update, @team %>
+    <%= link_to edit_tournament_opponent_team_opponent_rooster(@tournament,@opponent_team, @opponent_rooster) do %>
+    <%= image_tag("edit.png", alt: "edit", style: "width: 20px; height: 20px; object-fit: cover;") %> |
+    <% end %>
+    <%#= link_to 'Edit', edit_tournament_opponent_team_opponent_rooster(@tournament,@team, @rooster) , class: "btn btn-primary btn-sm"%> 
+
+    <%#= button_to "Destroy", tournament_opponent_team_opponent_rooster_path, method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger" %> <br/>
+    <%= link_to tournament_opponent_team_opponent_rooster_path do %>
+      <%= image_tag("empty.png", alt: "edit", style: "width: 20px; height: 20px; object-fit: cover;") %> |
+      <% end %>
+    <% end%>
+
+    <%#= link_to 'Back to teams' ,tournament_opponent_team_path(@tournament,@opponent_team), class: "btn btn-primary btn-sm"%>
+    <%= link_to tournament_opponent_team_path(@tournament,@opponent_team) do %>
+    <%= image_tag("back.png", alt: "back", style: "width: 20px; height: 20px; object-fit: cover;") %> 
+    <% end %>

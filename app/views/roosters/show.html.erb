@@ -3,7 +3,18 @@
   <%= @rooster.jersey_number %>
   <br/>
   <% if can? :update, @team %>
-<%= link_to 'Edit', edit_tournament_team_rooster_path(@tournament,@team, @rooster) , class: "btn btn-primary btn-sm"%> |
-<%= button_to "Destroy", tournament_team_rooster_path, method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger" %> <br/>
-<% end%>
-<%= link_to 'Back to teams' ,tournament_team_path(@tournament,@team), class: "btn btn-primary btn-sm"%>
+    <%= link_to edit_tournament_team_rooster_path(@tournament,@team, @rooster) do %>
+    <%= image_tag("edit.png", alt: "edit", style: "width: 20px; height: 20px; object-fit: cover;") %> |
+    <% end %>
+    <%#= link_to 'Edit', edit_tournament_team_rooster_path(@tournament,@team, @rooster) , class: "btn btn-primary btn-sm"%> 
+
+    <%#= button_to "Destroy", tournament_team_rooster_path, method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger" %> <br/>
+    <%= link_to tournament_team_rooster_path do %>
+      <%= image_tag("empty.png", alt: "edit", style: "width: 20px; height: 20px; object-fit: cover;") %> |
+      <% end %>
+    <% end%>
+
+    <%#= link_to 'Back to teams' ,tournament_team_path(@tournament,@team), class: "btn btn-primary btn-sm"%>
+    <%= link_to tournament_team_path(@tournament,@team) do %>
+    <%= image_tag("back.png", alt: "back", style: "width: 20px; height: 20px; object-fit: cover;") %> 
+    <% end %>

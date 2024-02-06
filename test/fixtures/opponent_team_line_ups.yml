@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  batter_order: 1
+  event: one
+  user: one
+  opponent_rooster: one
+  opponent_team: one
+  position: one
+
+two:
+  batter_order: 1
+  event: two
+  user: two
+  opponent_rooster: two
+  opponent_team: two
+  position: two

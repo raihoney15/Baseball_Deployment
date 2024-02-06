@@ -1,0 +1,2 @@
+class TeamLineupsController < ApplicationController
+end

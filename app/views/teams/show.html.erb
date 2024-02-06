@@ -1,21 +1,40 @@
 <div class="container">
-  <h1><%= @team.name %></h1>
+  <div style="display: flex; align-items: center;">
+  <%= image_tag("team.png", alt: "team", style: "width: 60px; height: 60px; object-fit: cover;") %>
+  <h2 style="margin-left: 10px;"><%= @team.name %></h2>
+
+</div>
 
   <%= render @team %>
-
   <div class="actions">
-  <% if can? :update, @team %>
-  <%= link_to "Add New Rooster", new_tournament_team_rooster_path(@team.tournament, @team), class: "btn btn-success" %> |
-  <% end %>
+      <% if can? :update, @team %>
+            <%= link_to new_tournament_team_rooster_path(@team.tournament, @team) do %>
+              <%= image_tag("addroaster.png", alt: "edit", style: "width: 25px; height: 25px; object-fit: cover;") %> |
+              <% end %>
+            <%#= link_to "Add New Rooster", new_tournament_team_rooster_path(@team.tournament, @team), class: "btn btn-success" %> 
+      <% end %>
 
 
-    <% if can? :update, @team %>
-      <%= link_to "Edit this team", edit_tournament_team_path(@team.tournament, @team), class: "btn btn-primary" %> 
-    <% end %>
-    <% if can? :destroy, @team %>
-      <%= button_to "Destroy", [@team.tournament, @team], method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger" %>
-    <% end %>
-    <%= link_to "Back to Tournament", tournament_path(@tournament), class: "btn btn-secondary" %>
+      <% if can? :update, @team %>
+            <%= link_to edit_tournament_team_path(@team.tournament, @team) do %>
+              <%= image_tag("edit.png", alt: "edit", style: "width: 20px; height: 20px; object-fit: cover;") %> |
+              <% end %>
+              <%#= link_to "Edit this team", edit_tournament_team_path(@team.tournament, @team), class: "btn btn-primary" %> 
+      <% end %>
+
+
+      <% if can? :destroy, @team %>
+            <%= link_to [@team.tournament, @team] do %>
+              <%= image_tag("empty.png", alt: "edit", style: "width: 20px; height: 20px; object-fit: cover;") %> |
+              <% end %>
+              <%#= button_to "Destroy", [@team.tournament, @team], method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger" %>
+      <% end %>
+
+            <%= link_to tournaments_path(@tournament) do %>
+            <%= image_tag("back.png", alt: "back", style: "width: 20px; height: 20px; object-fit: cover;") %> 
+            <% end %>
+            <%#= link_to "Back to Tournament", tournament_path(@tournament), class: "btn btn-secondary" %>
+    
   </div>
   <br/>
   <h2>Rosters</h2>
@@ -33,7 +52,10 @@
           <p><%= rooster.name %></p>
         </td>
         <td>
-          <%= link_to "Show", tournament_team_rooster_path(@tournament,@team,rooster), class: "btn btn-success" %>
+        <%= link_to tournament_team_rooster_path(@tournament,@team,rooster) do %>
+          <%= image_tag("show.png", alt: "show", style: "width: 20px; height: 20px; object-fit: cover;") %> 
+          <% end %>
+          <%#= link_to "Show", tournament_team_rooster_path(@tournament,@team,rooster), class: "btn btn-success" %>
         </td>
       </tr>
     <% end %>

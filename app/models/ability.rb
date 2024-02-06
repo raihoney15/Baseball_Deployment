@@ -16,7 +16,9 @@ class Ability
       # can [:read, :edit, :destroy], Team, user: user
       can :manage, Tournament, user: user
       can :manage, Team, user: user
+      can :manage, OpponentTeam, user: user
       can :manage, Rooster, user: user
+      can :manage, OpponentRooster, user: user
       can :manage, Event, user: user
 
     else 

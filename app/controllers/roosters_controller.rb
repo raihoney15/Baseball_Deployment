@@ -24,6 +24,7 @@ def new
 end
 
 def create
+    binding.pry
     @rooster = current_user.roosters.build(rooster_params.merge(team_id:@team.id ).merge(tournament_id:@tournament.id))
     if @rooster.save
         redirect_to tournament_team_path(@tournament,@team)
@@ -62,7 +63,6 @@ end
 
     def rooster_params
       params.require(:rooster).permit(:name, :jersey_number)
-    #   params.require(:rooster).permit(:name, :jersey_number, :image, :preferences)
     end
 
 end

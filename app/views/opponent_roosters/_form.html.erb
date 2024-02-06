@@ -1,0 +1,16 @@
+
+<%= form_with(model: [@tournament, @opponent_team, @opponent_rooster], path: tournament_opponent_team_opponent_roosters_path(@tournament, @opponent_team)) do |form| %>
+    <%= @opponent_rooster.errors.full_messages.first if @opponent_rooster.errors.any? %><br/>
+    <%= form.label :full_name %>
+    <%= form.text_field :name, required: true ,autocomplete:'off' %><br/>
+    <%= form.label :jersey_number %>
+    <%= form.text_field :jersey_number, required: true ,autocomplete:'off'%><br/>
+    <% if false %>
+    <%= form.label :image %>
+    <%= form.file_field :image, autocomplete: 'off' %><br/>
+    <%= form.label :preferences %>
+    <%= form.select :preferences, ['bats', 'throws','all_rounder']%>
+    <% end %>
+    <br/>  
+    <%= form.submit %>
+  <% end %>

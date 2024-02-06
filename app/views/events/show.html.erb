@@ -1,14 +1,28 @@
-<p>Welcome to your Event</p>
-<p>Your game type is <%= @event.game_type%><br/>
-</p>
 
-<div style="max-width: 100%; margin: 10px; display: flex;">
 
-  <div style="flex: 60%;  padding: 210px;background-image: url('<%= asset_path('Field.png') %>'); background-size: 100% 100%; background-repeat: no-repeat;">
+
+<div style="max-width: 100%; margin: 10px; margin-top: 0px; display: flex;">
+
+  <div style="flex: 60%;  padding: 260px;background-image: url('<%= asset_path('Field.png') %>'); background-size: 100% 100%; background-repeat: no-repeat;">
   </div>
   <div style="flex: 40%;">
   <div class="container">
-  <p> START </p>
+  <h4 style="margin-left: 10px;"> START </h4>
+
+  <div style="display: flex; align-items: center;">
+  <h4 style="margin-left: 10px;">Teamlineup</h4> 
+  <%= link_to new_event_team_lineup_path(@event.tournament, @event) do %>
+  <%= image_tag("lineup.png", alt: "tournament", style: "width: 25px; height: 25px; object-fit: cover;") %>
+  <% end %>
+  </div>
+
+  <div style="display: flex; align-items: center;">
+  <h4 style="margin-left: 10px;">Opponent Teamlineup</h4> 
+  <%= link_to new_event_opponent_team_lineup_path(@event.tournament, @event) do %>
+  <%= image_tag("lineup.png", alt: "tournament", style: "width: 25px; height: 25px; object-fit: cover;") %>
+  <% end %>
+  </div>
+    
 
   </div>
 </div>

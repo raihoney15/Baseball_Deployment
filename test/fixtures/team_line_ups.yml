@@ -5,9 +5,13 @@ one:
   event: one
   user: one
   rooster: one
+  team: one
+  position: one
 
 two:
   batter_order: 1
   event: two
   user: two
   rooster: two
+  team: two
+  position: two

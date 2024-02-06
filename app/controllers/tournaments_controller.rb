@@ -1,6 +1,6 @@
 class TournamentsController < ApplicationController
   load_and_authorize_resource
-  before_action :set_tournament, only: %i[ show edit update destroy ]
+  before_action :set_tournament, only:[ :show, :edit, :update, :destroy ]
 
   def index
     if current_user.nil?
@@ -14,6 +14,7 @@ class TournamentsController < ApplicationController
   def show
     @tournament = Tournament.find(params[:id])
     @team = @tournament.teams
+    @opponent_team = @tournament.opponent_teams
   end
 
   def new
@@ -22,6 +23,7 @@ class TournamentsController < ApplicationController
   end
 
   def edit
+    @tournament = Tournament.find(params[:id])
   end
 
   def create

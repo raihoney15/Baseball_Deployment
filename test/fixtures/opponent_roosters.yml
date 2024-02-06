@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  jersey_number: 1
+  user: one
+  tournament: one
+  opponent_team: one
+
+two:
+  name: MyString
+  jersey_number: 1
+  user: two
+  tournament: two
+  opponent_team: two
