@@ -45,6 +45,10 @@
   <%= yield %>
   <% elsif controller_name == 'events' && action_name.in?(['new','edit' , 'create','show','index']) %>
   <%= yield %>
+  <% elsif controller_name == 'team_line_ups' && action_name.in?(['new','edit' , 'create','show','index']) %>
+  <%= yield %>
+  <% elsif controller_name == 'opponent_team_line_ups' && action_name.in?(['new','edit' , 'create','show','index']) %>
+  <%= yield %>
   <% elsif controller_name == 'users' && action_name.in?(['index']) %>
   <%= yield %>
 

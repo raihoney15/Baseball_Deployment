@@ -1,0 +1,20 @@
+
+  <%= form_with(model: [@tournament, @event, @opponent_team_line_up], url: tournament_event_opponent_team_line_ups_path) do |form| %>
+    <%= @opponent_team_line_up.errors.full_messages.first if @opponent_team_line_up.errors.any? %><br/>
+  
+    <%= form.label :batter_order %>
+    <%= form.text_field :batter_order, required: true ,autocomplete:'off' %><br/>
+  
+    <%= form.label :opponent_rooster_id %>
+    <%= form.collection_select :opponent_rooster_id, @event.opponent_team.opponent_roosters, :id, :name, { prompt: "Select rooster" }, required: true, autocomplete:'off' %><br />
+  
+    <%= form.label :position_id %>
+    <%= form.collection_select :position_id, Position.all, :id, :position_name, { prompt: "Select Position" }, required: true, autocomplete:'off' %><br />
+  
+    <%= form.submit %>
+
+  <% end %>
+  
+
+
+  

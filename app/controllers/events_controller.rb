@@ -1,9 +1,9 @@
 class EventsController < ApplicationController
+  before_action :authenticate_user!, except: %i[ index]
 
     before_action :set_event, only: %i[ show edit update destroy ]
     before_action :set_tournament
-    # before_action :set_team
-    # before_action :set_opponent_team
+
 
 def index
     if current_user.nil?
@@ -61,16 +61,9 @@ end
         @tournament = Tournament.find(params[:tournament_id])
     end
 
-    # def set_team
-    #   @team = Team.find(params[:team_id])
-    # end
-
-    # def set_opponent_team
-    #   @opponent_team = OpponentTeam.find(params[:team_id])
-    # end
 
     def event_params
-      params.require(:event).permit(:game_type,:name,:team_id,:opponent_team_id,:location,:start_date,:belongs ,:memo)
+      params.require(:event).permit(:game_type,:name,:team_id,:opponent_team_id,:location,:start_date,:belongs ,:memo, :image)
 
     end
 

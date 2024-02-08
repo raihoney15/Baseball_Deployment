@@ -1,4 +1,5 @@
 class OpponentTeamsController < ApplicationController
+  before_action :authenticate_user!, except: %i[ index]
     before_action :set_opponent_team, only: %i[ show edit update destroy ]
     before_action :set_tournament
   
@@ -63,6 +64,6 @@ class OpponentTeamsController < ApplicationController
   
   
       def opponent_team_params
-        params.require(:opponent_team).permit(:name, :short_name,:user_id,:tournament_id ,:team_id) 
+        params.require(:opponent_team).permit(:name, :short_name,:user_id,:tournament_id ,:team_id, :image) 
       end
 end

@@ -1,10 +1,13 @@
 
 class Team < ApplicationRecord
+  paginates_per 3
     belongs_to :user
     belongs_to :tournament
-    belongs_to :event
+    has_many :event
+    has_many :team_line_up
     has_many :roosters, dependent: :destroy
-  
+    has_one_attached :image 
+
     before_create :set_user_id
 
     private

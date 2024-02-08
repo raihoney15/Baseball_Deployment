@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
 
+
     before_action :configure_permitted_parameters, if: :devise_controller?
     protect_from_forgery
     before_action :redirect_if_unverified
@@ -10,12 +11,20 @@ class ApplicationController < ActionController::Base
       redirect_to verify_path, notice: "Please verify your email address"
     end
 
-    # protect_from_forgery with: :exception
+    protect_from_forgery with: :exception
 
   # rescue_from CanCan::AccessDenied do |exception|
   #   # redirect_to root_path
   #   flash[:danger] = "Sorry, you are not authorized to access this area!"
   # end
+
+  rescue_from CanCan::AccessDenied do |exception|
+    respond_to do |format|
+      format.json { head :forbidden }
+      format.html { redirect_to root_path, notice: exception.message }
+    
+    end
+  end
 
     protected
   

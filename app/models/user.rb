@@ -1,23 +1,27 @@
 class User < ApplicationRecord
   attr_accessor :pin_0, :pin_1, :pin_2, :pin_3
   has_many :assignments,dependent: :destroy
-  has_many :teams
-  has_many :opponent_teams
-  has_many :events
+  has_many :teams,dependent: :destroy
+  has_many :opponent_teams,dependent: :destroy
+  has_many :events,dependent: :destroy
   has_many :tournaments ,dependent: :destroy
   has_many :roles, through: :assignments,dependent: :destroy
-  has_one_attached :image
-  has_many :roosters
-  has_many :opponent_roosters
-  has_many :teamlineups
-  has_many :staff_invites
-  has_many :rooster_positions
+  has_one_attached :image,dependent: :destroy
+  has_many :roosters,dependent: :destroy
+  has_many :opponent_roosters,dependent: :destroy
+  has_many :team_line_ups,dependent: :destroy
+  has_many :opponent_team_line_ups,dependent: :destroy
+  # has_many :staff_invites,dependent: :destroy
+  # has_many :rooster_positions,dependent: :destroy
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable ,authentication_keys: [:login]
 
   after_create :update_user_verified_column_to_true
   after_create :send_pin!
+
+  validates :email, format: { with: /\A[^@\s]+@[^@\s]+\.[^@\s]+\z/, message: "Invalid email format" }
+  validates :username, uniqueness: true
 
   def assign_default_roles
     self.roles << Role.find_by(role_name: 'tournament_owner') if self.roles.empty?
@@ -65,3 +69,8 @@ class User < ApplicationRecord
   end
 
 end
+
+# This is my user.rb and other files ,and i have done login signup using devise .now i want to add validations such that 
+# -on email =>  email should be a@gmail.com should be valid but if user enter a@gmail then it should be invalid.
+# -username should be unique
+# -Flash message should be provided to user.

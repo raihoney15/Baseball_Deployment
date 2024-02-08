@@ -5,6 +5,8 @@
     <%= form.text_field :name, required: true ,autocomplete:'off' %><br/>
     <%= form.label :jersey_number %>
     <%= form.text_field :jersey_number, required: true ,autocomplete:'off'%><br/>
+    <%= form.label :image %>
+    <%= form.file_field :image %><br/>  
     <% if false %>
     <%= form.label :image %>
     <%= form.file_field :image, autocomplete: 'off' %><br/>

@@ -1,6 +1,8 @@
 class Rooster < ApplicationRecord
     belongs_to :user
     belongs_to :team
+    has_one :team_line_up
+    has_one_attached :image 
 
     before_create :set_user_id
 

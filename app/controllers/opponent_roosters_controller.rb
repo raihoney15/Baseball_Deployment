@@ -1,6 +1,8 @@
 class OpponentRoostersController < ApplicationController
+    before_action :authenticate_user!, except: %i[ index]
 
     before_action :set_opponent_rooster, only: %i[ show update destroy ]
+    before_action :authenticate_user!, except: %i[ index]
     before_action :set_opponent_team
     before_action :set_tournament
 
@@ -64,7 +66,7 @@ end
       end
 
     def opponent_rooster_params
-      params.require(:opponent_rooster).permit(:name, :jersey_number)
+      params.require(:opponent_rooster).permit(:name, :jersey_number, :image)
    
     end
 

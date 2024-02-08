@@ -1,12 +1,27 @@
 class TournamentsController < ApplicationController
   load_and_authorize_resource
+  before_action :authenticate_user!, except: %i[ index]
+
   before_action :set_tournament, only:[ :show, :edit, :update, :destroy ]
 
+  # def index
+  #   if current_user.nil?
+  #     @tournament = Tournament.all.page(params[:page]).per(5)
+  #   else
+  #      @tournament = Tournament.where(user_id:current_user.id).page(params[:page]).per(5)
+  #   end
+  # end
+
+
   def index
-    if current_user.nil?
-      @tournament = Tournament.all.page(params[:page]).per(3)
+    if params[:search] 
+      @tournaments = Tournament.where("name LIKE ?", "%#{params[:search]}%").order(:name).page(params[:page]).per(5)
     else
-       @tournament = Tournament.where(user_id:current_user.id).page(params[:page]).per(3)
+      if current_user.nil?
+        @tournaments = Tournament.order(:name).page(params[:page]).per(5)
+      else
+        @tournaments = Tournament.where(user_id: current_user.id).order(:name).page(params[:page]).per(5)
+      end
     end
   end
 
@@ -18,7 +33,7 @@ class TournamentsController < ApplicationController
   end
 
   def new
-    # binding.pry
+
     @tournament = Tournament.new
   end
 
@@ -58,10 +73,10 @@ class TournamentsController < ApplicationController
     def set_tournament
       @tournament = Tournament.find(params[:id])
     end
+
     def tournament_params
-      params.require(:tournament).permit(:name, :start_date, :end_date, :location, :user_id)
+      params.require(:tournament).permit(:name, :start_date, :end_date, :location, :user_id, :image)
     end
-
-
+    
 
 end

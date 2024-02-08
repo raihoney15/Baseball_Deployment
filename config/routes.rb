@@ -13,13 +13,12 @@ Rails.application.routes.draw do
   end
 
   resources :tournaments do
-    resources :events
+    resources :events do
+      resources :team_line_ups
+      resources :opponent_team_line_ups
+    end
   end
 
-  resources :events do
-    resources :team_lineups
-    resources :opponent_team_lineups
-  end
  
   root 'pages#home'
   devise_for :users, controllers: { registrations: 'users/registrations' }
@@ -27,7 +26,7 @@ Rails.application.routes.draw do
   get "/verify" => "verify#new", :as => "new_verify"
   put "/verify" => "verify#update", :as => "update_verify"
   post "/verify" => "verify#create", :as => "resend_verify"
-  resources :users, only: [:index]
+  resources :users, only: [:index,:destroy]
   
 end
 

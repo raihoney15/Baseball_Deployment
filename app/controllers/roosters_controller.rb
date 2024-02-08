@@ -1,4 +1,5 @@
 class RoostersController < ApplicationController
+    before_action :authenticate_user!, except: %i[ index]
     before_action :set_rooster, only: %i[ show edit update destroy ]
     before_action :set_team
     before_action :set_tournament
@@ -24,7 +25,7 @@ def new
 end
 
 def create
-    binding.pry
+    
     @rooster = current_user.roosters.build(rooster_params.merge(team_id:@team.id ).merge(tournament_id:@tournament.id))
     if @rooster.save
         redirect_to tournament_team_path(@tournament,@team)
@@ -62,7 +63,7 @@ end
       end
 
     def rooster_params
-      params.require(:rooster).permit(:name, :jersey_number)
+      params.require(:rooster).permit(:name, :jersey_number, :image)
     end
 
 end

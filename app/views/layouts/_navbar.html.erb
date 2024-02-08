@@ -1,8 +1,10 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-white">
   <!-- Replace "Baseball" with the logo -->
   <a class="navbar-brand" href="#" style="padding: 0;">
+  <%= link_to root_path do %>
     <%= image_tag("Logo.png", alt: "Logo", class: "img-fluid rounded-circle", style: "width: 100px; height: 100px;") %>
-  </a>
+  <% end %>
+    </a>
   
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -17,30 +19,25 @@
       <li class="nav-item">
         <%= link_to "Tournaments", tournaments_path, class: "nav-link" %>
       </li>
-      <%#  
-      <li class="nav-item">
-        <%= link_to "Teams", teams_path, class: "nav-link" %>
-      </li> 
-
       
+      <% if current_user&.roles&.exists?(role_name:'admin') %>   
+      <li class="nav-item">                
+        <%= link_to "All users", users_path, class: "nav-link" %>     
+      </li>
+    <% end %>
+
       <% if user_signed_in? %>
         <% if current_user.image.attached? %>
-            <%= link_to edit_user_registration_path do %>
+          <%= link_to edit_user_registration_path do %>
             <%= image_tag(current_user.image, alt: "User Avatar", class: "img-fluid rounded-circle", style: "width: 50px; height: 50px; object-fit: cover;") %>
-        <% end %>
+          <% end %>
         <% else %>
-            <%= link_to edit_user_registration_path do %>
+          <%= link_to edit_user_registration_path do %>
             <%= image_tag("profile.png", alt: "profile", class: "img-fluid rounded-circle", style: "width: 50px; height: 50px; object-fit: cover;") %>
+          <% end %>
         <% end %>
 
-         <%#       
-         <% elsif user.is_admin? %>   
-         <li class="nav-item">                
-         <%= link_to "All users", users_path, class: "nav-link" %>     
-           </li>  %> 
-          
-        
-     <% end %>
+
       <% else %>
         <li class="nav-item">
           <%= link_to "Sign Up", new_user_registration_path, class: "nav-link" %>

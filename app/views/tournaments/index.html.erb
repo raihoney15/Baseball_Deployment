@@ -1,30 +1,23 @@
-
-<p style="color: blue"><%= notice %></p>
-
 <div class="container mt-6">
+  <p style="color: blue"><%= notice %></p>
 
-<div style="display: flex; align-items: center;">
-
-  <%= image_tag("tournament.png", alt: "tournament", style: "width: 60px; height: 60px; object-fit: cover;") %>
-
-  <h2 style="margin-left: 10px;">TOURNAMENTS</h2>
-
-</div>
+  <div style="display: flex; align-items: center;">
+    <%= image_tag("tournament.png", alt: "tournament", style: "width: 60px; height: 60px; object-fit: cover;") %>
+    <h2 style="margin-left: 10px;">TOURNAMENTS</h2>
+  </div>
 
   <div class="d-flex justify-content-between align-items-center mb-3">
-    <!-- Search Bar -->
-    <div class="input-group">
-
-      <input type="text" class="form-control" placeholder="Search..." aria-label="Search" aria-describedby="basic-addon2">
+    <%= form_tag(tournaments_path, method: "get", class: "input-group") do %>
+      <%= text_field_tag :search, params[:search], class: "form-control", placeholder: "Search...", aria_label: "Search" %>
       <div class="input-group-append">
-        <button class="btn btn-outline-secondary" type="button">Search</button>
+        <%= button_tag(type: "submit", class: "btn btn-outline-secondary") do %>
+          Search
+        <% end %>
       </div>
-      
-    </div>
+    <% end %>
 
-    <%#= link_to "New Tournament", new_tournament_path, class: "btn btn-success" %> 
     <%= link_to new_tournament_path do %>
-    <%= image_tag("add.png", alt: "profile", class: "img-fluid rounded-circle", style: "width: 40px; height: 40px; object-fit: cover;") %>
+      <%= image_tag("add.png", alt: "profile", class: "img-fluid rounded-circle", style: "width: 40px; height: 40px; object-fit: cover;") %>
     <% end %>
   </div>
 
@@ -43,18 +36,17 @@
             <%= tournament.start_date.strftime('%B %e, %Y') %>
           </td>
           <td>
-
-          <%= link_to tournament do %>
-            <%= image_tag("show.png", alt: "show", style: "width: 20px; height: 20px; object-fit: cover;") %> |
+            <%= link_to tournament do %>
+              <%= image_tag("show.png", alt: "show", style: "width: 20px; height: 20px; object-fit: cover;") %> |
             <% end %>
             <% if can? :update, tournament %>
               <%= link_to edit_tournament_path(tournament) do %>
                 <%= image_tag("edit.png", alt: "edit", style: "width: 20px; height: 20px; object-fit: cover;") %> |
-                <% end %>
+              <% end %>
             <% end %>
             <% if can? :update, tournament %>
-            <%= image_tag("invite.png", alt: "edit", style: "width: 20px; height: 20px; object-fit: cover;") %>
-            <%#= button_to "Invite", tournament, class: "btn btn-secondary btn-sm" %>
+              <%= image_tag("invite.png", alt: "edit", style: "width: 20px; height: 20px; object-fit: cover;") %>
+              <%#= button_to "Invite", tournament, class: "btn btn-secondary btn-sm" %>
             <% end %>
           </td>
         </tr>
@@ -62,5 +54,7 @@
     </tbody>
   </table>
 
-  <%= paginate @tournament %>
+  <%= paginate @tournaments %>
 </div>
+
+

@@ -1,17 +1,29 @@
 class TeamsController < ApplicationController
   load_and_authorize_resource
+  before_action :authenticate_user!, except: %i[ index]
+
   before_action :set_team, only: %i[ show edit update destroy ]
   before_action :set_tournament
 
 
   def index
 
-    if current_user.nil?
-      @team = Team.all
+    # if current_user.nil?
+    #   @team = Team.all
+    # else
+    #   @team = Team.where(user_id:current_user.id)
+    # end
+    if params[:search] 
+      @teams = Team.where("name LIKE ?", "%#{params[:search]}%").order(:name).page(params[:page]).per(3)
     else
-      @team = Team.where(user_id:current_user.id)
+      if current_user.nil?
+        @teams = Team.order(:name).page(params[:page]).per(3)
+      else
+        @teams = Team.where(user_id: current_user.id).order(:name).page(params[:page]).per(3)
+      end
     end
   end
+ 
 
   def show
     @tournament = Tournament.find(params[:tournament_id]) 
@@ -29,7 +41,6 @@ class TeamsController < ApplicationController
   end
 
   def create
-    # binding.pry
     @team = current_user.teams.build(team_params.merge(tournament_id:@tournament.id ))
     if @team.save
       redirect_to tournament_team_path(@tournament, @team)
@@ -64,7 +75,7 @@ class TeamsController < ApplicationController
 
 
     def team_params
-      params.require(:team).permit(:name, :short_name,:user_id,:tournament_id ) 
+      params.require(:team).permit(:name, :short_name,:user_id,:tournament_id , :image) 
     end
 
 

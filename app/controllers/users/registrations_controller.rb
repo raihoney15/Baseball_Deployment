@@ -1,13 +1,15 @@
 # frozen_string_literal: true
 
 class Users::RegistrationsController < Devise::RegistrationsController
+
+
   before_action :configure_sign_up_params, only: [:create]
   after_action :dummy_role, only: [:create]
+  before_action :configure_account_update_params, only: [:update]
+  after_action :dummyy_role, only: [:update]
 
   def new
     super
-    # @user.roles << Role.find_by(role_name: 'tournament_owner') if @user.roles.empty?
-    # @user.roles << Role.find_by(role_name: 'team_owner') if @user.roles.empty?
   end
 
   
@@ -18,8 +20,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     devise_parameter_sanitizer.permit(:sign_up, keys: [:email,:username, :password, :password_confirmation ,:roles])
   end
   # before_action :configure_sign_up_params, only: [:create]
-  before_action :configure_account_update_params, only: [:update]
-  after_action :dummyy_role, only: [:update]
+
 
   def dummy_role
     Assignment.create(role_id:2,user_id:@user.id)
@@ -34,6 +35,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def after_sign_up_path_for(resource)
     verify_path
   end
+
 
   # GET /resource/sign_up
   # def new

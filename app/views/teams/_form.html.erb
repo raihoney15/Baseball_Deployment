@@ -5,6 +5,8 @@
     <%= form.text_field :name, required: true ,autocomplete:'off' %><br/>
     <%= form.label :short_name %>
     <%= form.text_field :short_name, required: true ,autocomplete:'off'%><br/>
+    <%= form.label :image %>
+    <%= form.file_field :image %><br/>  
     <br/>  
     <%= form.submit %>
   <% end %>

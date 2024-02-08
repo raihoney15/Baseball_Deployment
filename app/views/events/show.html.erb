@@ -1,29 +1,66 @@
 
+  <h1><%= @event.team.name %> vs <%= @event.opponent_team.name %></h1>
 
 
-<div style="max-width: 100%; margin: 10px; margin-top: 0px; display: flex;">
+  <div style="max-width: 100%; display: flex;">
 
-  <div style="flex: 60%;  padding: 260px;background-image: url('<%= asset_path('Field.png') %>'); background-size: 100% 100%; background-repeat: no-repeat;">
+    <div style="flex: 60%; padding: 260px; background-image: url('<%= asset_path('Field.png') %>'); background-size: 100% 100%; background-repeat: no-repeat;">
+    </div>
+
+    <div style="flex: 40%;">
+      <div class="container">
+        <h4 style="margin-left: 10px;"> START </h4>
+
+        <div style="display: flex; align-items: center;">
+          <h4 style="margin-left: 10px;">TeamLineUp</h4> 
+          <%= link_to new_tournament_event_team_line_up_path(@event.tournament, @event) do %>
+            <%= image_tag("lineup.png", alt: "tournament", style: "width: 25px; height: 25px; object-fit: cover;") %>
+          <% end %>
+        </div>
+        
+        <h6 style="margin-left: 10px;">Selected Roosters</h6>
+        <table style="margin-left: 10px;">
+          <thead>
+            <tr>
+              <th>Position</th>
+              <th>Rooster</th>
+            </tr>
+          </thead>
+          <tbody>
+          <% @event.team_line_ups.each do |team_line_up| %>
+            <tr>
+              <td><%= Position.find(team_line_up.position_id).position_name %></td>
+              <td><%= team_line_up.rooster.name %></td>
+            </tr>
+          <% end %>
+          </tbody>
+        </table>
+
+        <div style="display: flex; align-items: center;">
+          <h4 style="margin-left: 10px;">Opponent Teamlineup</h4> 
+          <%= link_to new_tournament_event_opponent_team_line_up_path(@event.tournament, @event) do %>
+            <%= image_tag("lineup.png", alt: "tournament", style: "width: 25px; height: 25px; object-fit: cover;") %>
+          <% end %>
+        </div>
+                
+        <h6 style="margin-left: 10px;">Selected Roosters</h6>
+        <table style="margin-left: 10px;">
+          <thead>
+            <tr>
+              <th>Position</th>
+              <th>Opponent Rooster</th>
+            </tr>
+          </thead>
+          <tbody>
+          <% @event.opponent_team_line_ups.each do |opponent_team_line_up| %>
+            <tr>
+              <td><%= Position.find(opponent_team_line_up.position_id).position_name %></td>
+              <td><%= opponent_team_line_up.opponent_rooster.name %></td>
+            </tr>
+          <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
-  <div style="flex: 40%;">
-  <div class="container">
-  <h4 style="margin-left: 10px;"> START </h4>
 
-  <div style="display: flex; align-items: center;">
-  <h4 style="margin-left: 10px;">Teamlineup</h4> 
-  <%= link_to new_event_team_lineup_path(@event.tournament, @event) do %>
-  <%= image_tag("lineup.png", alt: "tournament", style: "width: 25px; height: 25px; object-fit: cover;") %>
-  <% end %>
-  </div>
-
-  <div style="display: flex; align-items: center;">
-  <h4 style="margin-left: 10px;">Opponent Teamlineup</h4> 
-  <%= link_to new_event_opponent_team_lineup_path(@event.tournament, @event) do %>
-  <%= image_tag("lineup.png", alt: "tournament", style: "width: 25px; height: 25px; object-fit: cover;") %>
-  <% end %>
-  </div>
-    
-
-  </div>
-</div>
-</div>

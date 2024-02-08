@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_02_06_092907) do
+ActiveRecord::Schema[7.1].define(version: 2024_02_07_061032) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -95,10 +95,12 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_06_092907) do
     t.bigint "position_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "tournament_id", null: false
     t.index ["event_id"], name: "index_opponent_team_line_ups_on_event_id"
     t.index ["opponent_rooster_id"], name: "index_opponent_team_line_ups_on_opponent_rooster_id"
     t.index ["opponent_team_id"], name: "index_opponent_team_line_ups_on_opponent_team_id"
     t.index ["position_id"], name: "index_opponent_team_line_ups_on_position_id"
+    t.index ["tournament_id"], name: "index_opponent_team_line_ups_on_tournament_id"
     t.index ["user_id"], name: "index_opponent_team_line_ups_on_user_id"
   end
 
@@ -149,10 +151,12 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_06_092907) do
     t.bigint "position_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "tournament_id", null: false
     t.index ["event_id"], name: "index_team_line_ups_on_event_id"
     t.index ["position_id"], name: "index_team_line_ups_on_position_id"
     t.index ["rooster_id"], name: "index_team_line_ups_on_rooster_id"
     t.index ["team_id"], name: "index_team_line_ups_on_team_id"
+    t.index ["tournament_id"], name: "index_team_line_ups_on_tournament_id"
     t.index ["user_id"], name: "index_team_line_ups_on_user_id"
   end
 
@@ -215,6 +219,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_06_092907) do
   add_foreign_key "opponent_team_line_ups", "opponent_roosters"
   add_foreign_key "opponent_team_line_ups", "opponent_teams"
   add_foreign_key "opponent_team_line_ups", "positions"
+  add_foreign_key "opponent_team_line_ups", "tournaments"
   add_foreign_key "opponent_team_line_ups", "users"
   add_foreign_key "opponent_teams", "teams"
   add_foreign_key "opponent_teams", "tournaments"
@@ -226,6 +231,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_06_092907) do
   add_foreign_key "team_line_ups", "positions"
   add_foreign_key "team_line_ups", "roosters"
   add_foreign_key "team_line_ups", "teams"
+  add_foreign_key "team_line_ups", "tournaments"
   add_foreign_key "team_line_ups", "users"
   add_foreign_key "teams", "tournaments"
   add_foreign_key "teams", "users"
