@@ -33,29 +33,40 @@
     <div class="card-body">
       <%= render @tournament %>
       <div class="mt-3">
-        <% if can? :update, @tournament %>
+      <div class="inline-button">
+      <% if can? :update, @tournament %>
         <%= link_to edit_tournament_path(@tournament) do %>
           <%= image_tag("edit.png", alt: "edit", style: "width: 20px; height: 20px; object-fit: cover;") %> |
-          <% end %>
         <% end %>
-        <% if can? :update,@tournament %>
+      <% end %>
+    
+      <% if can? :update, @tournament %>
         <%= link_to new_tournament_team_path(@tournament) do %>
           <%= image_tag("addteam.png", alt: "edit", style: "width: 20px; height: 20px; object-fit: cover;") %> |
-          <% end %>
         <% end %>
-
-
-        <%= link_to tournaments_path(@tournament) do %>
-          <%= image_tag("back.png", alt: "edit", style: "width: 20px; height: 20px; object-fit: cover;") %> |
-          <% end %>
-        <% if can? :destroy, @tournament %>
-        <%= link_to (@tournament) do %>
+    
+        <%= link_to new_tournament_opponent_team_path(@tournament) do %>
+          <%= image_tag("opponent.png", alt: "edit", style: "width: 20px; height: 20px; object-fit: cover;") %> |
+        <% end %>
+      <% end %>
+    
+      <%= link_to tournaments_path(@tournament) do %>
+        <%= image_tag("back.png", alt: "edit", style: "width: 20px; height: 20px; object-fit: cover;") %> 
+      <% end %>
+    
+      <% if can? :destroy, @tournament %>
+        <%= button_to tournament_path(@tournament), method: :delete, data: { confirm: "Are you sure?" }, class: "myButton" do %>
           <%= image_tag("empty.png", alt: "edit", style: "width: 20px; height: 20px; object-fit: cover;") %>
-          <% end %>
-          <%#= button_to "Destroy this Tournament", @tournament, method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger" %>
         <% end %>
+      <% end %>
+    </div>
+    
       </div>
     </div>
+
+
+
+
   </div>
 
   <table class="table">
@@ -72,7 +83,7 @@
           <p><%= event.game_type %></p>
         </td>
         <td>
-          <%#= link_to "Show", tournament_event_path(@tournament, event), class: "btn btn-success" %>
+
           <%= link_to tournament_event_path(@tournament, event) do %>
             <%= image_tag("show.png", alt: "show", style: "width: 20px; height: 20px; object-fit: cover;") %>
             <% end %>
@@ -101,7 +112,7 @@
                 <p><%= team.name %></p>
               </td>
               <td>
-                <%#= link_to "Show", tournament_team_path(@tournament, team), class: "btn btn-success" %>
+ 
                 <%= link_to tournament_team_path(@tournament, team) do %>
                   <%= image_tag("show.png", alt: "show", style: "width: 20px; height: 20px; object-fit: cover;") %>
                   <% end %>
@@ -116,7 +127,7 @@
                 <p><%= opponent_team.name %></p>
               </td>
               <td>
-                <%#= link_to "Show", tournament_team_path(@tournament, team), class: "btn btn-success" %>
+
                 <%= link_to tournament_opponent_team_path(@tournament, opponent_team) do %>
                   <%= image_tag("show.png", alt: "show", style: "width: 20px; height: 20px; object-fit: cover;") %>
                   <% end %>

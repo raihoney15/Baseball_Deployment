@@ -1,6 +1,6 @@
 class OpponentRoostersController < ApplicationController
-    before_action :authenticate_user!, except: %i[ index]
-
+    before_action :authenticate_user!, except: %i[ index show]
+    load_and_authorize_resource
     before_action :set_opponent_rooster, only: %i[ show update destroy ]
     before_action :authenticate_user!, except: %i[ index]
     before_action :set_opponent_team

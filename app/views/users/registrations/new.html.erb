@@ -10,6 +10,16 @@
     </div>
 
     <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+      <% if @user.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+        <ul>
+          <% @user.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
       <div style="margin-bottom: 15px;">
         <%= f.label :email %><br>
         <%= f.email_field :email, class: 'form-control', required: true %>

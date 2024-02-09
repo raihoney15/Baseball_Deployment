@@ -11,12 +11,7 @@ class Event < ApplicationRecord
   # has_many :innings
   # has_many :gamelogics
 
-  before_create :set_user_id
-  private
-
-  def set_user_id
-    self.user_id = user.id if user
-  end
+  validates :game_type, :home_team,:away_team,:start_date,:location, presence: true
 
 end
 

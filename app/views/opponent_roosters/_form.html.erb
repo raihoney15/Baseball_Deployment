@@ -1,7 +1,19 @@
-
+<div class="container mt-4">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+<div class="border rounded p-4"> 
 <%= form_with(model: [@tournament, @opponent_team, @opponent_rooster], path: tournament_opponent_team_opponent_roosters_path(@tournament, @opponent_team)) do |form| %>
-    <%= @opponent_rooster.errors.full_messages.first if @opponent_rooster.errors.any? %><br/>
-    <%= form.label :full_name %>
+  <% if @opponent_rooster.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@opponent_rooster.errors.count, "error") %> prohibited this opponent_rooster from being saved:</h2>
+    <ul>
+      <% @opponent_rooster.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>    
+<%= form.label :full_name %>
     <%= form.text_field :name, required: true ,autocomplete:'off' %><br/>
     <%= form.label :jersey_number %>
     <%= form.text_field :jersey_number, required: true ,autocomplete:'off'%><br/>
@@ -16,3 +28,7 @@
     <br/>  
     <%= form.submit %>
   <% end %>
+  </div>
+  </div>
+  </div>
+</div>

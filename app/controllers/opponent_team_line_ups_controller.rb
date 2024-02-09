@@ -1,7 +1,7 @@
 
 class OpponentTeamLineUpsController < ApplicationController
-  before_action :authenticate_user!, except: %i[ index]
-
+  load_and_authorize_resource
+  before_action :authenticate_user!, except: %i[ index show]
   before_action :set_opponent_team_line_up, only: [:show, :update, :destroy]
   before_action :set_tournament
   before_action :set_event

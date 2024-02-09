@@ -23,6 +23,18 @@ class User < ApplicationRecord
   validates :email, format: { with: /\A[^@\s]+@[^@\s]+\.[^@\s]+\z/, message: "Invalid email format" }
   validates :username, uniqueness: true
 
+ 
+  validate :blank_space
+ 
+
+ 
+   def blank_space
+    if password&.include?(' ')
+    errors.add(:password, "can't contain spaces")
+    end
+  end
+
+
   def assign_default_roles
     self.roles << Role.find_by(role_name: 'tournament_owner') if self.roles.empty?
     self.roles << Role.find_by(role_name: 'team_owner') if self.roles.empty?
@@ -70,7 +82,3 @@ class User < ApplicationRecord
 
 end
 
-# This is my user.rb and other files ,and i have done login signup using devise .now i want to add validations such that 
-# -on email =>  email should be a@gmail.com should be valid but if user enter a@gmail then it should be invalid.
-# -username should be unique
-# -Flash message should be provided to user.

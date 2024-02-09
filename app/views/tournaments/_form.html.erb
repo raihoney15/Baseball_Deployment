@@ -1,12 +1,18 @@
 <div class="container">
   <div class="row justify-content-center">
     <div class="col-md-6">
+    <div class="border rounded p-4"> 
       <%= form_with model: @tournament, local: true do |form| %>
-        <div class="text-center mb-4">
-          <h1 class="h3 mb-3 font-weight-normal">Tournament</h1>
-          <%= @tournament.errors.full_messages.first if @tournament.errors.any? %>
+        <% if @tournament.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@tournament.errors.count, "error") %> prohibited this tournament from being saved:</h2>
+          <ul>
+            <% @tournament.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
         </div>
-
+      <% end %>
         <div class="form-group">
           <%= form.label :Name %>
           <%= form.text_field :name, class: "form-control", required: true, autocomplete: 'off' %>
@@ -31,11 +37,21 @@
           <%= form.label :image %>
           <%= form.file_field :image, class: "form-control-file" %>
         </div>
-        <div class="d-grid gap-2 col-2 mx-auto">
+
+        
+        <div class="row">
        
-        <%= form.submit "Create", class: "btn btn-primary " %>
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+              <%= form.submit "Create", class: "btn btn-outline-primary " %>
+              <%= link_to "Back", tournaments_path(@tournament), class: "btn btn-outline-primary btn-sm" %>
+            </div>
+     
         </div>
+      
+      
+   
       <% end %>
+      </div>
     </div>
   </div>
 </div>

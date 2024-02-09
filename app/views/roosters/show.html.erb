@@ -1,20 +1,31 @@
-  <%= @rooster.name %>
-  <br/>
-  <%= @rooster.jersey_number %>
-  <br/>
-  <% if can? :update, @team %>
-    <%= link_to edit_tournament_team_rooster_path(@tournament,@team, @rooster) do %>
-    <%= image_tag("edit.png", alt: "edit", style: "width: 20px; height: 20px; object-fit: cover;") %> |
-    <% end %>
-    <%#= link_to 'Edit', edit_tournament_team_rooster_path(@tournament,@team, @rooster) , class: "btn btn-primary btn-sm"%> 
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-md-6">
+      <h2>Roster Details</h2>
+      <div class="profile-picture">
+        <%= image_tag @rooster.image.url, alt: "Profile Picture", class: "img-fluid rounded-circle" if @rooster.image.attached? %>
+      </div>
+      <p>
+        Name: <%= @rooster.name %><br>
+        Jersey Number: <%= @rooster.jersey_number %><br>
+      </p>
 
-    <%#= button_to "Destroy", tournament_team_rooster_path, method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger" %> <br/>
-    <%= link_to tournament_team_rooster_path do %>
-      <%= image_tag("empty.png", alt: "edit", style: "width: 20px; height: 20px; object-fit: cover;") %> |
+      <% if can? :update, @team %>
+        <div class="btn-group" role="group" aria-label="Rooster Actions">
+          <%= link_to edit_tournament_team_rooster_path(@tournament, @team, @rooster), class: "btn btn-sm btn-outline-primary" do %>
+            <%= image_tag("edit.png", alt: "edit", style: "width: 20px; height: 20px; object-fit: cover;") %> Edit
+          <% end %>
+
+          <%= button_to tournament_team_rooster_path(@tournament, @team, @rooster), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-sm btn-outline-danger", style: "margin-left: 10px;" do %>
+            <%= image_tag("empty.png", alt: "delete", style: "width: 20px; height: 20px; object-fit: cover;") %> Destroy
+          <% end %>
+
+          <%= link_to tournament_team_path(@tournament, @team), class: "btn btn-sm btn-outline-primary" do %>
+            <%= image_tag("back.png", alt: "back", style: "width: 20px; height: 20px; object-fit: cover;") %> Back to Team
+          <% end %>
+        </div>
       <% end %>
-    <% end%>
+    </div>
+  </div>
+</div>
 
-    <%#= link_to 'Back to teams' ,tournament_team_path(@tournament,@team), class: "btn btn-primary btn-sm"%>
-    <%= link_to tournament_team_path(@tournament,@team) do %>
-    <%= image_tag("back.png", alt: "back", style: "width: 20px; height: 20px; object-fit: cover;") %> 
-    <% end %>

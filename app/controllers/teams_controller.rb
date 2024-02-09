@@ -1,7 +1,6 @@
 class TeamsController < ApplicationController
   load_and_authorize_resource
-  before_action :authenticate_user!, except: %i[ index]
-
+  before_action :authenticate_user!, except: %i[ index show]
   before_action :set_team, only: %i[ show edit update destroy ]
   before_action :set_tournament
 
@@ -43,7 +42,7 @@ class TeamsController < ApplicationController
   def create
     @team = current_user.teams.build(team_params.merge(tournament_id:@tournament.id ))
     if @team.save
-      redirect_to tournament_team_path(@tournament, @team)
+      redirect_to tournament_path(@tournament)
     else
       render "new"
     end

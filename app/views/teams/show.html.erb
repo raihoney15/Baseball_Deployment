@@ -24,7 +24,7 @@
 
 
       <% if can? :destroy, @team %>
-            <%= link_to [@team.tournament, @team] do %>
+            <%= button_to [@team.tournament, @team] , method: :delete, data: { confirm: "Are you sure?" }  do %>
               <%= image_tag("empty.png", alt: "edit", style: "width: 20px; height: 20px; object-fit: cover;") %> |
               <% end %>
               <%#= button_to "Destroy", [@team.tournament, @team], method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger" %>
@@ -55,7 +55,6 @@
         <%= link_to tournament_team_rooster_path(@tournament,@team,rooster) do %>
           <%= image_tag("show.png", alt: "show", style: "width: 20px; height: 20px; object-fit: cover;") %> 
           <% end %>
-          <%#= link_to "Show", tournament_team_rooster_path(@tournament,@team,rooster), class: "btn btn-success" %>
         </td>
       </tr>
     <% end %>

@@ -1,17 +1,8 @@
 class TournamentsController < ApplicationController
   load_and_authorize_resource
-  before_action :authenticate_user!, except: %i[ index]
-
+  before_action :authenticate_user!, except: %i[ index show]
+ 
   before_action :set_tournament, only:[ :show, :edit, :update, :destroy ]
-
-  # def index
-  #   if current_user.nil?
-  #     @tournament = Tournament.all.page(params[:page]).per(5)
-  #   else
-  #      @tournament = Tournament.where(user_id:current_user.id).page(params[:page]).per(5)
-  #   end
-  # end
-
 
   def index
     if params[:search] 
@@ -80,3 +71,5 @@ class TournamentsController < ApplicationController
     
 
 end
+
+

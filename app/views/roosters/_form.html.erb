@@ -1,18 +1,44 @@
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+    <div class="border rounded p-4">
+      <%= form_with(model: [@tournament, @team, @rooster], path: tournament_team_roosters_path(@tournament, @team)) do |form| %>
+        <div class="text-center mb-4">
+        <% if @rooster.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@rooster.errors.count, "error") %> prohibited this rooster from being saved:</h2>
+          <ul>
+            <% @rooster.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+        <% end %>
+        </div>
 
-<%= form_with(model: [@tournament, @team, @rooster], path: tournament_team_roosters_path(@tournament, @team)) do |form| %>
-    <%= @rooster.errors.full_messages.first if @rooster.errors.any? %><br/>
-    <%= form.label :full_name %>
-    <%= form.text_field :name, required: true ,autocomplete:'off' %><br/>
-    <%= form.label :jersey_number %>
-    <%= form.text_field :jersey_number, required: true ,autocomplete:'off'%><br/>
-    <%= form.label :image %>
-    <%= form.file_field :image %><br/>  
-    <% if false %>
-    <%= form.label :image %>
-    <%= form.file_field :image, autocomplete: 'off' %><br/>
-    <%= form.label :preferences %>
-    <%= form.select :preferences, ['bats', 'throws','all_rounder']%>
-    <% end %>
-    <br/>  
-    <%= form.submit %>
-  <% end %>
+        <div class="form-group">
+          <%= form.label :full_name %>
+          <%= form.text_field :name, class: "form-control", required: true, autocomplete: 'off' %>
+        </div>
+
+        <div class="form-group">
+          <%= form.label :jersey_number %>
+          <%= form.text_field :jersey_number, class: "form-control", required: true, autocomplete: 'off' %>
+        </div>
+
+        <div class="form-group">
+          <%= form.label :image %>
+          <%= form.file_field :image, class: "form-control-file" %>
+        </div>
+
+        <div class="row">
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+          <%= form.submit "Create", class: "btn btn-outline-primary " %>
+          <%= link_to "Back", tournament_path(@tournament), class: "btn btn-outline-primary btn-sm" %>
+        </div>
+    </div>
+      <% end %>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,5 +1,7 @@
 class RoostersController < ApplicationController
-    before_action :authenticate_user!, except: %i[ index]
+  load_and_authorize_resource
+  
+    before_action :authenticate_user!, except: %i[ index show]
     before_action :set_rooster, only: %i[ show edit update destroy ]
     before_action :set_team
     before_action :set_tournament
@@ -16,6 +18,9 @@ def show
     @tournament = Tournament.find(params[:tournament_id])
     @team = Team.find(params[:team_id])
     @rooster = @team.roosters.find(params[:id])
+    ActiveStorage::Current.url_options = {
+        host: request.base_url
+      }
 end
 
 def new

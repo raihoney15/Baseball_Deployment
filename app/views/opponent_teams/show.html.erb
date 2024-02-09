@@ -20,7 +20,7 @@
 
 
 
-      <% if can? :update, @opponent_team %>
+      <% if can? :update, @team %>
             <%= link_to edit_tournament_opponent_team_path(@opponent_team.tournament, @opponent_team) do %>
               <%= image_tag("edit.png", alt: "edit", style: "width: 20px; height: 20px; object-fit: cover;") %> |
               <% end %>
@@ -28,8 +28,8 @@
       <% end %>
 
 
-      <% if can? :destroy, @opponent_team %>
-            <%= link_to [@opponent_team.tournament, @opponent_team] do %>
+      <% if can? :destroy, @team %>
+            <%= button_to tournament_path,method: :delete, data: { confirm: "Are you sure?" } do %>
               <%= image_tag("empty.png", alt: "edit", style: "width: 20px; height: 20px; object-fit: cover;") %> |
               <% end %>
               <%#= button_to "Destroy", [@team.tournament, @team], method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger" %>
