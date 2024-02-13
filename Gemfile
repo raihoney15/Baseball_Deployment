@@ -49,6 +49,11 @@ gem "cancancan"
 gem 'kaminari'
 gem 'bootstrap', '~> 5.0.0'
 gem 'jquery-rails'
+# gem 'jquery-rails'
+gem 'jquery-ui-rails'
+# gem 'searchkick'
+gem 'ransack'
+
 
 # gem 'webpacker', '~> 3.5'
 gem 'webpacker', git: 'https://github.com/rails/webpacker.git'

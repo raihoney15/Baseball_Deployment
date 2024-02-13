@@ -5,26 +5,32 @@ class TournamentsController < ApplicationController
   before_action :set_tournament, only:[ :show, :edit, :update, :destroy ]
 
   def index
-    if params[:search] 
-      @tournaments = Tournament.where("name LIKE ?", "%#{params[:search]}%").order(:name).page(params[:page]).per(5)
-    else
+    # binding.pry
+    @q = Tournament.ransack(params[:q])
       if current_user.nil?
-        @tournaments = Tournament.order(:name).page(params[:page]).per(5)
+        @tournaments = @q.result(distinct: true).page(params[:page]).per(5)
       else
-        @tournaments = Tournament.where(user_id: current_user.id).order(:name).page(params[:page]).per(5)
+        @tournaments = @q.result(distinct: true).where(user_id: current_user.id).page(params[:page]).per(5)
       end
-    end
   end
 
-
   def show
+    # binding.pry
     @tournament = Tournament.find(params[:id])
     @team = @tournament.teams
     @opponent_team = @tournament.opponent_teams
+    @event = @tournament.events
+    # binding.pry 
+    # @q_events = @tournament.events.ransack(params[:q_events])
+    @q_events = @tournament.events.ransack(params[:q])
+
+    @events = @q_events.result(distinct: true)
+    # binding.pry
+    @q_teams = @tournament.teams.ransack(params[:q])
+    @teams = @q_teams.result(distinct: true)
   end
 
   def new
-
     @tournament = Tournament.new
   end
 
@@ -71,5 +77,6 @@ class TournamentsController < ApplicationController
     
 
 end
+
 
 

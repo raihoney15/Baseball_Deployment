@@ -6,21 +6,14 @@ class TeamsController < ApplicationController
 
 
   def index
-
-    # if current_user.nil?
-    #   @team = Team.all
-    # else
-    #   @team = Team.where(user_id:current_user.id)
-    # end
-    if params[:search] 
-      @teams = Team.where("name LIKE ?", "%#{params[:search]}%").order(:name).page(params[:page]).per(3)
-    else
+    # binding.pry
+    @q_teams = Team.ransack(params[:q])
       if current_user.nil?
-        @teams = Team.order(:name).page(params[:page]).per(3)
+        @teams = @q_teams.result(distinct: true).page(params[:page]).per(3)
       else
-        @teams = Team.where(user_id: current_user.id).order(:name).page(params[:page]).per(3)
+        @teams = @q_teams.result(distinct: true).where(user_id: current_user.id).page(params[:page]).per(3)
       end
-    end
+ 
   end
  
 

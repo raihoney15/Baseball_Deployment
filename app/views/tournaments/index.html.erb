@@ -7,14 +7,12 @@
   </div>
 
   <div class="d-flex justify-content-between align-items-center mb-3">
-    <%= form_tag(tournaments_path, method: "get", class: "input-group") do %>
-      <%= text_field_tag :search, params[:search], class: "form-control", placeholder: "Search...", aria_label: "Search" %>
-      <div class="input-group-append">
-        <%= button_tag(type: "submit", class: "btn btn-outline-secondary") do %>
-          Search
-        <% end %>
-      </div>
-    <% end %>
+
+  <%= search_form_for @q do |f| %>
+    <%= f.search_field :name_cont %>
+    <%= f.submit %>
+  <% end %>
+ 
 
     <%= link_to new_tournament_path do %>
       <%= image_tag("add.png", alt: "profile", class: "img-fluid rounded-circle", style: "width: 40px; height: 40px; object-fit: cover;") %>

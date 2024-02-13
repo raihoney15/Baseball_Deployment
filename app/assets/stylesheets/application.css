@@ -15,7 +15,9 @@
  */
 /* app/assets/stylesheets/application.scss */
 /* app/assets/stylesheets/application.css */
-@import 'bootstrap';
+
+
+
 .button1 {
     font-size: 20px;
     background-color: #555555;
@@ -115,4 +117,40 @@ p {
 
 .inline-button {
   display: inline-block;
+}
+
+/* CSS for search input field */
+.search-container {
+  position: relative;
+  width: 300px; /* Adjust width as needed */
+}
+
+#search {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+/* CSS for autocomplete dropdown */
+.ui-autocomplete {
+  position: absolute;
+  z-index: 1000;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-top: none;
+  max-height: 200px; /* Adjust max-height as needed */
+  overflow-y: auto;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.ui-autocomplete li {
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.ui-autocomplete li.ui-state-focus,
+.ui-autocomplete li:hover {
+  background-color: #f0f0f0;
 }

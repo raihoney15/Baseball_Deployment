@@ -13,5 +13,15 @@ class Event < ApplicationRecord
 
   validates :game_type, :home_team,:away_team,:start_date,:location, presence: true
 
+  def self.ransackable_attributes(auth_object = nil)
+    [ "game_type"]
+  end
+
+  def self.ransackable_associations(auth_object = nil)
+    ["image_attachment", "image_blob", "opponent_team", "opponent_team_line_ups", "team", "team_line_ups", "tournament", "user"]
+  end
+
+
+
 end
 

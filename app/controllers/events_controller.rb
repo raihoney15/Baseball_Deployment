@@ -7,10 +7,12 @@ class EventsController < ApplicationController
 
 
 def index
+binding.pry
+  @q_events = Event.ransack(params[:q])
     if current_user.nil?
-      @event = Event.all
+      @event =  @q_events.result(distinct: true).all
     else
-      @event = Event.where(user_id:current_user.id)
+      @event =  @q_events.result(distinct: true).where(user_id:current_user.id)
     end
 end
 

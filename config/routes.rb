@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
 
   resources :tournaments do
+    get 'search', on: :collection
+  end
+  
+  resources :tournaments do
     resources :teams do
       resources :roosters
     end
