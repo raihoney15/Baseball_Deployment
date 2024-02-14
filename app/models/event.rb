@@ -11,7 +11,7 @@ class Event < ApplicationRecord
   # has_many :innings
   # has_many :gamelogics
 
-  validates :game_type, :home_team,:away_team,:start_date,:location, presence: true
+  # validates :game_type, :home_team,:away_team,:start_date,:location, presence: true
 
   def self.ransackable_attributes(auth_object = nil)
     [ "game_type"]

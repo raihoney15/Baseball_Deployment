@@ -17,7 +17,7 @@
         <%= form.text_field :batter_order, required: true , class: "form-control", autocomplete:'off' %><br/>
       
         <%= form.label :opponent_rooster_id %>
-        <%= form.collection_select :opponent_rooster_id, @event.opponent_team.opponent_roosters, :id, :name, { prompt: "Select rooster" }, required: true, class: "form-select", autocomplete:'off' %><br />
+        <%= form.collection_select :opponent_rooster_id, @final1, :id, :name, { prompt: "Select rooster" }, required: true, class: "form-select", autocomplete:'off' %><br />
       
         <%= form.label :position_id %>
         <%= form.collection_select :position_id, Position.all, :id, :position_name, { prompt: "Select Position" }, required: true, class: "form-select", autocomplete:'off' %><br />
@@ -34,4 +34,29 @@
       </div>
     </div>
   </div>
+  <div style="display: flex; align-items: center;">
+  <h4 style="margin-left: 10px;">Opponent Teamlineup</h4> 
+  <%= link_to new_tournament_event_opponent_team_line_up_path(@event.tournament, @event) do %>
+    <%= image_tag("lineup.png", alt: "tournament", style: "width: 25px; height: 25px; object-fit: cover;") %>
+  <% end %>
+</div>
+        
+<table class="table">
+  <thead>
+    <tr>
+      <th>Position</th>
+      <th>Opponent Rooster</th>
+      <th>Batter Order</th>
+    </tr>
+  </thead>
+  <tbody>
+  <% @event.opponent_team_line_ups.each do |opponent_team_line_up| %>
+    <tr>
+      <td><%= Position.find(opponent_team_line_up.position_id).position_name %></td>
+      <td><%= opponent_team_line_up.opponent_rooster.name %></td>
+      <td><%= opponent_team_line_up.batter_order %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
 </div>

@@ -13,25 +13,7 @@
             <%= image_tag("lineup.png", alt: "tournament", style: "width: 25px; height: 25px; object-fit: cover;") %>
           <% end %>
         </div>
-  
-        <table class="table">
-          <thead>
-            <tr>
-              <th>Position</th>
-              <th>Rooster</th>
-              <th>Batter Order</th>
-            </tr>
-          </thead>
-          <tbody>
-            <% @event.team_line_ups.each do |team_line_up| %>
-              <tr>
-                <td><%= Position.find(team_line_up.position_id).position_name %></td>
-                <td><%= team_line_up.rooster.name %></td>
-                <td><%= team_line_up.batter_order %></td>
-              </tr>
-            <% end %>
-          </tbody>
-        </table>
+
 
         <div style="display: flex; align-items: center;">
           <h4 style="margin-left: 10px;">Opponent Teamlineup</h4> 
@@ -40,24 +22,7 @@
           <% end %>
         </div>
                 
-        <table class="table">
-          <thead>
-            <tr>
-              <th>Position</th>
-              <th>Opponent Rooster</th>
-              <th>Batter Order</th>
-            </tr>
-          </thead>
-          <tbody>
-          <% @event.opponent_team_line_ups.each do |opponent_team_line_up| %>
-            <tr>
-              <td><%= Position.find(opponent_team_line_up.position_id).position_name %></td>
-              <td><%= opponent_team_line_up.opponent_rooster.name %></td>
-              <td><%= opponent_team_line_up.batter_order %></td>
-            </tr>
-          <% end %>
-          </tbody>
-        </table>
+
       </div>
     </div>
   </div>
