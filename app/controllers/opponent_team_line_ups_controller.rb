@@ -7,11 +7,18 @@ class OpponentTeamLineUpsController < ApplicationController
   before_action :set_event
 
   def new
+    @tournament = Tournament.find(params[:tournament_id])
+    @event = Event.find(params[:event_id])
     @opponent_team_line_up = OpponentTeamLineUp.new
     a = @event.opponent_team.opponent_roosters.pluck(:id)
     b = @event.opponent_team_line_ups.pluck(:opponent_rooster_id)
     final1 = a - b
     @final1 =  OpponentRooster.find(final1)
+
+    all_positions = Position.all.pluck(:id)
+    selected_positions = @event.opponent_team_line_ups.pluck(:position_id)
+    available_positions = all_positions - selected_positions
+    @available_positions = Position.find(available_positions)
   end
 
   def index
@@ -23,15 +30,17 @@ class OpponentTeamLineUpsController < ApplicationController
   end
 
   def create
-    binding.pry
+    
     @opponent_team_line_up = current_user.opponent_team_line_ups.build(opponent_team_line_up_params.merge(event_id: @event.id, tournament_id: @tournament.id, opponent_team_id: @opponent_team_id))
-
+   
     if @opponent_team_line_up.save
       redirect_to new_tournament_event_opponent_team_line_up_path, notice: 'Opponent Team lineup was successfully created.'
     else
       render :new
     end
   end
+
+  
 
   def update
 
@@ -59,4 +68,6 @@ class OpponentTeamLineUpsController < ApplicationController
   def opponent_team_line_up_params
     params.require(:opponent_team_line_up).permit(:batter_order, :opponent_rooster_id, :position_id)
   end
+  
 end
+

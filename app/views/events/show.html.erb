@@ -1,29 +1,45 @@
-
-  <h1><%= @event.team.name %> vs <%= @event.opponent_team.name %></h1>
+<div class="d-flex justify-content-between align-items-center mb-3">
+<h1><%= @event.team.name %> vs <%= @event.opponent_team.name %></h1>
+<%= link_to "Back", tournament_path(@tournament), style:"margin-right: 20px;" ,class: "btn btn-outline-primary" %>
+</div>
   <div style="max-width: 100%; display: flex;">
     <div style="flex: 60%; padding: 260px; background-image: url('<%= asset_path('Field.png') %>'); background-size: 100% 100%; background-repeat: no-repeat;">
     </div>
     <div style="flex: 40%;">
       <div class="container">
-        <h4 style="margin-left: 10px;"> START </h4>
+
+        <%= link_to "START" ,start_tournament_event_path(@tournament,@event),style:"margin-left: 10px;",class: "btn btn-outline-primary" %>
 
         <div style="display: flex; align-items: center;">
           <h4 style="margin-left: 10px;">TeamLineUp</h4> 
-          <%= link_to new_tournament_event_team_line_up_path(@event.tournament, @event) do %>
-            <%= image_tag("lineup.png", alt: "tournament", style: "width: 25px; height: 25px; object-fit: cover;") %>
+    
+          <%= link_to tournament_event_team_line_ups_path(@event.tournament, @event) do %>
+            <%= image_tag("check.jpg", alt: "completed", style: "width: 25px; height: 25px; object-fit: cover; margin-left: 20px;") %>
           <% end %>
+
+       
+          <%= link_to new_tournament_event_team_line_up_path(@event.tournament, @event) do %>
+            <%= image_tag("lineup.png", alt: "teamlineup", style: "width: 25px; height: 25px; object-fit: cover;margin-left: 20px;") %>
+          <% end %>
+
         </div>
 
 
         <div style="display: flex; align-items: center;">
           <h4 style="margin-left: 10px;">Opponent Teamlineup</h4> 
+
+
+          <%= link_to tournament_event_opponent_team_line_ups_path(@event.tournament, @event) do %>
+            <%= image_tag("check.jpg", alt: "completed", style: "width: 25px; height: 25px; object-fit: cover; margin-left: 20px;") %>
+          <% end %>
+
           <%= link_to new_tournament_event_opponent_team_line_up_path(@event.tournament, @event) do %>
-            <%= image_tag("lineup.png", alt: "tournament", style: "width: 25px; height: 25px; object-fit: cover;") %>
+            <%= image_tag("lineup.png", alt: "tournament", style: "width: 25px; height: 25px; object-fit: cover;margin-left: 20px;") %>
           <% end %>
         </div>
                 
-
       </div>
     </div>
   </div>
+
 

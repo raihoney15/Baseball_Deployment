@@ -23,6 +23,12 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :tournaments do
+    resources :events do
+      get 'start', on: :member
+    end
+  end
+
  
   root 'pages#home'
   devise_for :users, controllers: { registrations: 'users/registrations' }
@@ -33,5 +39,4 @@ Rails.application.routes.draw do
   resources :users, only: [:index,:destroy]
   
 end
-
 

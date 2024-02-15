@@ -15,21 +15,32 @@ class TeamLineUpsController < ApplicationController
         b = @event.team_line_ups.pluck(:rooster_id)
         final = a - b
         @final =  Rooster.find(final)
-        # p = @event.team_line_ups.positions.pluck(:id)
+
+        all_positions = Position.all.pluck(:id)
+        selected_positions = @event.team_line_ups.pluck(:position_id)
+        available_positions = all_positions - selected_positions
+        @available_positions = Position.find(available_positions)
         
     end
 
 
     def index
-
+      all_positions = Position.all.pluck(:id)
+      selected_positions = @event.team_line_ups.pluck(:position_id)
+      available_positions = all_positions - selected_positions
+      @available_positions = Position.find(available_positions)
     end
 
     def show
 
+      @tournament = Tournament.find(params[:tournament_id])
+      @event = Event.find(params[:event_id])
+      @team_line_up = TeamLineUp.find(params[:id])
+       
     end
 
     def create
-      binding.pry
+
       @team_line_up = current_user.team_line_ups.build(team_line_up_params.merge(event_id: @event.id, tournament_id: @tournament.id, team_id: @team_id))
       if @team_line_up.save
         redirect_to new_tournament_event_team_line_up_path ,notice: 'Team lineup was successfully created.'

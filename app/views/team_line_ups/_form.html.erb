@@ -1,8 +1,7 @@
-
 <div class="container mt-4">
   <div class="row justify-content-center">
     <div class="col-md-6">
-      <div class="border rounded p-4"> 
+      <div class="border rounded p-4", style="width:450px;"> 
         <%= form_with(model: [@tournament, @event, @team_line_up], url: tournament_event_team_line_ups_path) do |form| %>
           <% if @team_line_up.errors.any? %>
             <div id="error_explanation">
@@ -17,14 +16,11 @@
           <%= form.label :batter_order %>
           <%= form.text_field :batter_order, required: true , class: "form-control", autocomplete:'off' %><br/>
         
-          <%#= form.label :rooster_id %>
-          <%#= form.select :rooster_id, options_for_select(@final) %>
-
           <%= form.label :rooster_id %>
           <%= form.collection_select :rooster_id, @final, :id, :name, { prompt: "Select rooster" }, required: true, class: "form-select", autocomplete:'off' %><br />
         
           <%= form.label :position_id %>
-          <%= form.collection_select :position_id, Position.all, :id, :position_name, { prompt: "Select Position" }, required: true, class: "form-select", autocomplete:'off', id: "position_id" %><br />
+          <%= form.collection_select :position_id, @available_positions, :id, :position_name, { prompt: "Select Position" }, required: true, class: "form-select", autocomplete:'off'%><br />
 
           <div class="row">
             <div class="col-md-12 text-center">
@@ -37,43 +33,31 @@
         <% end %>
       </div>
     </div>
+
+    <div class="col-md-6">
+      <div style="max-height: 400px; overflow-y: auto;">
+
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Position</th>
+              <th>Rooster</th>
+              <th>Batter Order</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @event.team_line_ups.each do |team_line_up| %>
+              <tr>
+                <td><%= Position.find(team_line_up.position_id).position_name %></td>
+                <td><%= team_line_up.rooster.name %></td>
+                <td><%= team_line_up.batter_order %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    
   </div>
-  
-
-
-<div style="display: flex; align-items: center;">
-<h4 style="margin-left: 10px;">TeamLineUp</h4> 
-<%= link_to new_tournament_event_team_line_up_path(@event.tournament, @event) do %>
-  <%= image_tag("lineup.png", alt: "tournament", style: "width: 25px; height: 25px; object-fit: cover;") %>
-<% end %>
 </div>
-
-<table class="table">
-<thead>
-  <tr>
-    <th>Position</th>
-    <th>Rooster</th>
-    <th>Batter Order</th>
-  </tr>
-</thead>
-<tbody>
-  <% @event.team_line_ups.each do |team_line_up| %>
-    <tr>
-      <td><%= Position.find(team_line_up.position_id).position_name %></td>
-      <td><%= team_line_up.rooster.name %></td>
-      <td><%= team_line_up.batter_order %></td>
-    </tr>
-  <% end %>
-</tbody>
-</table>
-
-<script>
-
-</script>
-
-
-
-</div>
-
-
- 

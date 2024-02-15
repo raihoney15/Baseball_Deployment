@@ -2,9 +2,15 @@ class EventsController < ApplicationController
   before_action :authenticate_user!, except: %i[ index show]
 
   load_and_authorize_resource
-    before_action :set_event, only: %i[ show edit update destroy ]
+    before_action :set_event, only: %i[ show edit update destroy start ]
     before_action :set_tournament
 
+
+    def start
+      @event = Event.find(params[:id])
+      @event.update(is_live: true)
+      render 'start/show'
+    end
 
 def index
 binding.pry
@@ -72,3 +78,7 @@ end
 
 
 end
+
+
+
+

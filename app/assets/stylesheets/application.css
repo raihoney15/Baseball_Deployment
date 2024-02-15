@@ -16,6 +16,37 @@
 /* app/assets/stylesheets/application.scss */
 /* app/assets/stylesheets/application.css */
 
+/* Styles for the first row */
+.team-names {
+  display: flex;
+  justify-content: space-between;
+  margin-left: 100px;
+  margin-right: 100px;
+  margin-top: 20px;
+}
+
+.inning-indicator {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.scoreboard-table {
+  margin-left: 60px;
+  margin-right: 50px;
+  border-collapse: collapse;
+  width: 90%;
+}
+
+.scoreboard-table th,
+.scoreboard-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+
+.scoreboard-table th {
+  background-color: #f2f2f2;
+}
 
 
 .button1 {
@@ -34,6 +65,18 @@
 .live-match .card-title {
   color: #ff5733; 
   font-size: 20px;
+  font-weight: bold;
+}
+
+.form-content {
+  display: flex;
+  align-items: center;
+  font-size: 30px;
+  margin-right: 100px;
+}
+
+.form-label {
+  margin-right: 10px;
   font-weight: bold;
 }
 
@@ -64,6 +107,10 @@ h2 {
   color: blue;
 }
 
+.color{
+  color: black;
+}
+
 p {
   color: rgb(13, 13, 13);
   margin-bottom: 20px;
@@ -76,8 +123,6 @@ p {
 .btn-group .btn {
   margin-right: 10px;
 }
-
-
 
 
 .team-lineup {
