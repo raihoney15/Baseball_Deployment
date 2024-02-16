@@ -20,6 +20,9 @@ class TeamsController < ApplicationController
   def show
     @tournament = Tournament.find(params[:tournament_id]) 
     @team = @tournament.teams.find(params[:id]) 
+    ActiveStorage::Current.url_options = {
+      host: request.base_url
+    }
   end
 
   def new

@@ -80,11 +80,14 @@
 
 <div style="margin-left: 100px; text-align: center;">
 <%= form_with(model: [@tournament, @event]) do |form| %>
+
+
 <div class="form-content">
     <%= form.label :move_id, class: "form-label" %>
     <%= form.collection_select :move_id, Move.all, :id, :name, { prompt: "Select move" }, required: true, class: "form-select form-control", autocomplete: 'off' %><br />
     <%= form.submit "Play", class: "btn btn-outline-primary" %>
 </div>
+
 
 <% end %>      
 </div>
@@ -125,3 +128,4 @@
         </div>
     </div>
 </div>
+

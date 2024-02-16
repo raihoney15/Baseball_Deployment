@@ -2,10 +2,15 @@
   <div style="display: flex; align-items: center;">
   <%= image_tag("team.png", alt: "team", style: "width: 60px; height: 60px; object-fit: cover;") %>
   <h2 style="margin-left: 10px;"><%= @team.name %></h2>
+  <%= link_to "Back", tournament_path(@tournament), style:"margin-left: 900px;" ,class: "btn btn-outline-primary" %>
 
 </div>
-
+<div style="display: flex;">
   <%= render @team %>
+  <div class="profile-picture">
+  <%= image_tag @team.image.url, alt: "Profile Picture", style:"height: 100px;margin-left: 550px;" if @team.image.attached? %>
+</div>
+  </div>
   <div class="actions">
       <% if can? :update, @team %>
             <%= link_to new_tournament_team_rooster_path(@team.tournament, @team) do %>
@@ -22,22 +27,26 @@
               <%#= link_to "Edit this team", edit_tournament_team_path(@team.tournament, @team), class: "btn btn-primary" %> 
       <% end %>
 
+            <%= link_to tournaments_path(@tournament) do %>
+            <%= image_tag("back.png", alt: "back", style: "width: 20px; height: 20px; object-fit: cover;") %> |
+            <% end %>
 
       <% if can? :destroy, @team %>
-            <%= button_to [@team.tournament, @team] , method: :delete, data: { confirm: "Are you sure?" }  do %>
-              <%= image_tag("empty.png", alt: "edit", style: "width: 20px; height: 20px; object-fit: cover;") %> |
+            <div style=" margin-left: 103px; margin-top: -25px;">
+              <%= button_to [@team.tournament, @team] , method: :delete,  data: { confirm: "Are you sure?" }  do %>
+              <%= image_tag("empty.png", alt: "edit", style: "width: 20px; height: 20px; object-fit: cover;") %> 
               <% end %>
+            </div>
               <%#= button_to "Destroy", [@team.tournament, @team], method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger" %>
       <% end %>
 
-            <%= link_to tournaments_path(@tournament) do %>
-            <%= image_tag("back.png", alt: "back", style: "width: 20px; height: 20px; object-fit: cover;") %> 
-            <% end %>
+
             <%#= link_to "Back to Tournament", tournament_path(@tournament), class: "btn btn-secondary" %>
     
   </div>
   <br/>
   <h2>Rosters</h2>
+  <div style="max-height: 400px; overflow-y: auto;">
   <table class="table">
   <thead>
     <tr>
@@ -63,6 +72,7 @@
 
 
   
+</div>
 </div>
 
 

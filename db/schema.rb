@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_02_15_074716) do
+ActiveRecord::Schema[7.1].define(version: 2024_02_16_091139) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -49,6 +49,24 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_15_074716) do
     t.datetime "updated_at", null: false
     t.index ["role_id"], name: "index_assignments_on_role_id"
     t.index ["user_id"], name: "index_assignments_on_user_id"
+  end
+
+  create_table "event_innings", force: :cascade do |t|
+    t.integer "inning_number"
+    t.boolean "top"
+    t.boolean "bottom"
+    t.bigint "event_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["event_id"], name: "index_event_innings_on_event_id"
+  end
+
+  create_table "event_setups", force: :cascade do |t|
+    t.integer "inning_rounds"
+    t.bigint "event_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["event_id"], name: "index_event_setups_on_event_id"
   end
 
   create_table "events", force: :cascade do |t|
@@ -135,6 +153,25 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_15_074716) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "rooster_positions", force: :cascade do |t|
+    t.integer "catcher"
+    t.integer "batter"
+    t.integer "firstbase"
+    t.integer "secondbase"
+    t.integer "thirdbase"
+    t.integer "pitcher"
+    t.integer "shortstop"
+    t.integer "rightfield"
+    t.integer "leftfield"
+    t.integer "centerfield"
+    t.bigint "user_id", null: false
+    t.bigint "scoreboard_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["scoreboard_id"], name: "index_rooster_positions_on_scoreboard_id"
+    t.index ["user_id"], name: "index_rooster_positions_on_user_id"
+  end
+
   create_table "roosters", force: :cascade do |t|
     t.string "name"
     t.integer "jersey_number"
@@ -146,6 +183,22 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_15_074716) do
     t.index ["team_id"], name: "index_roosters_on_team_id"
     t.index ["tournament_id"], name: "index_roosters_on_tournament_id"
     t.index ["user_id"], name: "index_roosters_on_user_id"
+  end
+
+  create_table "scoreboards", force: :cascade do |t|
+    t.integer "balls"
+    t.integer "hit"
+    t.integer "run"
+    t.integer "strike"
+    t.integer "out"
+    t.boolean "home_team"
+    t.boolean "home_away"
+    t.bigint "event_id", null: false
+    t.bigint "event_inning_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["event_id"], name: "index_scoreboards_on_event_id"
+    t.index ["event_inning_id"], name: "index_scoreboards_on_event_inning_id"
   end
 
   create_table "starts", force: :cascade do |t|
@@ -223,6 +276,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_15_074716) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "assignments", "roles"
   add_foreign_key "assignments", "users"
+  add_foreign_key "event_innings", "events"
+  add_foreign_key "event_setups", "events"
   add_foreign_key "events", "opponent_teams"
   add_foreign_key "events", "teams"
   add_foreign_key "events", "tournaments"
@@ -239,9 +294,13 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_15_074716) do
   add_foreign_key "opponent_teams", "teams"
   add_foreign_key "opponent_teams", "tournaments"
   add_foreign_key "opponent_teams", "users"
+  add_foreign_key "rooster_positions", "scoreboards"
+  add_foreign_key "rooster_positions", "users"
   add_foreign_key "roosters", "teams"
   add_foreign_key "roosters", "tournaments"
   add_foreign_key "roosters", "users"
+  add_foreign_key "scoreboards", "event_innings"
+  add_foreign_key "scoreboards", "events"
   add_foreign_key "team_line_ups", "events"
   add_foreign_key "team_line_ups", "positions"
   add_foreign_key "team_line_ups", "roosters"
@@ -252,3 +311,4 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_15_074716) do
   add_foreign_key "teams", "users"
   add_foreign_key "tournaments", "users"
 end
+

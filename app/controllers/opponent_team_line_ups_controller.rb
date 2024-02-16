@@ -21,6 +21,16 @@ class OpponentTeamLineUpsController < ApplicationController
     @available_positions = Position.find(available_positions)
   end
 
+
+
+  def self.complete?
+    all_positions = Position.pluck(:id)
+    selected_positions = pluck(:position_id)
+    all_positions.sort == selected_positions.sort
+  end
+
+
+
   def index
 
   end

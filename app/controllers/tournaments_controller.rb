@@ -9,23 +9,24 @@ class TournamentsController < ApplicationController
     @q = Tournament.ransack(params[:q])
       if current_user.nil?
         @tournaments = @q.result(distinct: true).page(params[:page]).per(5)
+      elsif current_user&.roles&.exists?(role_name:'admin')
+        @tournaments = @q.result(distinct: true).page(params[:page]).per(5)
       else
         @tournaments = @q.result(distinct: true).where(user_id: current_user.id).page(params[:page]).per(5)
       end
   end
 
   def show
-    # binding.pry
+
+    ActiveStorage::Current.url_options = {
+      host: request.base_url
+    }
     @tournament = Tournament.find(params[:id])
     @team = @tournament.teams
     @opponent_team = @tournament.opponent_teams
     @event = @tournament.events
-    # binding.pry 
-    # @q_events = @tournament.events.ransack(params[:q_events])
     @q_events = @tournament.events.ransack(params[:q])
-
     @events = @q_events.result(distinct: true)
-    # binding.pry
     @q_teams = @tournament.teams.ransack(params[:q])
     @teams = @q_teams.result(distinct: true)
   end

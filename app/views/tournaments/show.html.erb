@@ -3,6 +3,8 @@
     <div style="display: flex; align-items: center;">
         <%= image_tag("tournament.png", alt: "tournament", style: "width: 60px; height: 60px; object-fit: cover;") %>
         <h2 style="margin-left: 10px;"><%= @tournament.name %></h2>
+        <%= link_to "Back", tournaments_path(@tournament), style:"margin-left: 650px;" ,class: "btn btn-outline-primary" %>
+
     </div>
 
 
@@ -21,19 +23,24 @@
         <div class="d-flex justify-content-between align-items-center mb-12">
 
         <%= search_form_for @q_events, url: tournament_path(@tournament) do |f| %>
-          <%= f.label :game_type_cont, "Search by Game Type:" %>
+          
           <%= f.search_field :game_type_cont %>
           <%= f.submit "Search" %>
         <% end %>
         
 
         <% if can? :update, @tournament %>
-            <%= link_to "New Event", new_tournament_event_path(@tournament,@event), class: "btn btn-success" %><br/>
+            <%= link_to "New Event", new_tournament_event_path(@tournament,@event), style:"margin-left: 600px;",class: "btn btn-success" %><br/>
         <% end %>
+
+
     </div>    
         <div class="card">
                 <div class="card-body">
                     <%= render @tournament %>
+                    <div class="profile-picture" style="float: right;margin-top: -130px;margin-right: 70px;">
+                    <%= image_tag @tournament.image.url, alt: "Profile Picture", style:"height: 100px;" if @tournament.image.attached? %>
+                  </div>
                     <div class="mt-3">
                         <div class="inline-button">
                             <% if can? :update, @tournament %>
@@ -52,18 +59,21 @@
                             <% end %>
 
                             <%= link_to tournaments_path(@tournament) do %>
-                                <%= image_tag("back.png", alt: "edit", style: "width: 20px; height: 20px; object-fit: cover;") %> 
+                                <%= image_tag("back.png", alt: "edit", style: "width: 20px; height: 20px; object-fit: cover;") %> |
                             <% end %>
 
                             <% if can? :destroy, @tournament %>
+                            <div style=" margin-left: 133px; margin-top: -25px;">
                                 <%= button_to tournament_path(@tournament), method: :delete, data: { confirm: "Are you sure?" }, class: "myButton" do %>
-                                    <%= image_tag("empty.png", alt: "edit", style: "width: 20px; height: 20px; object-fit: cover;") %>
+                                <%= image_tag("empty.png", alt: "edit", style: "width: 20px; height: 20px; object-fit: cover;") %>
+                            </div>
                                 <% end %>
                             <% end %>
                         </div>
                     </div>
                 </div>
             </div>
+            <div style="max-height: 300px; overflow-y: auto;">
             <table class="table">
                 <thead>
                     <tr>
@@ -86,6 +96,7 @@
                     <% end %>
                 </tbody>
             </table>
+            </div>
         </div>
 
         <div class="tab-pane fade" id="teams" role="tabpanel" aria-labelledby="teams-tab">
@@ -98,6 +109,7 @@
                             <%= f.submit "Search" %>
                         <% end %>
                     </div>  
+                    <div style="max-height: 400px; overflow-y: auto;">
                     <table class="table">
                         <thead>
                             <tr>
@@ -133,6 +145,7 @@
                             <% end %>
                         </tbody>
                     </table>
+                    </div>
                 </div>
             </div>
         </div>

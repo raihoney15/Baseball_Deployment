@@ -26,6 +26,7 @@ Rails.application.routes.draw do
   resources :tournaments do
     resources :events do
       get 'start', on: :member
+      patch 'update_rooster_position', on: :member
     end
   end
 

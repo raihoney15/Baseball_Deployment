@@ -12,7 +12,7 @@ class User < ApplicationRecord
   has_many :team_line_ups,dependent: :destroy
   has_many :opponent_team_line_ups,dependent: :destroy
   # has_many :staff_invites,dependent: :destroy
-  # has_many :rooster_positions,dependent: :destroy
+  has_many :rooster_positions,dependent: :destroy
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable ,authentication_keys: [:login]

@@ -6,10 +6,10 @@ class Event < ApplicationRecord
   belongs_to :opponent_team, :optional => true
   has_many :team_line_ups
   has_many :opponent_team_line_ups
-  # has_one :scoreboard
-  # has_one :setup
-  # has_many :innings
-  # has_many :gamelogics
+  has_one :scoreboard
+  has_one :event_setup
+  has_many :event_innings
+
 
   # validates :game_type, :home_team,:away_team,:start_date,:location, presence: true
 

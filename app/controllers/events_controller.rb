@@ -9,11 +9,20 @@ class EventsController < ApplicationController
     def start
       @event = Event.find(params[:id])
       @event.update(is_live: true)
+      binding.pry
+      EventSetup.create(inning_rounds: 9,event_id:  @event.id)
+      binding.pry
+      EventInning.create(inning_number: 1,top:true,event_id:  @event.id)
+      # @event.event_setup.create(inning_rounds: 9)
+      # @event.event_innings.create(inning_number: 1,top:true)
+      # update_rooster_positions
       render 'start/show'
     end
 
+
+
 def index
-binding.pry
+
   @q_events = Event.ransack(params[:q])
     if current_user.nil?
       @event =  @q_events.result(distinct: true).all
@@ -73,12 +82,16 @@ end
 
     def event_params
       params.require(:event).permit(:game_type,:name,:team_id,:opponent_team_id,:location,:start_date,:belongs ,:memo, :image)
-
     end
 
+    def update_rooster_positions
+      @event.team_line_ups.each do |team_line_up|
+        position_id = team_line_up.position_id
+        rooster_id = team_line_up.rooster_id
+        @event.rooster_positions.create(position_id: position_id, rooster_id: rooster_id)
+      end
+    end
 
 end
-
-
 
 

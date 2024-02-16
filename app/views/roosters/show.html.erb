@@ -3,7 +3,7 @@
     <div class="col-md-6">
       <h2>Roster Details</h2>
       <div class="profile-picture">
-        <%= image_tag @rooster.image.url, alt: "Profile Picture", class: "img-fluid rounded-circle" if @rooster.image.attached? %>
+        <%= image_tag @rooster.image.url, alt: "Profile Picture", style:"height: 50px;" if @rooster.image.attached? %>
       </div>
       <p>
         Name: <%= @rooster.name %><br>

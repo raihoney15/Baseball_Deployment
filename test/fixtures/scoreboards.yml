@@ -5,17 +5,19 @@ one:
   hit: 1
   run: 1
   strike: 1
+  out: 1
   home_team: false
   home_away: false
   event: one
-  inning: one
+  event_inning: one
 
 two:
   balls: 1
   hit: 1
   run: 1
   strike: 1
+  out: 1
   home_team: false
   home_away: false
   event: two
-  inning: two
+  event_inning: two

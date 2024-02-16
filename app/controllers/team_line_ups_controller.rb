@@ -20,9 +20,21 @@ class TeamLineUpsController < ApplicationController
         selected_positions = @event.team_line_ups.pluck(:position_id)
         available_positions = all_positions - selected_positions
         @available_positions = Position.find(available_positions)
+      
+        # c = @available_positions
+        # if c == nil
+        #   flash.now[:alert] = 'teamlineup is complete!'
+        # end
+
+        
         
     end
 
+    def self.complete?
+      all_positions = Position.pluck(:id)
+      selected_positions = pluck(:position_id)
+      all_positions.sort == selected_positions.sort
+    end
 
     def index
       all_positions = Position.all.pluck(:id)

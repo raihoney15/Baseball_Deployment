@@ -6,7 +6,7 @@ class Team < ApplicationRecord
     has_many :event
     has_many :team_line_up
     has_many :roosters, dependent: :destroy
-    has_one_attached :image 
+    has_one_attached :image ,dependent: :destroy
     validates :name, :short_name, presence: true
 
 

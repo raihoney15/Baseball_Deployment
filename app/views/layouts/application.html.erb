@@ -44,10 +44,10 @@
   <%= yield %>
 
   <% else %>
-  <%= render partial: 'layouts/tables' %>
         <p class="notice"><%= notice %></p>
         <p class="alert"><%= alert %></p>
         <%= yield %>
+        <%= render partial: 'layouts/tables' %>
 <% end %>
 </body>
 <%= render partial: 'layouts/footer' %>
