@@ -31,10 +31,11 @@
 }
 
 .scoreboard-table {
-  margin-left: 60px;
-  margin-right: 50px;
+  align-items: center;
+  margin-left: 190px;
+  margin-right: 60px;
   border-collapse: collapse;
-  width: 90%;
+  width: 70%;
 }
 
 .scoreboard-table th,

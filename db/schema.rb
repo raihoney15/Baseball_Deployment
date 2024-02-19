@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_02_16_091139) do
+ActiveRecord::Schema[7.1].define(version: 2024_02_19_061500) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -155,7 +155,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_16_091139) do
 
   create_table "rooster_positions", force: :cascade do |t|
     t.integer "catcher"
-    t.integer "batter"
+    t.integer "fourth_base"
     t.integer "firstbase"
     t.integer "secondbase"
     t.integer "thirdbase"
@@ -311,4 +311,3 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_16_091139) do
   add_foreign_key "teams", "users"
   add_foreign_key "tournaments", "users"
 end
-

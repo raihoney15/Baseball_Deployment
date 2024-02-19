@@ -9,6 +9,9 @@ class Event < ApplicationRecord
   has_one :scoreboard
   has_one :event_setup
   has_many :event_innings
+  belongs_to :rooster_position
+
+  # has_many :rooster_positions
 
 
   # validates :game_type, :home_team,:away_team,:start_date,:location, presence: true

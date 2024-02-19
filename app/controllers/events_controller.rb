@@ -9,16 +9,30 @@ class EventsController < ApplicationController
     def start
       @event = Event.find(params[:id])
       @event.update(is_live: true)
-      binding.pry
-      EventSetup.create(inning_rounds: 9,event_id:  @event.id)
-      binding.pry
-      EventInning.create(inning_number: 1,top:true,event_id:  @event.id)
-      # @event.event_setup.create(inning_rounds: 9)
-      # @event.event_innings.create(inning_number: 1,top:true)
-      # update_rooster_positions
+      EventSetup.create(inning_rounds: 9, event_id: @event.id)
+      EventInning.create(inning_number: 1, top: true, event_id: @event.id)
+     
+      scoreboard = Scoreboard.create(event_id: @event.id, event_inning_id: @event.event_innings.last.id, home_team: true)
+      update_rooster_positions(scoreboard)
+
+
       render 'start/show'
     end
 
+    def play
+      @event = Event.find(params[:id])
+      binding.pry
+      move = Move.find(params[:move_id])
+      binding.pry
+      case move.name
+            when "single"
+              binding.pry
+              change_rooster_positions(@event, "single")
+            # when "double"
+            #   update_rooster_positions(@event, "double")
+          
+            end
+    end
 
 
 def index
@@ -83,15 +97,54 @@ end
     def event_params
       params.require(:event).permit(:game_type,:name,:team_id,:opponent_team_id,:location,:start_date,:belongs ,:memo, :image)
     end
-
-    def update_rooster_positions
+    
+    def update_rooster_positions(scoreboard)
       @event.team_line_ups.each do |team_line_up|
-        position_id = team_line_up.position_id
-        rooster_id = team_line_up.rooster_id
-        @event.rooster_positions.create(position_id: position_id, rooster_id: rooster_id)
+        rooster_position = RoosterPosition.find_or_create_by(scoreboard_id: scoreboard.id, user_id: current_user.id)
+    
+        position_name = Position.find(team_line_up.position_id).position_name.downcase
+        rooster_position.update(position_name.to_sym => team_line_up.rooster_id)
+      end
+    end
+    
+    def change_rooster_positions(event, move_name)
+      rooster_positions = RoosterPosition.where(scoreboard_id: event.scoreboard.id)
+      case move_name
+      when "single"
+        rooster_positions.update(second_base: rooster_positions.first.first_base)
+        rooster_positions.update(third_base: rooster_positions.first.second_base)
+        rooster_positions.update(fourth_base: rooster_positions.first.third_base)
+        rooster_positions.update(first_base: rooster_positions.first.fourth_base)
+      # when "double"
+    
       end
     end
 
 end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
