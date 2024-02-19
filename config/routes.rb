@@ -27,9 +27,11 @@ Rails.application.routes.draw do
     resources :events do
       get 'start', on: :member
       patch 'update_rooster_position', on: :member
+      patch 'play', on: :member
     end
   end
 
+  
  
   root 'pages#home'
   devise_for :users, controllers: { registrations: 'users/registrations' }

@@ -1,1 +1,156 @@
-<h1> The game is started </h1>
+
+
+<div class="team-names">
+    <div>Team A</div>
+    <div>Team B</div>
+</div>
+
+<div class="inning-indicator">
+    <h5>1st Bottom Inning</h5>
+    <div>
+        <input type="checkbox" id="ball" style="outline: 2px solid #32CD32;">
+        <input type="checkbox" id="ball" style="outline: 2px solid #32CD32;">
+        <input type="checkbox" id="ball" style="outline: 2px solid #32CD32;">
+        <input type="checkbox" id="ball" style="outline: 2px solid #32CD32;">
+        <label for="ball">Ball</label>
+        <input type="checkbox" id="strike"style="outline: 2px solid #FFD700;"> 
+        <input type="checkbox" id="strike"style="outline: 2px solid #FFD700;"> 
+        <input type="checkbox" id="strike"style="outline: 2px solid #FFD700;"> 
+        <label for="strike">Strike</label>
+        <input type="checkbox" id="out" style="outline: 2px solid #FF0000;"> 
+        <input type="checkbox" id="out" style="outline: 2px solid #FF0000;"> 
+        <input type="checkbox" id="out" style="outline: 2px solid #FF0000;"> 
+        <label for="out">Out</label>
+    </div>
+</div>
+
+<div>
+    <table class="scoreboard-table">
+        <thead>
+            <tr>
+                <th></th>
+                <th>1</th>
+                <th>2</th>
+                <th>3</th>
+                <th>4</th>
+                <th>5</th>
+                <th>6</th>
+                <th>7</th>
+                <th>8</th>
+                <th>9</th>
+                <th>R</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><h2 class="color">A</h2></td>
+                <td>0</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>0</td>
+
+            </tr>
+            <tr>
+                <td><h2 class="color">B</h2></td>
+                <td>0</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>0</td>
+
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div style="margin-left: 100px; text-align: center;">
+<%= form_with(model: [@tournament, @event], url: play_tournament_event_path(@tournament, @event)) do |form| %>
+    <%= form.hidden_field :move_id, value: params[:move_id] %>
+    <div class="form-content">
+      <%= form.label :move_id, class: "form-label" %>
+      <%= form.collection_select :move_id, Move.all, :id, :name, { prompt: "Select move" }, required: true, class: "form-select form-control", autocomplete: 'off' %><br />
+      <%= form.submit "Play", class: "btn btn-outline-primary" %>
+    </div>
+  <% end %>
+  
+  
+  
+
+       
+</div>
+<div style="max-width: 100%; display: flex;">
+    <div style="flex: 60%; padding: 260px; background-image: url('<%= asset_path('match.jpg') %>'); background-size: 100% 100%;margin-left: 100px; background-repeat: no-repeat;">
+        </div>
+        <div style="flex: 40%;">
+        <div class="container">
+
+            <div class="row justify-content-center">
+                <div >
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h4 style="text-align: center;">TeamLineUp</h4> 
+                        <%= link_to "Back", tournament_event_path(@tournament, @event), class: "btn btn-outline-primary " %>
+                    </div>
+                    <div style="max-height: 500px; overflow-y: auto; margin-right: 0px;">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>Position</th>
+                                <th>Rooster</th>
+                                <th>Batter Order</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <% @event.team_line_ups.each do |team_line_up| %>
+                                <tr>
+                                <td><%= Position.find(team_line_up.position_id).position_name %></td>
+                                <td><%= team_line_up.rooster.name %></td>
+                                <td><%= team_line_up.batter_order %></td>
+                                </tr>
+                            <% end %>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  

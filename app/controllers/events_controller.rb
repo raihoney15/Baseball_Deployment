@@ -16,23 +16,28 @@ class EventsController < ApplicationController
       update_rooster_positions(scoreboard)
 
 
-      render 'start/show'
+      render 'start'
     end
+
+    # def play
+    #   @event = Event.find(params[:id])
+    #   move = Move.find(params[:move_id])
+    #   case move.name
+    #         when "single"
+    #           binding.pry
+    #           change_rooster_positions(@event, "single")          
+    #         end
+    # end
 
     def play
       @event = Event.find(params[:id])
-      binding.pry
-      move = Move.find(params[:move_id])
-      binding.pry
+      move = Move.find(event_params[:move_id])
       case move.name
-            when "single"
-              binding.pry
-              change_rooster_positions(@event, "single")
-            # when "double"
-            #   update_rooster_positions(@event, "double")
-          
-            end
+        when "single"
+          change_rooster_positions(@event, "single")          
+      end
     end
+    
 
 
 def index
@@ -94,10 +99,15 @@ end
     end
 
 
+    # def event_params
+    #   params.require(:event).permit(:game_type,:name,:team_id,:opponent_team_id,:location,:start_date,:belongs ,:memo, :image)
+    # end
+    
     def event_params
-      params.require(:event).permit(:game_type,:name,:team_id,:opponent_team_id,:location,:start_date,:belongs ,:memo, :image)
+      params.require(:event).permit(:game_type,:name,:team_id,:opponent_team_id,:location,:start_date,:belongs ,:memo, :image, :move_id)
     end
     
+
     def update_rooster_positions(scoreboard)
       @event.team_line_ups.each do |team_line_up|
         rooster_position = RoosterPosition.find_or_create_by(scoreboard_id: scoreboard.id, user_id: current_user.id)
@@ -121,6 +131,8 @@ end
     end
 
 end
+
+
 
 
 
