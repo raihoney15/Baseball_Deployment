@@ -13,7 +13,7 @@
       <% if @event.is_live.nil? %>
       <%= link_to "START", start_tournament_event_path(@tournament, @event), style: "margin-left: 10px;", class: "btn btn-outline-primary" %>
     <% else %>
-      <%= link_to "RESUME", resume_tournament_event_path(@tournament, @event), style: "margin-left: 10px;", class: "btn btn-outline-primary" %>
+      <%= link_to "RESUME", start_tournament_event_path(@tournament, @event), style: "margin-left: 10px;", class: "btn btn-outline-primary" %>
     <% end %>
     
         

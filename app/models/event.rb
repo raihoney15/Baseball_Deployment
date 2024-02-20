@@ -10,7 +10,7 @@ class Event < ApplicationRecord
   has_one :scoreboard
   has_one :event_setup
   has_many :event_innings
-  belongs_to :rooster_position
+  belongs_to :rooster_position,:optional => true
 
   # has_many :rooster_positions
 
