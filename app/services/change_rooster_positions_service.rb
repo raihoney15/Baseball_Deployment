@@ -8,13 +8,13 @@
     end
   
     def call
-      binding.pry
+      # binding.pry
       rooster_positions = RoosterPosition.where(scoreboard_id: @event.scoreboard.id,user_id: @current_user_id.id)
       rooster_position = rooster_positions.last
-      binding.pry
+      # binding.pry
 
       return unless rooster_position
-      binding.pry
+      # binding.pry
 
       case @move_name
       when "single"
@@ -38,12 +38,22 @@
 
         if rooster_position.fourth_base.present?
           new_rooster_position.fourth_base = nil
-          binding.pry
-          scoreboard = Scoreboard.find(rooster_position.scoreboard_id)
+
+          r = Scoreboard.find(rooster_position.scoreboard_id)
+          r.run += 1
+          r.save
+          # r = @event.scoreboard.run
+          # r += 1
+          # r.update
+         
+
+          # binding.pry
+          # scoreboard = Scoreboard.find(rooster_position.scoreboard_id)
           if rooster_position.third_base.present?
             new_rooster_position.fourth_base = rooster_position.third_base
             new_rooster_position.third_base = nil
-    
+
+            # binding.pry
      
             if rooster_position.second_base.present?
               new_rooster_position.third_base = rooster_position.second_base
@@ -87,7 +97,7 @@
         new_rooster_position.first_base = next_batter
 
         new_rooster_position.save
-        scoreboard = Scoreboard.find(rooster_position.scoreboard_id)
+        # scoreboard = Scoreboard.find(rooster_position.scoreboard_id)
       
       end
     end

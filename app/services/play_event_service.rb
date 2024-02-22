@@ -10,9 +10,9 @@ class PlayEventService
     move = Move.find(@move_id)
     case move.name
     when "single"
-      binding.pry
+      # binding.pry
       ChangeRoosterPositionsService.new(@event, "single", @current_user, @call_from_service).call
-      binding.pry
+      # binding.pry
     when "double"
       ChangeRoosterPositionsService.new(@event, "double", @current_user, @call_from_service).call
     when "triple"
