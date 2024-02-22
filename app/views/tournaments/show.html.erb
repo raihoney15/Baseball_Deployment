@@ -3,7 +3,7 @@
     <div style="display: flex; align-items: center;">
         <%= image_tag("tournament.png", alt: "tournament", style: "width: 60px; height: 60px; object-fit: cover;") %>
         <h2 style="margin-left: 10px;"><%= @tournament.name %></h2>
-        <%= link_to "Back", tournaments_path(@tournament), style:"margin-left: 650px;" ,class: "btn btn-outline-primary" %>
+        <%= link_to "Back", tournaments_path, style:"margin-left: 650px;" ,class: "btn btn-outline-primary" %>
 
     </div>
 
@@ -58,7 +58,7 @@
                                 <% end %>
                             <% end %>
 
-                            <%= link_to tournaments_path(@tournament) do %>
+                            <%= link_to tournaments_path do %>
                                 <%= image_tag("back.png", alt: "edit", style: "width: 20px; height: 20px; object-fit: cover;") %> |
                             <% end %>
 

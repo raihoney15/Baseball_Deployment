@@ -1,15 +1,17 @@
 class UpdateRoosterPositionsService
-    def initialize(event, scoreboard)
-      @event = event
-      @scoreboard = scoreboard
-    end
-  
-    def call
-      opponent_team_line_ups = @event.opponent_team_line_ups
-      first_base_rooster_id = opponent_team_line_ups.find_by(batter_order: 1)&.opponent_rooster_id
-  
+  def initialize(event, scoreboard, current_user)
+    @event = event
+    @scoreboard = scoreboard
+    @current_user_id = current_user
+  end
+
+  def call
+    opponent_team_line_ups = @event.opponent_team_line_ups
+    first_base_rooster_id = opponent_team_line_ups.find_by(batter_order: 1)&.opponent_rooster_id
+
+
       @event.team_line_ups.each do |team_line_up|
-        rooster_position = RoosterPosition.find_or_create_by(scoreboard_id: @scoreboard.id, user_id: current_user.id)
+        rooster_position = RoosterPosition.find_or_create_by(scoreboard_id: @scoreboard.id, user_id: @current_user_id.id)
   
         position_name = Position.find(team_line_up.position_id).position_name.downcase
         rooster_position.update(position_name.to_sym => team_line_up.rooster_id)

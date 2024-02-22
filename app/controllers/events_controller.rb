@@ -7,16 +7,17 @@ class EventsController < ApplicationController
 
     def start
       @event = Event.find(params[:id])
-      StartEventService.new(@event).call
+      StartEventService.new(@event, current_user).call
       render 'start'
     end
+
     def resume
       @event = Event.find(params[:id])
       render 'start'
     end
     def play
       @event = Event.find(params[:id])
-      a = PlayEventService.new(@event, event_params[:move_id])
+      a = PlayEventService.new(@event, event_params[:move_id],current_user)
       a.call
     end
     

@@ -1,45 +1,99 @@
-
   class ChangeRoosterPositionsService
-    def initialize(event, move_name)
+
+    def initialize(event, move_name, current_user_id, call_from_service)
       @event = event
       @move_name = move_name
+      @current_user_id = current_user_id
+      @call_from_service = true
     end
   
     def call
-      rooster_positions = RoosterPosition.where(scoreboard_id: @event.scoreboard.id)
-      rooster_position = rooster_positions.first
+      binding.pry
+      rooster_positions = RoosterPosition.where(scoreboard_id: @event.scoreboard.id,user_id: @current_user_id.id)
+      rooster_position = rooster_positions.last
+      binding.pry
+
       return unless rooster_position
-  
+      binding.pry
+
       case @move_name
       when "single"
+        handle_single_move(rooster_position)
+      end
+    end
+     
+    private
+   
+    def handle_single_move(rooster_position)
+
+      a1 = @event.scoreboard.rooster_positions.last.first_base
+      current_batter_order =  @event.opponent_team_line_ups.where(opponent_rooster_id:a1).first.batter_order
+      next_batter_order =  @event.opponent_team_line_ups.find_by(batter_order: current_batter_order + 1)
+      next_batter = next_batter_order.opponent_rooster_id
+
+      if next_batter
         new_rooster_position = RoosterPosition.new(
           rooster_position.attributes.slice("scoreboard_id", "user_id", "catcher", "fourth_base", "first_base", "second_base", "third_base", "pitcher", "shortstop", "rightfield", "leftfield", "centerfield")
         )
-        new_rooster_position.second_base = rooster_position.first_base
-        new_rooster_position.third_base = rooster_position.second_base
-        new_rooster_position.fourth_base = rooster_position.third_base
-        new_rooster_position.first_base = rooster_position.fourth_base
-  
 
-        second_batter_rooster = @event.opponent_team_line_ups.find_by(batter_order: 2)&.opponent_rooster_id
-        new_rooster_position.first_base = second_batter_rooster if second_batter_rooster
+        if rooster_position.fourth_base.present?
+          new_rooster_position.fourth_base = nil
+          binding.pry
+          scoreboard = Scoreboard.find(rooster_position.scoreboard_id)
+          if rooster_position.third_base.present?
+            new_rooster_position.fourth_base = rooster_position.third_base
+            new_rooster_position.third_base = nil
+    
+     
+            if rooster_position.second_base.present?
+              new_rooster_position.third_base = rooster_position.second_base
+              new_rooster_position.second_base = nil
+    
+           
+              if rooster_position.first_base.present?
+                new_rooster_position.second_base = rooster_position.first_base
+                new_rooster_position.first_base = nil
+              end
+            end
+          end
+        elsif rooster_position.third_base.present?
+          new_rooster_position.fourth_base = rooster_position.third_base
+          new_rooster_position.third_base = nil
+    
+   
+          if rooster_position.second_base.present?
+            new_rooster_position.third_base = rooster_position.second_base
+            new_rooster_position.second_base = nil
+    
+            if rooster_position.first_base.present?
+              new_rooster_position.second_base = rooster_position.first_base
+              new_rooster_position.first_base = nil
+            end
+          end
+        elsif rooster_position.second_base.present?
+          new_rooster_position.third_base = rooster_position.second_base
+          new_rooster_position.second_base = nil
+    
+ 
+          if rooster_position.first_base.present?
+            new_rooster_position.second_base = rooster_position.first_base
+            new_rooster_position.first_base = nil
+          end
+        elsif rooster_position.first_base.present?
+          new_rooster_position.second_base = rooster_position.first_base
+          new_rooster_position.first_base = nil
+        end
+    
+        new_rooster_position.first_base = next_batter
+
         new_rooster_position.save
+        scoreboard = Scoreboard.find(rooster_position.scoreboard_id)
+      
       end
     end
+    
+    
+    
+
   end
   
-  IN this code i have implemented that at start my first_base will contain a rooster from opponent_team_line_ups with batter_order 1
-  I want a code such that when user select single in rooster_positions there should be new entry such that
-   second_base should contain rooster_id that was previously at first_base 
-   first_base should have a rooster  from opponent_team_line_ups with batter_order 2
-   and third_base and fourth_base will be nil
-
-   please take a note that this much i have implemented uptill now in this code.
-
-   Now what i want is first u understand the code properly
-   now in this when user again select single first update the position in rooster_position table
-   third_base should contain rooster_id that was previously at second_base 
- second_base should contain rooster_id that was previously at first_base 
-
- now for first_base there will be a condition which will check if first_base is empty or not if empty then 
- first_base should have a rooster  from opponent_team_line_ups with batter_order 3
