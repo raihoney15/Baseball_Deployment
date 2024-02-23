@@ -3,49 +3,65 @@
     <div class="col-md-6">
     <div class="border rounded p-4"> 
       <%= form_with model: [@tournament, @event] do |form| %>
-        <% if @event.errors.any? %>
-        <div id="error_explanation">
-          <h2><%= pluralize(@event.errors.count, "error") %> prohibited this event from being saved:</h2>
-          <ul>
-            <% @event.errors.full_messages.each do |message| %>
-              <li><%= message %></li>
-            <% end %>
-          </ul>
-        </div>
-      <% end %>
+
         <div class="form-group">
-          <%= form.label :game_type %>
+          <%= form.label :game_type %><span class="required">*</span>
           <%= form.text_field :game_type, class: "form-control", required: true, autocomplete: "off" %>
+          <% if @event.errors[:game_type].any? %>
+          <div class="error-message", style="color: #f4340a;">
+            <b><%= "game_type  " + @event.errors[:game_type].join(", ") %></b>
+          </div>
+        <% end %>
         </div>
 
         <div class="form-group">
-          <%= form.label :team_id %>
+          <%= form.label :team_id %><span class="required">*</span>
           <%= form.collection_select :team_id, Team.all, :id, :name, { prompt: "Select home_team" }, class: "form-control", required: true, autocomplete: "off" %>
-        </div>
+          <% if @event.errors[:team_id].any? %>
+          <div class="error-message", style="color: #f4340a;">
+            <b><%= "team_id  " + @event.errors[:team_id].join(", ") %></b>
+          </div>
+        <% end %>
+          </div>
 
         <div class="form-group">
-          <%= form.label :opponent_team_id %>
+          <%= form.label :opponent_team_id %><span class="required">*</span>
           <%= form.collection_select :opponent_team_id, OpponentTeam.all, :id, :name, { prompt: "Select away_team" }, class: "form-control", required: true, autocomplete: "off" %>
-        </div>
+          <% if @event.errors[:opponent_team_id].any? %>
+          <div class="error-message", style="color: #f4340a;">
+            <b><%= "opponent_team_id  " + @event.errors[:opponent_team_id].join(", ") %></b>
+          </div>
+        <% end %>
+          </div>
 
         <div class="form-group">
-          <%= form.label :location %>
+          <%= form.label :location %><span class="required">*</span>
           <%= form.text_field :location, class: "form-control", required: true, autocomplete: "off" %>
+          <% if @event.errors[:location].any? %>
+          <div class="error-message", style="color: #f4340a;">
+            <b><%= "location  " + @event.errors[:location].join(", ") %></b>
+          </div>
+        <% end %>
         </div>
 
         <div class="form-group">
-          <%= form.label :start_date %>
+          <%= form.label :start_date %><span class="required">*</span>
           <%= form.date_field :start_date, class: "form-control", required: true, autocomplete: "off" %>
+          <% if @event.errors[:start_date].any? %>
+          <div class="error-message", style="color: #f4340a;">
+            <b><%= "start_date  " + @event.errors[:start_date].join(", ") %></b>
+          </div>
+        <% end %>
         </div>
 
         <div class="form-group">
-          <%= form.label :belongs %>
-          <%= form.text_field :belongs, class: "form-control", required: true, autocomplete: "off" %>
+          <%= form.label :belongs %><span class="required">*</span>
+          <%= form.text_field :belongs, class: "form-control", autocomplete: "off" %>
         </div>
 
         <div class="form-group">
-          <%= form.label :memo %>
-          <%= form.text_field :memo, class: "form-control", required: true, autocomplete: "off" %>
+          <%= form.label :memo %><span class="required">*</span>
+          <%= form.text_field :memo, class: "form-control", autocomplete: "off" %>
         </div>
 
         <div class="form-group">

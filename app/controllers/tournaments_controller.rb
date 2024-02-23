@@ -5,7 +5,6 @@ class TournamentsController < ApplicationController
   before_action :set_tournament, only:[ :show, :edit, :update, :destroy ]
 
   def index
-    # binding.pry
     @q = Tournament.ransack(params[:q])
       if current_user.nil?
         @tournaments = @q.result(distinct: true).page(params[:page]).per(5)

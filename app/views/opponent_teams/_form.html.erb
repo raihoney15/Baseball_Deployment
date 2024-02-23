@@ -2,25 +2,31 @@
   <div class="row justify-content-center">
     <div class="col-md-6">
     <div class="border rounded p-4"> 
-      <%= form_with model: [@tournament, @opponent_team] do |form| %>
-        <% if @opponent_team.errors.any? %>
-        <div id="error_explanation">
-          <h2><%= pluralize(@opponent_team.errors.count, "error") %> prohibited this opponent_team from being saved:</h2>
-          <ul>
-            <% @opponent_team.errors.full_messages.each do |message| %>
-              <li><%= message %></li>
-            <% end %>
-          </ul>
+      <%= form_with model: [@tournament, @opponent_team] do |form| %>    
+        <div class="form-group">
+        <%= form.label :full_name %><span class="required">*</span>
+        <%= form.text_field :name, class: "form-control", required: true, autocomplete: 'off' %>
+        <% if @opponent_team.errors[:name].any? %>
+        <div class="error-message", style="color: #f4340a;">
+          <b><%= "name " + @opponent_team.errors[:name].join(", ") %></b>
         </div>
-      <% end %>      
-        <%= form.label :full_name %>
-        <%= form.text_field :name, required: true, class: "form-control", autocomplete: 'off' %><br/>
+      <% end %>
+      </div>
       
-        <%= form.label :short_name %>
-        <%= form.text_field :short_name, required: true, class: "form-control", autocomplete: 'off' %><br/>
+      <div class="form-group">
+      <div style = "display: inline;"><%= form.label :short_name %><span class="required">*</span></div>
+      <%= form.text_field :short_name, class: "form-control", required: true, autocomplete: 'off' %>
+      <% if @opponent_team.errors[:short_name].any? %>
+      <div class="error-message", style="color: #f4340a;">
+        <b><%= "short_name " + @opponent_team.errors[:short_name].join(", ") %></b>
+      </div>
+      <% end %>
+      </div>
       
-        <%= form.label :image %>
-        <%= form.file_field :image, class: "form-control" %><br/>
+      <div class="form-group">
+      <%= form.label :image %>
+      <%= form.file_field :image, class: "form-control-file" %>
+    </div>
       
         <div class="row">
           <div class="col-md-12 text-center">

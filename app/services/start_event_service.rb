@@ -1,10 +1,11 @@
 class StartEventService
-  def initialize(event, current_user)
-    @event = event
+  def initialize(find_event_by_id, current_user)
+    @event = find_event_by_id
     @current_user = current_user
   end
 
   def call
+    binding.pry
     @event.update(is_live: true)
     EventSetup.create(inning_rounds: 9, event_id: @event.id)
     EventInning.create(inning_number: 1, top: true, event_id: @event.id)

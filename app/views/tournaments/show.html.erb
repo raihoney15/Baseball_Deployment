@@ -2,8 +2,8 @@
 <div class="container mt-5">
     <div style="display: flex; align-items: center;">
         <%= image_tag("tournament.png", alt: "tournament", style: "width: 60px; height: 60px; object-fit: cover;") %>
-        <h2 style="margin-left: 10px;"><%= @tournament.name %></h2>
-        <%= link_to "Back", tournaments_path, style:"margin-left: 650px;" ,class: "btn btn-outline-primary" %>
+        <h2 style="margin-left: 10px;">TOURNAMENT</h2>
+        <%= link_to "Back", tournaments_path, style:"margin-left: 800px;" ,class: "btn btn-outline-primary" %>
 
     </div>
 
@@ -58,12 +58,10 @@
                                 <% end %>
                             <% end %>
 
-                            <%= link_to tournaments_path do %>
-                                <%= image_tag("back.png", alt: "edit", style: "width: 20px; height: 20px; object-fit: cover;") %> |
-                            <% end %>
+
 
                             <% if can? :destroy, @tournament %>
-                            <div style=" margin-left: 133px; margin-top: -25px;">
+                            <div style=" margin-left: 100px; margin-top: -25px;">
                                 <%= button_to tournament_path(@tournament), method: :delete, data: { confirm: "Are you sure?" }, class: "myButton" do %>
                                 <%= image_tag("empty.png", alt: "edit", style: "width: 20px; height: 20px; object-fit: cover;") %>
                             </div>

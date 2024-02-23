@@ -8,17 +8,22 @@
 
           <div class="field">
             <%= f.label :email %><br />
-            <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+            <%= f.email_field :email, autocomplete: "email", :readonly => f.object.persisted? %>
           </div>
 
           <div class="form-group">
           <%= f.label :image %><br />
-          <%= f.file_field :image, autofocus: true, autocomplete: "photo" %>
+          <%= f.file_field :image,autocomplete: "photo" %>
         </div>
 
         <div class="form-group">
         <%= f.label :username %><br />
-        <%= f.text_field :username, autofocus: true, autocomplete: "username" %>
+        <%= f.text_field :username,  autocomplete: "username" %>
+        <% if @user.errors[:username].any? %>
+        <div class="error-message", style="color: #f4340a;">
+          <b><%= "username" + @user.errors[:username].join(", ") %></b>
+        </div>
+      <% end %>
       </div>
     
 
@@ -33,16 +38,31 @@
               <br />
               <em><%= @minimum_password_length %> characters minimum</em>
             <% end %>
+            <% if @user.errors[:password].any? %>
+            <div class="error-message", style="color: #f4340a;">
+              <b><%= "password" + @user.errors[:password].join(", ") %></b>
+            </div>
+          <% end %>
           </div>
 
           <div class="field">
             <%= f.label :password_confirmation %><br />
             <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+            <% if @user.errors[:password_confirmation].any? %>
+            <div class="error-message", style="color: #f4340a;">
+              <b><%= "password_confirmation" + @user.errors[:password_confirmation].join(", ") %></b>
+            </div>
+          <% end %>
           </div>
 
           <div class="field">
             <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
             <%= f.password_field :current_password, autocomplete: "current-password" %>
+            <% if @user.errors[:current_password].any? %>
+            <div class="error-message", style="color: #f4340a;">
+              <b><%= "current_password" + @user.errors[:current_password].join(", ") %></b>
+            </div>
+          <% end %>
           </div>
 
           <div class="actions">

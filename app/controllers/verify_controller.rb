@@ -19,7 +19,7 @@ class VerifyController < ApplicationController
   def update
     code = "#{params[:user][:pin_0]}#{params[:user][:pin_1]}#{params[:user][:pin_2]}#{params[:user][:pin_3]}"
     @user = current_user
-    if Time.now > current_user.pin_sent_at.advance(minutes: 60)
+    if Time.now > current_user.pin_sent_at.advance(minutes: 1)
       flash.now[:alert] = "Your pin has expired. Please request another."
       render :edit and return
     elsif code.try(:to_i) == current_user.pin

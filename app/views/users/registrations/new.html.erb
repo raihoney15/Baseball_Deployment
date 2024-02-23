@@ -10,34 +10,45 @@
     </div>
 
     <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-      <% if @user.errors.any? %>
-      <div id="error_explanation">
-        <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
-        <ul>
-          <% @user.errors.full_messages.each do |message| %>
-            <li><%= message %></li>
-          <% end %>
-        </ul>
-      </div>
-    <% end %>
+
       <div style="margin-bottom: 15px;">
-        <%= f.label :email %><br>
+        <%= f.label :email %><span class="required">*</span><br>
         <%= f.email_field :email, class: 'form-control', required: true %>
+        <% if @user.errors[:email].any? %>
+        <div class="error-message", style="color: #f4340a;">
+          <b><%= "email" + @user.errors[:email].join(", ") %></b>
+        </div>
+      <% end %>
       </div>
 
       <div style="margin-bottom: 15px;">
-        <%= f.label :username %><br>
+        <%= f.label :username %><span class="required">*</span><br>
         <%= f.text_field :username, class: 'form-control', required: true %>
+        <% if @user.errors[:username].any? %>
+        <div class="error-message", style="color: #f4340a;">
+          <b><%= "username" + @user.errors[:username].join(", ") %></b>
+        </div>
+      <% end %>
       </div>
 
       <div style="margin-bottom: 15px;">
-        <%= f.label :password %><br>
+        <%= f.label :password %><span class="required">*</span><br>
         <%= f.password_field :password, class: 'form-control', required: true %>
+        <% if @user.errors[:password].any? %>
+        <div class="error-message", style="color: #f4340a;">
+          <b><%= "password" + @user.errors[:password].join(", ") %></b>
+        </div>
+      <% end %>
       </div>
 
       <div style="margin-bottom: 15px;">
-        <%= f.label :password_confirmation %><br>
+        <%= f.label :password_confirmation %><span class="required">*</span><br>
         <%= f.password_field :password_confirmation, class: 'form-control', required: true %>
+        <% if @user.errors[:password_confirmation].any? %>
+        <div class="error-message", style="color: #f4340a;">
+          <b><%= "password_confirmation" + @user.errors[:password_confirmation].join(", ") %></b>
+        </div>
+      <% end %>
       </div>
 
       <div class="d-grid gap-3 col-6 mx-auto">

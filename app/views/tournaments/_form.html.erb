@@ -3,34 +3,45 @@
     <div class="col-md-6">
     <div class="border rounded p-4"> 
       <%= form_with model: @tournament, local: true do |form| %>
-        <% if @tournament.errors.any? %>
-        <div id="error_explanation">
-          <h2><%= pluralize(@tournament.errors.count, "error") %> prohibited this tournament from being saved:</h2>
-          <ul>
-            <% @tournament.errors.full_messages.each do |message| %>
-              <li><%= message %></li>
-            <% end %>
-          </ul>
-        </div>
-      <% end %>
+
         <div class="form-group">
-          <%= form.label :Name %>
+          <%= form.label :Name %><span class="required">*</span>
           <%= form.text_field :name, class: "form-control", required: true, autocomplete: 'off' %>
+          <% if @tournament.errors[:Name].any? %>
+          <div class="error-message", style="color: #f4340a;">
+            <b><%= "Name" + @tournament.errors[:Name].join(", ") %></b>
+          </div>
+        <% end %>
         </div>
 
         <div class="form-group">
-          <%= form.label :start_date %>
+          <%= form.label :start_date %><span class="required">*</span>
           <%= form.date_field :start_date, class: "form-control", required: true, autocomplete: 'off' %>
+          <% if @tournament.errors[:start_date].any? %>
+          <div class="error-message" , style="color: #f4340a;">
+            <b><%= "start_date" + @tournament.errors[:start_date].join(", ") %></b>
+          </div>
+        <% end %>
         </div>
 
         <div class="form-group">
-          <%= form.label :end_date %>
+          <%= form.label :end_date %><span class="required">*</span>
           <%= form.date_field :end_date, class: "form-control", required: true, autocomplete: 'off' %>
+          <% if @tournament.errors[:end_date].any? %>
+          <div class="error-message", style="color: #f4340a;">
+            <b><%= "end_date" + @tournament.errors[:end_date].join(", ") %></b>
+          </div>
+        <% end %>
         </div>
 
         <div class="form-group">
-          <%= form.label :location %>
+          <%= form.label :location %><span class="required">*</span>
           <%= form.text_field :location, class: "form-control", required: true, autocomplete: 'off' %>
+          <% if @tournament.errors[:location].any? %>
+          <div class="error-message", style="color: #f4340a;">
+            <b><%= "location " + @tournament.errors[:location].join(" , ") %></b>
+          </div>
+        <% end %>
         </div>
 
         <div class="form-group">
@@ -55,3 +66,4 @@
     </div>
   </div>
 </div>
+

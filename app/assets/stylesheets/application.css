@@ -112,6 +112,11 @@ h2 {
   color: black;
 }
 
+.required{
+    color: #f03a11;
+   
+}
+
 p {
   color: rgb(13, 13, 13);
   margin-bottom: 20px;
@@ -124,6 +129,7 @@ p {
 .btn-group .btn {
   margin-right: 10px;
 }
+
 
 
 .team-lineup {

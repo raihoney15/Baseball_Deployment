@@ -30,7 +30,6 @@ class OpponentTeamsController < ApplicationController
     end
   
     def create
-      # binding.pry
       @opponent_team = current_user.opponent_teams.build(opponent_team_params.merge(tournament_id:@tournament.id ))
       if @opponent_team.save
         redirect_to tournament_opponent_team_path(@tournament, @opponent_team)

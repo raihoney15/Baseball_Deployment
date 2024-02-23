@@ -3,27 +3,25 @@
     <div class="col-md-6">
     <div class="border rounded p-4">
       <%= form_with(model: [@tournament, @team, @rooster], path: tournament_team_roosters_path(@tournament, @team)) do |form| %>
-        <div class="text-center mb-4">
-        <% if @rooster.errors.any? %>
-        <div id="error_explanation">
-          <h2><%= pluralize(@rooster.errors.count, "error") %> prohibited this rooster from being saved:</h2>
-          <ul>
-            <% @rooster.errors.full_messages.each do |message| %>
-              <li><%= message %></li>
-            <% end %>
-          </ul>
-        </div>
+
+        <div class="form-group">
+          <%= form.label :full_name %><span class="required">*</span>
+          <%= form.text_field :name, class: "form-control", required: true, autocomplete: 'off' %>
+          <% if @rooster.errors[:name].any? %>
+          <div class="error-message", style="color: #f4340a;">
+            <b><%= "name " + @rooster.errors[:name].join(", ") %></b>
+          </div>
         <% end %>
         </div>
 
         <div class="form-group">
-          <%= form.label :full_name %>
-          <%= form.text_field :name, class: "form-control", required: true, autocomplete: 'off' %>
-        </div>
-
-        <div class="form-group">
-          <%= form.label :jersey_number %>
+          <%= form.label :jersey_number %><span class="required">*</span>
           <%= form.text_field :jersey_number, class: "form-control", required: true, autocomplete: 'off' %>
+          <% if @rooster.errors[:jersey_number].any? %>
+          <div class="error-message", style="color: #f4340a;">
+            <b><%= "jersey_number " + @rooster.errors[:jersey_number].join(", ") %></b>
+          </div>
+        <% end %>
         </div>
 
         <div class="form-group">
@@ -42,3 +40,5 @@
     </div>
   </div>
 </div>
+
+

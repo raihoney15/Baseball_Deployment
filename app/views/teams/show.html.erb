@@ -1,7 +1,7 @@
 <div class="container">
   <div style="display: flex; align-items: center;">
   <%= image_tag("team.png", alt: "team", style: "width: 60px; height: 60px; object-fit: cover;") %>
-  <h2 style="margin-left: 10px;"><%= @team.name %></h2>
+  <h2 style="margin-left: 10px;">Team</h2>
   <%= link_to "Back", tournament_path(@tournament), style:"margin-left: 900px;" ,class: "btn btn-outline-primary" %>
 
 </div>
@@ -27,12 +27,10 @@
               <%#= link_to "Edit this team", edit_tournament_team_path(@team.tournament, @team), class: "btn btn-primary" %> 
       <% end %>
 
-            <%= link_to tournaments_path(@tournament) do %>
-            <%= image_tag("back.png", alt: "back", style: "width: 20px; height: 20px; object-fit: cover;") %> |
-            <% end %>
+
 
       <% if can? :destroy, @team %>
-            <div style=" margin-left: 103px; margin-top: -25px;">
+            <div style=" margin-left:70px; margin-top: -25px;">
               <%= button_to [@team.tournament, @team] , method: :delete,  data: { confirm: "Are you sure?" }  do %>
               <%= image_tag("empty.png", alt: "edit", style: "width: 20px; height: 20px; object-fit: cover;") %> 
               <% end %>

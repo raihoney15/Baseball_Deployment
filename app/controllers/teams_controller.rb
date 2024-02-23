@@ -6,7 +6,6 @@ class TeamsController < ApplicationController
 
 
   def index
-    # binding.pry
     @q_teams = Team.ransack(params[:q])
       if current_user.nil?
         @teams = @q_teams.result(distinct: true).page(params[:page]).per(3)

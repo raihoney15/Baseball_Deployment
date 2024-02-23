@@ -15,7 +15,14 @@ class Event < ApplicationRecord
   # has_many :rooster_positions
 
 
-  # validates :game_type, :home_team,:away_team,:start_date,:location, presence: true
+  validates :game_type, :start_date,:location, presence: true
+  validate :start_date_cannot_be_in_the_past
+
+  def start_date_cannot_be_in_the_past
+    if start_date.present? && start_date.past?
+      errors.add(:start_date, " can't be in the past")
+    end
+  end  
 
   def self.ransackable_attributes(auth_object = nil)
     [ "game_type"]
