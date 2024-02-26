@@ -48,7 +48,12 @@
                                     <%= image_tag("edit.png", alt: "edit", style: "width: 20px; height: 20px; object-fit: cover;") %> |
                                 <% end %>
                             <% end %>
-
+                            <% if can? :update, @tournament %>
+                            <%= link_to new_tournament_invitation_path(@tournament) do %>
+                              <%= image_tag("invite.png", alt: "edit", style: "width: 20px; height: 20px; object-fit: cover;") %>
+                              <%#= button_to "Invite", tournament, class: "btn btn-secondary btn-sm" %>
+                              <% end %>
+                              <% end %>
                             <% if can? :update, @tournament %>
                                 <%= link_to new_tournament_team_path(@tournament) do %>
                                     <%= image_tag("addteam.png", alt: "edit", style: "width: 20px; height: 20px; object-fit: cover;") %> |

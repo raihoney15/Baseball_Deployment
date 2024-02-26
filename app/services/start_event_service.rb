@@ -5,7 +5,6 @@ class StartEventService
   end
 
   def call
-    binding.pry
     @event.update(is_live: true)
     EventSetup.create(inning_rounds: 9, event_id: @event.id)
     EventInning.create(inning_number: 1, top: true, event_id: @event.id)
