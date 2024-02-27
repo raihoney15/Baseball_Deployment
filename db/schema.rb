@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_02_19_061500) do
+ActiveRecord::Schema[7.1].define(version: 2024_02_27_074420) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -51,6 +51,24 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_19_061500) do
     t.index ["user_id"], name: "index_assignments_on_user_id"
   end
 
+  create_table "batting_stats", force: :cascade do |t|
+    t.integer "run"
+    t.bigint "event_id", null: false
+    t.bigint "scoreboard_id", null: false
+    t.bigint "team_id"
+    t.bigint "opponent_team_id"
+    t.bigint "rooster_id"
+    t.bigint "opponent_rooster_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["event_id"], name: "index_batting_stats_on_event_id"
+    t.index ["opponent_rooster_id"], name: "index_batting_stats_on_opponent_rooster_id"
+    t.index ["opponent_team_id"], name: "index_batting_stats_on_opponent_team_id"
+    t.index ["rooster_id"], name: "index_batting_stats_on_rooster_id"
+    t.index ["scoreboard_id"], name: "index_batting_stats_on_scoreboard_id"
+    t.index ["team_id"], name: "index_batting_stats_on_team_id"
+  end
+
   create_table "event_innings", force: :cascade do |t|
     t.integer "inning_number"
     t.boolean "top"
@@ -89,6 +107,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_19_061500) do
     t.index ["team_id"], name: "index_events_on_team_id"
     t.index ["tournament_id"], name: "index_events_on_tournament_id"
     t.index ["user_id"], name: "index_events_on_user_id"
+  end
+
+  create_table "invitations", force: :cascade do |t|
+    t.string "email"
+    t.boolean "accepted", default: false
+    t.bigint "tournament_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["tournament_id"], name: "index_invitations_on_tournament_id"
   end
 
   create_table "moves", force: :cascade do |t|
@@ -141,6 +168,24 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_19_061500) do
     t.index ["user_id"], name: "index_opponent_teams_on_user_id"
   end
 
+  create_table "pitching_stats", force: :cascade do |t|
+    t.integer "pitch"
+    t.bigint "event_id", null: false
+    t.bigint "scoreboard_id", null: false
+    t.bigint "team_id"
+    t.bigint "opponent_team_id"
+    t.bigint "rooster_id"
+    t.bigint "opponent_rooster_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["event_id"], name: "index_pitching_stats_on_event_id"
+    t.index ["opponent_rooster_id"], name: "index_pitching_stats_on_opponent_rooster_id"
+    t.index ["opponent_team_id"], name: "index_pitching_stats_on_opponent_team_id"
+    t.index ["rooster_id"], name: "index_pitching_stats_on_rooster_id"
+    t.index ["scoreboard_id"], name: "index_pitching_stats_on_scoreboard_id"
+    t.index ["team_id"], name: "index_pitching_stats_on_team_id"
+  end
+
   create_table "positions", force: :cascade do |t|
     t.string "position_name"
     t.datetime "created_at", null: false
@@ -156,9 +201,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_19_061500) do
   create_table "rooster_positions", force: :cascade do |t|
     t.integer "catcher"
     t.integer "fourth_base"
-    t.integer "firstbase"
-    t.integer "secondbase"
-    t.integer "thirdbase"
+    t.integer "first_base"
+    t.integer "second_base"
+    t.integer "third_base"
     t.integer "pitcher"
     t.integer "shortstop"
     t.integer "rightfield"
@@ -276,12 +321,19 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_19_061500) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "assignments", "roles"
   add_foreign_key "assignments", "users"
+  add_foreign_key "batting_stats", "events"
+  add_foreign_key "batting_stats", "opponent_roosters"
+  add_foreign_key "batting_stats", "opponent_teams"
+  add_foreign_key "batting_stats", "roosters"
+  add_foreign_key "batting_stats", "scoreboards"
+  add_foreign_key "batting_stats", "teams"
   add_foreign_key "event_innings", "events"
   add_foreign_key "event_setups", "events"
   add_foreign_key "events", "opponent_teams"
   add_foreign_key "events", "teams"
   add_foreign_key "events", "tournaments"
   add_foreign_key "events", "users"
+  add_foreign_key "invitations", "tournaments"
   add_foreign_key "opponent_roosters", "opponent_teams"
   add_foreign_key "opponent_roosters", "tournaments"
   add_foreign_key "opponent_roosters", "users"
@@ -294,6 +346,12 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_19_061500) do
   add_foreign_key "opponent_teams", "teams"
   add_foreign_key "opponent_teams", "tournaments"
   add_foreign_key "opponent_teams", "users"
+  add_foreign_key "pitching_stats", "events"
+  add_foreign_key "pitching_stats", "opponent_roosters"
+  add_foreign_key "pitching_stats", "opponent_teams"
+  add_foreign_key "pitching_stats", "roosters"
+  add_foreign_key "pitching_stats", "scoreboards"
+  add_foreign_key "pitching_stats", "teams"
   add_foreign_key "rooster_positions", "scoreboards"
   add_foreign_key "rooster_positions", "users"
   add_foreign_key "roosters", "teams"

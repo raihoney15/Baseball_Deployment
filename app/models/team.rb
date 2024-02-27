@@ -8,6 +8,8 @@ class Team < ApplicationRecord
     has_many :roosters, dependent: :destroy
     has_one_attached :image ,dependent: :destroy
     validates :name, :short_name, presence: true
+    has_many :batting_stats	, dependent: :destroy
+    has_many :pitching_stats, dependent: :destroy	
 
 
     def self.ransackable_attributes(auth_object = nil)

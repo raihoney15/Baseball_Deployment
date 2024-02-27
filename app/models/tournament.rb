@@ -8,6 +8,7 @@ class Tournament < ApplicationRecord
     has_many :opponent_teams, dependent: :destroy
     has_many :events, dependent: :destroy
     has_many :team_line_ups,dependent: :destroy
+    has_many :invitations,dependent: :destroy
     has_many :opponent_team_line_ups,dependent: :destroy
     validates :name, :start_date, :end_date, :location, presence: true
     validates_presence_of :start_date, :end_date

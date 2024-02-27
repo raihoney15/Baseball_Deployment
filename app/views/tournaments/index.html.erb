@@ -39,13 +39,10 @@
             <% end %>
             <% if can? :update, tournament %>
               <%= link_to edit_tournament_path(tournament) do %>
-                <%= image_tag("edit.png", alt: "edit", style: "width: 20px; height: 20px; object-fit: cover;") %> |
+                <%= image_tag("edit.png", alt: "edit", style: "width: 20px; height: 20px; object-fit: cover;") %> 
               <% end %>
             <% end %>
-            <% if can? :update, tournament %>
-              <%= image_tag("invite.png", alt: "edit", style: "width: 20px; height: 20px; object-fit: cover;") %>
-              <%#= button_to "Invite", tournament, class: "btn btn-secondary btn-sm" %>
-            <% end %>
+
           </td>
         </tr>
       <% end %>
@@ -55,11 +52,3 @@
   <%= paginate @tournaments %>
 </div>
 
-
-IN my rails application i have by 5 roles admin team_owner,tournament_owner, team_admin, tournament_admin,public_user.
-now whenever user signup he gets by default team_owner and tournament_owner role.
-and user that has not signed in or signup is a public_user.
-Now i want the functionality in my application that , when i click on invite button a mail should be send  for that particular tournament to any other active user who has signed up in application he will get the role of tournament_admin . and that tournament will be shown in the index of that user.
-tell me how to do this from scratch.
-
-but first tell me what u understand and your approach . and also please ask if u have any question or u will need any file from me and when i allow then only give me solution.

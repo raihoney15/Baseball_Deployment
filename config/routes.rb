@@ -32,6 +32,21 @@ Rails.application.routes.draw do
     end
   end
 
+
+  resources :tournaments do
+    resources :invitations, only: [:new, :create]
+  end
+  
+  resources :invitations, only: [:new, :create] do
+    member do
+      get 'accept'
+    end
+  end
+
+
+resources :pitching_stats
+resources :batting_stats
+
   
  
   root 'pages#home'

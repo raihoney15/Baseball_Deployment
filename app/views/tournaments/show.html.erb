@@ -50,7 +50,7 @@
                             <% end %>
                             <% if can? :update, @tournament %>
                             <%= link_to new_tournament_invitation_path(@tournament) do %>
-                              <%= image_tag("invite.png", alt: "edit", style: "width: 20px; height: 20px; object-fit: cover;") %>
+                              <%= image_tag("invite.png", alt: "edit", style: "width: 20px; height: 20px; object-fit: cover;") %> |
                               <%#= button_to "Invite", tournament, class: "btn btn-secondary btn-sm" %>
                               <% end %>
                               <% end %>
@@ -66,7 +66,7 @@
 
 
                             <% if can? :destroy, @tournament %>
-                            <div style=" margin-left: 100px; margin-top: -25px;">
+                            <div style=" margin-left: 130px; margin-top: -25px;">
                                 <%= button_to tournament_path(@tournament), method: :delete, data: { confirm: "Are you sure?" }, class: "myButton" do %>
                                 <%= image_tag("empty.png", alt: "edit", style: "width: 20px; height: 20px; object-fit: cover;") %>
                             </div>

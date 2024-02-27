@@ -11,6 +11,8 @@ class Event < ApplicationRecord
   has_one :event_setup
   has_many :event_innings
   belongs_to :rooster_position,:optional => true
+  has_many :batting_stats	, dependent: :destroy
+  has_many :pitching_stats, dependent: :destroy	
 
   # has_many :rooster_positions
 

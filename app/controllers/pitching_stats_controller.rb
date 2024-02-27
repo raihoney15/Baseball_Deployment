@@ -1,0 +1,2 @@
+class PitchingStatsController < ApplicationController
+end

@@ -35,6 +35,9 @@ class ChangeRoosterPositionsService
           current_batter_order =  @event.opponent_team_line_ups.where(opponent_rooster_id:a1).first.batter_order
           next_batter_order =  @event.opponent_team_line_ups.find_by(batter_order: current_batter_order + 1)
           next_batter = next_batter_order.opponent_rooster_id
+
+
+
           if next_batter
             
             new_rooster_position = RoosterPosition.new(
@@ -45,6 +48,13 @@ class ChangeRoosterPositionsService
             new_rooster_position.second_base = rooster_position.first_base
             new_rooster_position.third_base = rooster_position.second_base
             new_rooster_position.fourth_base = rooster_position.third_base
+
+            p = @event.pitching_stats.last
+            new_pitching_stat = PitchingStat.new(
+            p.attributes.slice("pitch","event_id","scoreboard_id","team_id","opponent_team_id","rooster_id","opponent_rooster_id")
+            )
+            new_pitching_stat.pitch += 1
+            new_pitching_stat.save!
             
 
             new_rooster_position.save
@@ -52,6 +62,16 @@ class ChangeRoosterPositionsService
               r = Scoreboard.find(rooster_position.scoreboard_id)
               r.run += 1
               r.save
+
+              b = @event.batting_stats.first
+              new_batting_stats = BattingStat.new(
+                b.attributes.slice("run","event_id","scoreboard_id","team_id","opponent_team_id","rooster_id","opponent_rooster_id")
+                )
+                new_batting_stats.run += 1
+                binding.pry
+                new_batting_stats.opponent_rooster_id = rooster_position.fourth_base
+                binding.pry
+                new_batting_stats.save!
             end
           
           end
@@ -67,12 +87,21 @@ class ChangeRoosterPositionsService
                   new_rooster_position = RoosterPosition.new(
                     rooster_position.attributes.slice("scoreboard_id", "user_id", "catcher", "fourth_base", "first_base", "second_base", "third_base", "pitcher", "shortstop", "rightfield", "leftfield", "centerfield")
                   )
+
+                  p = @event.pitching_stats.first
+                  p.pitch += 1
+                  binding.pry
+                  p.save!
+
                     if rooster_position.fourth_base.present?
                       new_rooster_position.fourth_base = nil
 
                       r = Scoreboard.find(rooster_position.scoreboard_id)
                       r.run += 1
                       r.save
+                      b = @event.batting_stats.first
+                      b.run += 1
+                      b.save
 
                       if rooster_position.third_base.present?
                         new_rooster_position.third_base = nil
@@ -80,6 +109,9 @@ class ChangeRoosterPositionsService
                         r1 = Scoreboard.find(rooster_position.scoreboard_id)
                         r1.run += 1
                         r1.save
+                        b = @event.batting_stats.first
+                        b.run += 1
+                        b.save
                       else
                         new_rooster_position.third_base = rooster_position.first_base
 
@@ -102,6 +134,9 @@ class ChangeRoosterPositionsService
                       r1 = Scoreboard.find(rooster_position.scoreboard_id)
                       r1.run += 1
                       r1.save
+                      b = @event.batting_stats.first
+                      b.run += 1
+                      b.save
 
                       if rooster_position.second_base.present?
                         new_rooster_position.fourth_base = rooster_position.second_base
@@ -142,6 +177,10 @@ class ChangeRoosterPositionsService
                 new_rooster_position = RoosterPosition.new(
                   rooster_position.attributes.slice("scoreboard_id", "user_id", "catcher", "fourth_base", "first_base", "second_base", "third_base", "pitcher", "shortstop", "rightfield", "leftfield", "centerfield")
                 )
+                p = @event.pitching_stats.first
+                p.pitch += 1
+                binding.pry
+                p.save!
                 new_rooster_position.fourth_base = rooster_position.first_base
               
                 if rooster_position.second_base.present?
@@ -150,6 +189,9 @@ class ChangeRoosterPositionsService
                   r = Scoreboard.find(rooster_position.scoreboard_id)
                   r.run += 1
                   r.save
+                  b = @event.batting_stats.first
+                  b.run += 1
+                  b.save
                 elsif rooster_position.third_base.present?
                   rooster_position.third_base = nil
                   rooster_position.second_base = nil
@@ -157,6 +199,9 @@ class ChangeRoosterPositionsService
                   r = Scoreboard.find(rooster_position.scoreboard_id)
                   r.run += 2
                   r.save
+                  b = @event.batting_stats.first
+                  b.run += 2
+                  b.save
                 elsif rooster_position.fourth_base.present?
                   rooster_position.fourth_base = nil
                   rooster_position.third_base = nil
@@ -164,6 +209,9 @@ class ChangeRoosterPositionsService
                   r = Scoreboard.find(rooster_position.scoreboard_id)
                   r.run += 3
                   r.save
+                  b = @event.batting_stats.first
+                  b.run += 3
+                  b.save
                 end
               end
             
@@ -182,6 +230,10 @@ class ChangeRoosterPositionsService
             new_rooster_position = RoosterPosition.new(
               rooster_position.attributes.slice("scoreboard_id", "user_id", "catcher", "fourth_base", "first_base", "second_base", "third_base", "pitcher", "shortstop", "rightfield", "leftfield", "centerfield")
             )
+
+            p = @event.pitching_stats.first
+            p.pitch += 1
+            p.save!
         
             new_rooster_position.first_base = next_batter
             r = Scoreboard.find(rooster_position.scoreboard_id)
@@ -204,7 +256,10 @@ class ChangeRoosterPositionsService
           r = Scoreboard.find(rooster_position.scoreboard_id)
           r.strike += 1
           r.save
-
+          p = @event.pitching_stats.first
+          p.pitch += 1
+          binding.pry
+          p.save!
           if r.strike >= 3
               handle_out_move(rooster_position)
               r.strike = 0 
@@ -226,12 +281,18 @@ class ChangeRoosterPositionsService
           r = Scoreboard.find(rooster_position.scoreboard_id)
           r.balls += 1
           r.save
-
+          p = @event.pitching_stats.first
+          p.pitch += 1
+          binding.pry
+          p.save!
           if r.balls >= 4
             r = Scoreboard.find(rooster_position.scoreboard_id)
             r.run += 1
             r.balls = 0 
             r.save
+            b = @event.batting_stats.first
+            b.run += 1
+            b.save
             handle_single_move(rooster_position)
           else 
             new_rooster_position.save
@@ -243,6 +304,10 @@ class ChangeRoosterPositionsService
           current_batter_order = @event.opponent_team_line_ups.where(opponent_rooster_id: a1).first.batter_order
           next_batter_order = @event.opponent_team_line_ups.find_by(batter_order: current_batter_order + 1)
           next_batter = next_batter_order.opponent_rooster_id
+          p = @event.pitching_stats.first
+          p.pitch += 1
+          binding.pry
+          p.save!
           r = Scoreboard.find(rooster_position.scoreboard_id)
           bases = 0
           bases += 1 if rooster_position.first_base.present?
@@ -250,6 +315,9 @@ class ChangeRoosterPositionsService
           bases += 1 if rooster_position.third_base.present?
           bases += 1 if rooster_position.fourth_base.present?
           r.run += bases
+          b = @event.batting_stats.first
+          b.run += bases
+          b.save
           rooster_position.update(
             first_base: nil,
             second_base: nil,

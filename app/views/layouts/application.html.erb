@@ -16,7 +16,14 @@
   </head>
 
   <body>
+  <% if controller_name == 'registrations' && action_name.in?(['new', 'create']) %>
+
+  <% elsif controller_name == 'sessions' && action_name.in?(['new','edit']) %>
+
+  <% else %>
   <%= render partial: 'layouts/navbar' %>  
+  <% end %>
+
 <br />
 <% if controller_name == 'tournaments' && action_name.in?(['new', 'edit' ,'create','show','index']) %>
   <%= yield %>
@@ -34,11 +41,13 @@
   <%= yield %>
   <% elsif controller_name == 'opponent_roosters' && action_name.in?(['new','edit' , 'create','show','index']) %>
   <%= yield %>
-  <% elsif controller_name == 'events' && action_name.in?(['new','edit' , 'create','show','index','start']) %>
+  <% elsif controller_name == 'events' && action_name.in?(['new','edit' , 'create','show','index','start','resume']) %>
   <%= yield %>
   <% elsif controller_name == 'team_line_ups' && action_name.in?(['new','edit' , 'create','show','index']) %>
   <%= yield %>
   <% elsif controller_name == 'opponent_team_line_ups' && action_name.in?(['new','edit' , 'create','show','index']) %>
+  <%= yield %>
+  <% elsif controller_name == 'invitations' && action_name.in?(['new' , 'create','accept']) %>
   <%= yield %>
   <% elsif controller_name == 'users' && action_name.in?(['index']) %>
   <%= yield %>
@@ -50,5 +59,4 @@
         <%= render partial: 'layouts/tables' %>
 <% end %>
 </body>
-<%= render partial: 'layouts/footer' %>
 </html>
