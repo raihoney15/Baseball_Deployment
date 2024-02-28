@@ -6,13 +6,16 @@ class TournamentsController < ApplicationController
 
   def index
     @q = Tournament.ransack(params[:q])
-      if current_user.nil?
-        @tournaments = @q.result(distinct: true).page(params[:page]).per(5)
-      elsif current_user&.roles&.exists?(role_name:'admin')
-        @tournaments = @q.result(distinct: true).page(params[:page]).per(5)
-      else
-        @tournaments = @q.result(distinct: true).where(user_id: current_user.id).page(params[:page]).per(5)
-      end
+    if current_user.nil?
+      @tournaments = @q.result(distinct: true).page(params[:page]).per(5)
+    elsif current_user&.roles&.exists?(role_name:'admin')
+      @tournaments = @q.result(distinct: true).page(params[:page]).per(5)
+    else
+      user_tournaments = current_user.tournaments
+      invited_tournaments = Tournament.joins(:invitations).where(invitations: { email: current_user.email, accepted: true })
+      @tournaments = (user_tournaments + invited_tournaments).uniq
+      @tournaments = @q.result(distinct: true).where(id: @tournaments.map(&:id)).page(params[:page]).per(5)
+    end
   end
 
   def show

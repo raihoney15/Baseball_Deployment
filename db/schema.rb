@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_02_27_074420) do
+ActiveRecord::Schema[7.1].define(version: 2024_02_28_060550) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -67,6 +67,20 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_27_074420) do
     t.index ["rooster_id"], name: "index_batting_stats_on_rooster_id"
     t.index ["scoreboard_id"], name: "index_batting_stats_on_scoreboard_id"
     t.index ["team_id"], name: "index_batting_stats_on_team_id"
+  end
+
+  create_table "commentaries", force: :cascade do |t|
+    t.text "text"
+    t.bigint "rooster_id"
+    t.bigint "opponent_rooster_id"
+    t.bigint "event_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "rooster_name"
+    t.string "move_name"
+    t.index ["event_id"], name: "index_commentaries_on_event_id"
+    t.index ["opponent_rooster_id"], name: "index_commentaries_on_opponent_rooster_id"
+    t.index ["rooster_id"], name: "index_commentaries_on_rooster_id"
   end
 
   create_table "event_innings", force: :cascade do |t|
@@ -232,7 +246,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_27_074420) do
 
   create_table "scoreboards", force: :cascade do |t|
     t.integer "balls"
-    t.integer "hit"
     t.integer "run"
     t.integer "strike"
     t.integer "out"
@@ -327,6 +340,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_27_074420) do
   add_foreign_key "batting_stats", "roosters"
   add_foreign_key "batting_stats", "scoreboards"
   add_foreign_key "batting_stats", "teams"
+  add_foreign_key "commentaries", "events"
+  add_foreign_key "commentaries", "opponent_roosters"
+  add_foreign_key "commentaries", "roosters"
   add_foreign_key "event_innings", "events"
   add_foreign_key "event_setups", "events"
   add_foreign_key "events", "opponent_teams"

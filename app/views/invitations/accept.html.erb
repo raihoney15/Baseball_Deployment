@@ -1,0 +1,5 @@
+<%= form_with(model: @invitation, url: accept_invitation_path, method: :patch) do |form| %>
+    <%= form.hidden_field :accepted, value: true %>
+    <%= form.submit 'Accept Invitation' %>
+  <% end %>
+  

@@ -76,81 +76,70 @@
 </div>
 
 <div style="margin-left: 100px; text-align: center;">
-<%= form_with(model: [@tournament, @event], url: play_tournament_event_path(@tournament, @event)) do |form| %>
-    <%= form.hidden_field :move_id, value: params[:move_id] %>
-    <div class="form-content">
-      <%= form.label :move_id, class: "form-label" %>
-      <%= form.collection_select :move_id, Move.all, :id, :name, { prompt: "Select move" }, required: true, class: "form-select form-control", autocomplete: 'off' %><br />
-      <%= form.submit "Play", class: "btn btn-outline-primary" %>
-    </div>
-  <% end %>
-  
-  
-  
-
-       
+    <%= form_with(model: [@tournament, @event], url: play_tournament_event_path(@tournament, @event)) do |form| %>
+        <%= form.hidden_field :move_id, value: params[:move_id] %>
+        <div class="form-content">
+        <%= form.label :move_id, class: "form-label" %>
+        <%= form.collection_select :move_id, Move.all, :id, :name, { prompt: "Select move" }, required: true, class: "form-select form-control", autocomplete: 'off' %><br />
+        <%= form.submit "Play", class: "btn btn-outline-primary" %>
+        </div>
+    <% end %>      
 </div>
 <div style="max-width: 100%; display: flex;">
     <div style="flex: 60%; padding: 260px; background-image: url('<%= asset_path('match.jpg') %>'); background-size: 100% 100%;margin-left: 100px; background-repeat: no-repeat;">
-        </div>
+    </div>
         <div style="flex: 40%;">
-        <div class="container">
-
-            <div class="row justify-content-center">
-                <div >
-                    <div class="d-flex justify-content-between align-items-center mb-3">
-                        <h4 style="text-align: center;">TeamLineUp</h4> 
-                        <%= link_to "Back", tournament_event_path(@tournament, @event), class: "btn btn-outline-primary " %>
-                    </div>
-                    <div style="max-height: 500px; overflow-y: auto; margin-right: 0px;">
-                        <table class="table">
-                            <thead>
-                            <tr>
-                                <th>Position</th>
-                                <th>Rooster</th>
-                                <th>Batter Order</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <% @event.team_line_ups.each do |team_line_up| %>
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div >
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h4 style="text-align: center;">TeamLineUp</h4> 
+                            <%= link_to "Back", tournament_event_path(@tournament, @event), class: "btn btn-outline-primary " %>
+                        </div>
+                        <div style="max-height: 500px; overflow-y: auto; margin-right: 0px;">
+                            <table class="table">
+                                <thead>
                                 <tr>
-                                <td><%= Position.find(team_line_up.position_id).position_name %></td>
-                                <td><%= team_line_up.rooster.name %></td>
-                                <td><%= team_line_up.batter_order %></td>
+                                    <th>Position</th>
+                                    <th>Rooster</th>
+                                    <th>Batter Order</th>
                                 </tr>
-                            <% end %>
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                <% @event.team_line_ups.each do |team_line_up| %>
+                                    <tr>
+                                    <td><%= Position.find(team_line_up.position_id).position_name %></td>
+                                    <td><%= team_line_up.rooster.name %></td>
+                                    <td><%= team_line_up.batter_order %></td>
+                                    </tr>
+                                <% end %>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 </div>
 
+<% if false %>
+<table class="commentaries-table">
+  <thead>
+    <tr>
+      <th>Rooster Name</th>
+      <th>Move Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><%= @commentary.rooster_name %></td>
+      <td> has played </td>
+      <td><%= @commentary.move_name %></td>
+    </tr>
+  </tbody>
+</table>
+<% end %>
 
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+
+
   

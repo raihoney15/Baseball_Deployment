@@ -27,14 +27,27 @@ class User < ApplicationRecord
   validate :blank_space
  
 
- 
+
+  
+    # def generate_invitation_token
+    #   self.invitation_token = SecureRandom.urlsafe_base64
+    #   save
+    # end
+  
+  
    def blank_space
     if password&.include?(' ')
     errors.add(:password, "can't contain spaces")
     end
   end
 
-
+  def assign_tournament_admin_role(email)
+    binding.pry
+    user = User.find_by(email: email)
+    return unless user
+    self.roles << Role.find_by(role_name: 'tournament_admin')
+  end
+  
   def assign_default_roles
     self.roles << Role.find_by(role_name: 'tournament_owner') if self.roles.empty?
     self.roles << Role.find_by(role_name: 'team_owner') if self.roles.empty?
@@ -81,4 +94,6 @@ class User < ApplicationRecord
   end
 
 end
+
+
 

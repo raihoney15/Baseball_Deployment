@@ -18,6 +18,12 @@ class Ability
       can :manage, TeamLineUp, user: user
       can :manage, OpponentTeamLineUp, user: user
 
+    elsif user.roles.exists?(role_name:'tournament_admin')
+
+      can :show, Tournament
+      can :edit, Tournament
+      can :update, Tournament
+      can :create, Tournament
 
     else 
       can :read, Tournament
@@ -26,8 +32,6 @@ class Ability
       can :read, OpponentTeam
       can :read, TeamLineUp
       can :read, OpponentTeamLineUp
-
-
 
     end
   end

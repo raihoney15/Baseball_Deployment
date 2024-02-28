@@ -4,18 +4,15 @@ class Event < ApplicationRecord
   belongs_to :team, :optional => true
   has_one_attached :image 
   belongs_to :opponent_team, :optional => true
-  has_many :team_line_ups
-  has_many :moves
+  has_many :team_line_ups, dependent: :destroy
+  has_many :moves, dependent: :destroy
   has_many :opponent_team_line_ups
-  has_one :scoreboard
-  has_one :event_setup
-  has_many :event_innings
+  has_many :scoreboard, dependent: :destroy
+  has_many :event_setup, dependent: :destroy
+  has_many :event_innings, dependent: :destroy
   belongs_to :rooster_position,:optional => true
   has_many :batting_stats	, dependent: :destroy
   has_many :pitching_stats, dependent: :destroy	
-
-  # has_many :rooster_positions
-
 
   validates :game_type, :start_date,:location, presence: true
   validate :start_date_cannot_be_in_the_past

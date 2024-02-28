@@ -7,6 +7,10 @@ class EventsController < ApplicationController
 
   def start
     StartEventService.new(find_event_by_id, current_user).call
+    # @commentary = Commentary.new
+    # @commentary.rooster_name = "Rooster Name"
+    # @commentary.move_name = "Move Name"
+    # @commentary.save
     render 'start'
   end
 
@@ -16,6 +20,8 @@ class EventsController < ApplicationController
   end
 
   def play
+    # @commentary = Commentary.new(rooster_name: @rooster.name, move_name: @move.name)
+    # @commentary.save
     PlayEventService.new(find_event_by_id, event_params[:move_id],current_user).call
   end
 

@@ -6,6 +6,7 @@ class PlayEventService
   end
 
   def call
+    
     move = Move.find(@move_id)
     case move.name
     when "single"
@@ -25,3 +26,5 @@ class PlayEventService
     end
   end
 end
+
+

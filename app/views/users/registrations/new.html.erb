@@ -13,7 +13,7 @@
 
       <div style="margin-bottom: 15px;">
         <%= f.label :email %><span class="required">*</span><br>
-        <%= f.email_field :email, class: 'form-control', required: true %>
+        <%= f.email_field :email, class: 'form-control' %>
         <% if @user.errors[:email].any? %>
         <div class="error-message", style="color: #f4340a;">
           <b><%= "email" + @user.errors[:email].join(", ") %></b>
@@ -23,7 +23,7 @@
 
       <div style="margin-bottom: 15px;">
         <%= f.label :username %><span class="required">*</span><br>
-        <%= f.text_field :username, class: 'form-control', required: true %>
+        <%= f.text_field :username, class: 'form-control' %>
         <% if @user.errors[:username].any? %>
         <div class="error-message", style="color: #f4340a;">
           <b><%= "username" + @user.errors[:username].join(", ") %></b>
@@ -33,7 +33,7 @@
 
       <div style="margin-bottom: 15px;">
         <%= f.label :password %><span class="required">*</span><br>
-        <%= f.password_field :password, class: 'form-control', required: true %>
+        <%= f.password_field :password, class: 'form-control' %>
         <% if @user.errors[:password].any? %>
         <div class="error-message", style="color: #f4340a;">
           <b><%= "password" + @user.errors[:password].join(", ") %></b>
@@ -43,7 +43,7 @@
 
       <div style="margin-bottom: 15px;">
         <%= f.label :password_confirmation %><span class="required">*</span><br>
-        <%= f.password_field :password_confirmation, class: 'form-control', required: true %>
+        <%= f.password_field :password_confirmation, class: 'form-control' %>
         <% if @user.errors[:password_confirmation].any? %>
         <div class="error-message", style="color: #f4340a;">
           <b><%= "password_confirmation" + @user.errors[:password_confirmation].join(", ") %></b>
