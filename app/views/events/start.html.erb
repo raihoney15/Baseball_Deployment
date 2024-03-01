@@ -1,79 +1,128 @@
 
+<%= link_to "Back", tournament_event_path(@tournament, @event), class: "btn btn-outline-primary ", style:"margin-left: 1100px;" %>
 
-<div class="team-names">
-    <div> <%= @event.team.name %></div>
-    <div><%= @event.opponent_team.name %></div>
-</div>
 
-<div class="inning-indicator">
-    <h5>1st Bottom Inning</h5>
-    <div>
-        <input type="checkbox" id="ball" style="outline: 2px solid #32CD32;">
-        <input type="checkbox" id="ball" style="outline: 2px solid #32CD32;">
-        <input type="checkbox" id="ball" style="outline: 2px solid #32CD32;">
-        <input type="checkbox" id="ball" style="outline: 2px solid #32CD32;">
-        <label for="ball">Ball</label>
-        <input type="checkbox" id="strike"style="outline: 2px solid #FFD700;"> 
-        <input type="checkbox" id="strike"style="outline: 2px solid #FFD700;"> 
-        <input type="checkbox" id="strike"style="outline: 2px solid #FFD700;"> 
-        <label for="strike">Strike</label>
-        <input type="checkbox" id="out" style="outline: 2px solid #FF0000;"> 
-        <input type="checkbox" id="out" style="outline: 2px solid #FF0000;"> 
-        <input type="checkbox" id="out" style="outline: 2px solid #FF0000;"> 
-        <label for="out">Out</label>
+    <% @s = @event.event_innings.where(inning_number: 1,top:true ).ids %>
+    <% @s1 = @event.event_innings.where(inning_number: 2,top:true).ids %>
+    <% @s2 = @event.event_innings.where(inning_number: 3,top:true).ids %>
+    <% @s3 = @event.event_innings.where(inning_number: 4,top:true).ids %>
+    <% @s4 = @event.event_innings.where(inning_number: 5,top:true).ids %>
+    <% @s5 = @event.event_innings.where(inning_number: 6,top:true).ids %>
+    <% @s6 = @event.event_innings.where(inning_number: 7,top:true).ids %>
+    <% @s7 = @event.event_innings.where(inning_number: 8,top:true).ids %>
+    <% @s8 = @event.event_innings.where(inning_number: 9,top:true).ids %>
+
+    <% @o = @event.event_innings.where(inning_number: 1,bottom:true ).ids %>
+    <% @o1 = @event.event_innings.where(inning_number: 2,bottom:true).ids %>
+    <% @o2 = @event.event_innings.where(inning_number: 3,bottom:true).ids %>
+    <% @o3 = @event.event_innings.where(inning_number: 4,bottom:true).ids %>
+    <% @o4 = @event.event_innings.where(inning_number: 5,bottom:true).ids %>
+    <% @o5 = @event.event_innings.where(inning_number: 6,bottom:true).ids %>
+    <% @o6 = @event.event_innings.where(inning_number: 7,bottom:true).ids %>
+    <% @o7 = @event.event_innings.where(inning_number: 8,bottom:true).ids %>
+    <% @o8 = @event.event_innings.where(inning_number: 9,bottom:true).ids %>
+    <div class="element">
+        <div class="team-names">
+        <div> <%= @event.team.name %></div>
+        <h2> Vs </h2>
+        <div><%= @event.opponent_team.name %></div>
+        </div>
+        <div class="inning-indicator">
+
+            <h5><%= @event.event_innings.last.inning_number %>
+            <% if @event.event_innings.last.top %>
+            Top Inning
+            <% else %>
+            Bottom Inning
+            <% end %>
+            </h5>
+            <div>
+
+                <% balls_count = @event.scoreboards.last.balls %>
+                <% 4.times do |i| %>
+                <% if i < balls_count %>
+                    <input type="checkbox" id="out" style="outline: 2px solid #32CD32;" checked>
+                <% else %>
+                    <input type="checkbox" id="out" style="outline: 2px solid #32CD32;">
+                <% end %>
+                <% end %>
+                <label for="out">Ball</label>
+
+                    <% out_count = @event.scoreboards.last.out %>
+                    <% 3.times do |i| %>
+                    <% if i < out_count %>
+                        <input type="checkbox" id="out" style="outline: 2px solid #FF0000;" checked>
+                    <% else %>
+                        <input type="checkbox" id="out" style="outline: 2px solid #FF0000;">
+                    <% end %>
+                    <% end %>
+                    <label for="out">Out</label>
+
+                <% strike_count = @event.scoreboards.last.strike %>
+                <% 3.times do |i| %>
+                <% if i < strike_count %>
+                    <input type="checkbox" id="out" style="outline: 2px solid #FFD700;" checked>
+                <% else %>
+                    <input type="checkbox" id="out" style="outline: 2px solid #FFD700;">
+                <% end %>
+                <% end %>
+                <label for="out">Strike</label>
+
+
+            </div>
+        </div>
+
+        <div>
+            <table class="scoreboard-table">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>1</th>
+                        <th>2</th>
+                        <th>3</th>
+                        <th>4</th>
+                        <th>5</th>
+                        <th>6</th>
+                        <th>7</th>
+                        <th>8</th>
+                        <th>9</th>
+                        <th>R</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><h5 class="color"><%= @event.team.short_name %></h5></td>
+                        <td><%= @event.scoreboards.where(event_inning_id: @s).last&.run.nil? ? 0 : @r1=@event.scoreboards.where(event_inning_id: @s).last&.run %></td>
+                        <td><%= @event.scoreboards.where(event_inning_id: @s1).last&.run.nil? ? 0 : @r2=@event.scoreboards.where(event_inning_id: @s1).last&.run %></td>
+                        <td><%= @event.scoreboards.where(event_inning_id: @s2).last&.run.nil? ? 0 : @r3=@event.scoreboards.where(event_inning_id: @s2).last&.run %></td>
+                        <td><%= @event.scoreboards.where(event_inning_id: @s3).last&.run.nil? ? 0 : @r4=@event.scoreboards.where(event_inning_id: @s3).last&.run %></td>
+                        <td><%= @event.scoreboards.where(event_inning_id: @s4).last&.run.nil? ? 0 : @r5=@event.scoreboards.where(event_inning_id: @s4).last&.run %></td>
+                        <td><%= @event.scoreboards.where(event_inning_id: @s5).last&.run.nil? ? 0 : @r6=@event.scoreboards.where(event_inning_id: @s5).last&.run %></td>
+                        <td><%= @event.scoreboards.where(event_inning_id: @s6).last&.run.nil? ? 0 : @r7=@event.scoreboards.where(event_inning_id: @s6).last&.run %></td>
+                        <td><%= @event.scoreboards.where(event_inning_id: @s7).last&.run.nil? ? 0 : @r8= @event.scoreboards.where(event_inning_id: @s7).last&.run %></td>
+                        <td><%= @event.scoreboards.where(event_inning_id: @s8).last&.run.nil? ? 0 : @r9=@event.scoreboards.where(event_inning_id: @s8).last&.run %></td>
+                        <td><%= @r1.to_i+@r2.to_i+@r3.to_i+@r4.to_i+@r5.to_i+@r6.to_i+@r7.to_i+@r8.to_i+@r9.to_i %></td>
+
+                    </tr>
+                    <tr>
+                        <td><h5 class="color"><%= @event.opponent_team.short_name %></h5></td>
+                        <td><%= @event.scoreboards.where(event_inning_id: @o).last&.run.nil? ? 0 : @or1=@event.scoreboards.where(event_inning_id: @o).last&.run %></td>
+                        <td><%= @event.scoreboards.where(event_inning_id: @o1).last&.run.nil? ? 0 : @or2=@event.scoreboards.where(event_inning_id: @o1).last&.run %></td>
+                        <td><%= @event.scoreboards.where(event_inning_id: @o2).last&.run.nil? ? 0 : @or3=@event.scoreboards.where(event_inning_id: @o2).last&.run %></td>
+                        <td><%= @event.scoreboards.where(event_inning_id: @o3).last&.run.nil? ? 0 : @or4=@event.scoreboards.where(event_inning_id: @o3).last&.run %></td>
+                        <td><%= @event.scoreboards.where(event_inning_id: @o4).last&.run.nil? ? 0 : @or5=@event.scoreboards.where(event_inning_id: @o4).last&.run %></td>
+                        <td><%= @event.scoreboards.where(event_inning_id: @o5).last&.run.nil? ? 0 : @or6=@event.scoreboards.where(event_inning_id: @o5).last&.run %></td>                
+                        <td><%= @event.scoreboards.where(event_inning_id: @o6).last&.run.nil? ? 0 : @or7=@event.scoreboards.where(event_inning_id: @o6).last&.run %></td>
+                        <td><%= @event.scoreboards.where(event_inning_id: @o7).last&.run.nil? ? 0 : @or8=@event.scoreboards.where(event_inning_id: @o7).last&.run %></td>
+                        <td><%= @event.scoreboards.where(event_inning_id: @o8).last&.run.nil? ? 0 : @or9=@event.scoreboards.where(event_inning_id: @o8).last&.run %></td>
+                        <td><%= @or1.to_i+@or2.to_i+@or3.to_i+@or4.to_i+@or5.to_i+@or6.to_i+@or7.to_i+@or8.to_i+@or9.to_i %></td>
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
-</div>
-
-<div>
-    <table class="scoreboard-table">
-        <thead>
-            <tr>
-                <th></th>
-                <th>1</th>
-                <th>2</th>
-                <th>3</th>
-                <th>4</th>
-                <th>5</th>
-                <th>6</th>
-                <th>7</th>
-                <th>8</th>
-                <th>9</th>
-                <th>R</th>
-
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td><h5 class="color"><%= @event.team.short_name %></h5></td>
-                <td>0</td>
-                <td>-</td>
-                <td>-</td>
-                <td>-</td>
-                <td>-</td>
-                <td>-</td>
-                <td>-</td>
-                <td>-</td>
-                <td>-</td>
-                <td>0</td>
-
-            </tr>
-            <tr>
-                <td><h5 class="color"><%= @event.opponent_team.short_name %></h5></td>
-                <td>0</td>
-                <td>-</td>
-                <td>-</td>
-                <td>-</td>
-                <td>-</td>
-                <td>-</td>
-                <td>-</td>
-                <td>-</td>
-                <td>-</td>
-                <td>0</td>
-
-            </tr>
-        </tbody>
-    </table>
-</div>
 
 <div style="margin-left: 100px; text-align: center;">
     <%= form_with(model: [@tournament, @event], url: play_tournament_event_path(@tournament, @event)) do |form| %>
@@ -93,26 +142,32 @@
                 <div class="row justify-content-center">
                     <div >
                         <div class="d-flex justify-content-between align-items-center mb-3">
-                            <h4 style="text-align: center;">TeamLineUp</h4> 
-                            <%= link_to "Back", tournament_event_path(@tournament, @event), class: "btn btn-outline-primary " %>
+                            <h4 style="text-align: center;">LineUp</h4> 
                         </div>
                         <div style="max-height: 500px; overflow-y: auto; margin-right: 0px;">
-                            <table class="table">
+                            <table class="table", style="height: 300px; width:200px;margin-right: 35px;" >
                                 <thead>
                                 <tr>
                                     <th>Position</th>
                                     <th>Rooster</th>
-                                    <th>Batter Order</th>
                                 </tr>
                                 </thead>
                                 <tbody>
+                                <% if @event.scoreboards.last.home_team? %>
                                 <% @event.team_line_ups.each do |team_line_up| %>
                                     <tr>
                                     <td><%= Position.find(team_line_up.position_id).position_name %></td>
                                     <td><%= team_line_up.rooster.name %></td>
-                                    <td><%= team_line_up.batter_order %></td>
                                     </tr>
                                 <% end %>
+                                    <% else %>
+                                    <% @event.opponent_team_line_ups.each do |opponent_team_line_up| %>
+                                        <tr>
+                                        <td><%= Position.find(opponent_team_line_up.position_id).position_name %></td>
+                                        <td><%= opponent_team_line_up.opponent_rooster.name %></td>
+                                        </tr>
+                                    <% end %>
+                                    <% end %>
                                 </tbody>
                             </table>
                         </div>
@@ -122,24 +177,3 @@
         </div>
 </div>
 
-<% if false %>
-<table class="commentaries-table">
-  <thead>
-    <tr>
-      <th>Rooster Name</th>
-      <th>Move Name</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><%= @commentary.rooster_name %></td>
-      <td> has played </td>
-      <td><%= @commentary.move_name %></td>
-    </tr>
-  </tbody>
-</table>
-<% end %>
-
-
-
-  

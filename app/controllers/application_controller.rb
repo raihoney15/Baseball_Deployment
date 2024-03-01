@@ -11,13 +11,6 @@ class ApplicationController < ActionController::Base
       redirect_to verify_path, notice: "Please verify your email address"
     end
 
-  
-
-  # rescue_from CanCan::AccessDenied do |exception|
-  #   # redirect_to root_path
-  #   flash[:danger] = "Sorry, you are not authorized to access this area!"
-  # end
-
   rescue_from CanCan::AccessDenied do |exception|
     respond_to do |format|
       format.json { head :forbidden }
@@ -35,7 +28,5 @@ class ApplicationController < ActionController::Base
       devise_parameter_sanitizer.permit :sign_in, keys: [:login, :password]
       devise_parameter_sanitizer.permit :account_update, keys: added_attrs
     end
-
-
 
 end

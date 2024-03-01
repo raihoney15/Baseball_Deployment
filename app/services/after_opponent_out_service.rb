@@ -12,23 +12,23 @@ class AfterOpponentOutService
         event_id: @event.id,
         team_id: @event.team_id,
         rooster_id: @event.team_line_ups.where(position_id: 2).first.rooster_id,
-        scoreboard_id: @event.scoreboard.last.id
+        scoreboard_id: @event.scoreboards.last.id
         )
-        binding.pry
+        
         BattingStat.create!(
           event_id: @event.id,
           opponent_team_id: @event.opponent_team_id,
           opponent_rooster_id:@event.opponent_team_line_ups.find_by(batter_order: 1).opponent_rooster_id,
-          scoreboard_id: @event.scoreboard.last.id,
+          scoreboard_id: @event.scoreboards.last.id,
           run: 0
         )
        
         Scoreboard.create(balls: 0 ,run: 0, strike: 0, out: 0, event_id: @event.id, event_inning_id: @event.event_innings.last.id, home_team: true,home_away: false)
-        binding.pry
+        
         opponent_team_line_ups = @event.opponent_team_line_ups
         first_base_rooster_id = opponent_team_line_ups.find_by(batter_order: 1)&.opponent_rooster_id
-        rooster_position = RoosterPosition.new(scoreboard_id: @event.scoreboard.last.id, user_id: @current_user_id.id)
-        binding.pry
+        rooster_position = RoosterPosition.new(scoreboard_id: @event.scoreboards.last.id, user_id: @current_user_id.id)
+        
         @event.team_line_ups.each do |team_line_up|
     
           position_name = Position.find(team_line_up.position_id).position_name.downcase

@@ -7,7 +7,7 @@ class Event < ApplicationRecord
   has_many :team_line_ups, dependent: :destroy
   has_many :moves, dependent: :destroy
   has_many :opponent_team_line_ups
-  has_many :scoreboard, dependent: :destroy
+  has_many :scoreboards, dependent: :destroy
   has_many :event_setup, dependent: :destroy
   has_many :event_innings, dependent: :destroy
   belongs_to :rooster_position,:optional => true

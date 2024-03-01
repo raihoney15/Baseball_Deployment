@@ -6,11 +6,11 @@ class EventsController < ApplicationController
     before_action :set_tournament
 
   def start
-    StartEventService.new(find_event_by_id, current_user).call
-    # @commentary = Commentary.new
-    # @commentary.rooster_name = "Rooster Name"
-    # @commentary.move_name = "Move Name"
-    # @commentary.save
+    if @event.is_live?
+    else
+      StartEventService.new(find_event_by_id, current_user).call
+    end
+
     render 'start'
   end
 

@@ -30,9 +30,16 @@
   margin-top: 10px;
 }
 
+.inning-indicator {
+  background-color: #f2f2f2;
+  padding: 5px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
 .scoreboard-table {
   align-items: center;
-  margin-left: 190px;
+ 
   margin-right: 60px;
   border-collapse: collapse;
   width: 70%;
@@ -205,5 +212,90 @@ p {
 .ui-autocomplete li.ui-state-focus,
 .ui-autocomplete li:hover {
   background-color: #f0f0f0;
+}
+
+/* CSS for Live Event Block */
+.live-event {
+  border: 1px solid #ccc; /* Add border around the live event block */
+  padding: 10px; /* Add padding to the live event block */
+  margin-left: 1px;
+  margin-bottom: 20px; /* Add margin to the bottom of the live event block */
+  width: 700px; /* Set the width of the live event block */
+   /* Align the live event block to the left */
+}
+
+/* CSS for Event Status */
+.event-status {
+  background-color: #ec300f; /* Green background color for live event status */
+  color: white; /* White text color for live event status */
+  padding: 5px; /* Add padding to the live event status */
+  border-radius: 5px; /* Add border radius to the live event status */
+  margin-bottom: 10px; /* Add margin to the bottom of the live event status */
+}
+
+/* CSS for Team Names */
+.team-names {
+  margin-bottom: 10px; /* Add margin to the bottom of the team names */
+}
+
+/* CSS for Inning Indicator */
+.inning-indicator {
+  background-color: #f2f2f2; /* Light gray background color for inning indicator */
+  padding: 5px; /* Add padding to the inning indicator */
+  border-radius: 5px; /* Add border radius to the inning indicator */
+  margin-bottom: 10px; /* Add margin to the bottom of the inning indicator */
+}
+
+/* CSS for Scoreboard Table Container */
+.scoreboard-table-container {
+  overflow-x: auto; /* Add horizontal scroll to the scoreboard table container */
+}
+
+/* CSS for Scoreboard Table */
+.scoreboard-table {
+  width: 100%; /* Set the width of the scoreboard table to 100% */
+  border-collapse: collapse; /* Collapse the borders of the scoreboard table */
+}
+
+/* CSS for Scoreboard Table Head */
+.scoreboard-table th {
+  background-color: #f2f2f2; /* Light gray background color for scoreboard table head */
+  padding: 8px; /* Add padding to the scoreboard table head */
+  text-align: left; /* Align the text to the left in the scoreboard table head */
+  border-bottom: 1px solid #ddd; /* Add bottom border to the scoreboard table head */
+}
+
+/* CSS for Scoreboard Table Body */
+.scoreboard-table td {
+  padding: 8px; /* Add padding to the scoreboard table body */
+  text-align: left; /* Align the text to the left in the scoreboard table body */
+  border-bottom: 1px solid #ddd; /* Add bottom border to the scoreboard table body */
+}
+
+/* CSS for Event Status Text */
+.event-status-text {
+  font-weight: bold; /* Add bold font weight to the event status text */
+}
+
+.element {
+  margin-left: 200px;
+  margin-right: 200px;
+}
+
+.element1{
+  margin-left: 300px;
+  margin-top: -70px;
+  height: 30px;
+
+}
+
+.heading {
+  background-color: #e9e6e6; /* Light gray background color for inning indicator */
+  padding: 5px; /* Add padding to the inning indicator */
+  border-radius: 5px; /* Add border radius to the inning indicator */
+  margin-bottom: 10px;
+  margin-right: 290px;
+  text-align: center; /* Add margin to the bottom of the inning indicator */
+ 
 }
 

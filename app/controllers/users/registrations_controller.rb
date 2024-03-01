@@ -9,10 +9,18 @@ class Users::RegistrationsController < Devise::RegistrationsController
   after_action :dummyy_role, only: [:update]
 
   def new
+    # 
     super
   end
-
-  
+  def create
+    super do |resource|
+      unless resource.valid?
+        flash[:alert] = resource.errors.full_messages.join(', ')
+        redirect_to new_user_registration_path
+        return
+      end
+    end
+  end
 
   protected
 
@@ -28,11 +36,12 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   end
 
-  def dummyy_role
+  # def dummyy_role
 
-  end
+  # end
 
   def after_sign_up_path_for(resource)
+    
     verify_path
   end
 

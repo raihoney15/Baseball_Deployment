@@ -6,20 +6,20 @@ class UpdateRoosterPositionsService
   end
 
   def call
-    binding.pry
-    PitchingStat.create!( 
+    
+    PitchingStat.find_or_create_by!( 
       pitch: 0,
       event_id: @event.id,
       team_id: @event.team_id,
       rooster_id: @event.team_line_ups.where(position_id: 2).first.rooster_id,
-      scoreboard_id: @event.scoreboard.last.id
+      scoreboard_id: @event.scoreboards.last.id
       )
-      binding.pry
-      BattingStat.create!(
+      
+      BattingStat.find_or_create_by!(
         event_id: @event.id,
         opponent_team_id: @event.opponent_team_id,
         opponent_rooster_id:@event.opponent_team_line_ups.find_by(batter_order: 1).opponent_rooster_id,
-        scoreboard_id: @event.scoreboard.last.id,
+        scoreboard_id: @event.scoreboards.last.id,
         run: 0
       )
       

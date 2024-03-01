@@ -1,11 +1,128 @@
-<div class="container">
-  <div class="row justify-content-center">
-    <div class="col-md-3">
-    <% if current_user %>
-    <h1 style="margin-top: -95px">Hello <%= current_user.username%></h1>    
-    <% else %>         
-    <% end %>
-    </div>
-  </div>
+
+
+<div class="element1",style="margin-left: 300px;margin-bottom: 500px;">
+<div class="heading">
+<h2>Live Events</h2>
 </div>
- 
+  <% @live_events_with_scoreboards.each do |live_event| %>
+    <div class="live-event">
+      <div class="event-status">
+        <span class="event-status-text">Live</span>
+      </div>
+      <div class="team-names">
+        <div><%= live_event[:event].team.name %></div>
+        <h2> Vs </h2>
+        <div><%= live_event[:event].opponent_team.name %></div>
+      </div>
+      <div class="inning-indicator">
+        <h5><%= live_event[:event].event_innings.last.inning_number %>
+        <% if live_event[:event].event_innings.last.top %>
+          Top Inning
+        <% else %>
+          Bottom Inning
+        <% end %>
+        </h5>
+        <div>
+          <% balls_count = live_event[:scoreboards].balls %>
+          <% 4.times do |i| %>
+            <% if i < balls_count %>
+              <input type="checkbox" id="out" style="outline: 2px solid #32CD32;" checked>
+            <% else %>
+              <input type="checkbox" id="out" style="outline: 2px solid #32CD32;">
+            <% end %>
+          <% end %>
+          <label for="out">Ball</label>
+          
+          <% out_count = live_event[:scoreboards].out %>
+          <% 3.times do |i| %>
+            <% if i < out_count %>
+              <input type="checkbox" id="out" style="outline: 2px solid #FF0000;" checked>
+            <% else %>
+              <input type="checkbox" id="out" style="outline: 2px solid #FF0000;">
+            <% end %>
+          <% end %>
+          <label for="out">Out</label>
+          
+          <% strike_count = live_event[:scoreboards].strike %>
+          <% 3.times do |i| %>
+            <% if i < strike_count %>
+              <input type="checkbox" id="out" style="outline: 2px solid #FFD700;" checked>
+            <% else %>
+              <input type="checkbox" id="out" style="outline: 2px solid #FFD700;">
+            <% end %>
+          <% end %>
+          <label for="out">Strike</label>
+        </div>
+        <% @s = live_event[:event].event_innings.where(inning_number:1,top: true).ids %>
+        <% @s1 = live_event[:event].event_innings.where(inning_number:2,top: true).ids %>
+        <% @s2= live_event[:event].event_innings.where(inning_number:3,top: true).ids %>
+        <% @s3 = live_event[:event].event_innings.where(inning_number:4,top: true).ids %>
+        <% @s4 = live_event[:event].event_innings.where(inning_number:5,top: true).ids %>
+        <% @s5 = live_event[:event].event_innings.where(inning_number:6,top: true).ids %>
+        <% @s6 = live_event[:event].event_innings.where(inning_number:7,top: true).ids %>
+        <% @s7 = live_event[:event].event_innings.where(inning_number:8,top: true).ids %>
+        <% @s8 = live_event[:event].event_innings.where(inning_number:9,top: true).ids %>
+
+        <% @o = live_event[:event].event_innings.where(inning_number:1,bottom: true).ids %>
+        <% @o1 = live_event[:event].event_innings.where(inning_number:2,bottom: true).ids %>
+        <% @o2= live_event[:event].event_innings.where(inning_number:3,bottom: true).ids %>
+        <% @o3 = live_event[:event].event_innings.where(inning_number:4,bottom: true).ids %>
+        <% @o4 = live_event[:event].event_innings.where(inning_number:5,bottom: true).ids %>
+        <% @o5 = live_event[:event].event_innings.where(inning_number:6,bottom: true).ids %>
+        <% @o6 = live_event[:event].event_innings.where(inning_number:7,bottom: true).ids %>
+        <% @o7 = live_event[:event].event_innings.where(inning_number:8,bottom: true).ids %>
+        <% @o8 = live_event[:event].event_innings.where(inning_number:9,bottom: true).ids %>
+
+        <div class="scoreboard-table-container">
+          <a href="<%= resume_tournament_event_path(live_event[:event].tournament, live_event[:event]) %>",style:"color:black;">
+            <table class="scoreboard-table">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>1</th>
+                  <th>2</th>
+                  <th>3</th>
+                  <th>4</th>
+                  <th>5</th>
+                  <th>6</th>
+                  <th>7</th>
+                  <th>8</th>
+                  <th>9</th>
+                  <th>R</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><h5 class="color"><%= live_event[:event].team.short_name %></h5></td>
+                  <td><%= live_event[:event].scoreboards.where(event_inning_id: @s).last&.run.nil? ? 0 : @r1=live_event[:event].scoreboards.where(event_inning_id: @s).last&.run %></td>
+                  <td><%= live_event[:event].scoreboards.where(event_inning_id: @s1).last&.run.nil? ? 0 : @r2=live_event[:event].scoreboards.where(event_inning_id: @s1).last&.run %></td>
+                  <td><%= live_event[:event].scoreboards.where(event_inning_id: @s2).last&.run.nil? ? 0 : @r3=live_event[:event].scoreboards.where(event_inning_id: @s2).last&.run %></td>
+                  <td><%= live_event[:event].scoreboards.where(event_inning_id: @s3).last&.run.nil? ? 0 : @r4=live_event[:event].scoreboards.where(event_inning_id: @s3).last&.run %></td>
+                  <td><%= live_event[:event].scoreboards.where(event_inning_id: @s4).last&.run.nil? ? 0 : @r5=live_event[:event].scoreboards.where(event_inning_id: @s4).last&.run %></td>
+                  <td><%= live_event[:event].scoreboards.where(event_inning_id: @s5).last&.run.nil? ? 0 : @r6=live_event[:event].scoreboards.where(event_inning_id: @s5).last&.run %></td>
+                  <td><%= live_event[:event].scoreboards.where(event_inning_id: @s6).last&.run.nil? ? 0 : @r7=live_event[:event].scoreboards.where(event_inning_id: @s6).last&.run %></td>
+                  <td><%= live_event[:event].scoreboards.where(event_inning_id: @s7).last&.run.nil? ? 0 : @r8= live_event[:event].scoreboards.where(event_inning_id: @s7).last&.run %></td>
+                  <td><%= live_event[:event].scoreboards.where(event_inning_id: @s8).last&.run.nil? ? 0 : @r9=live_event[:event].scoreboards.where(event_inning_id: @s8).last&.run %></td>
+                  <td><%= @r1.to_i+@r2.to_i+@r3.to_i+@r4.to_i+@r5.to_i+@r6.to_i+@r7.to_i+@r8.to_i+@r9.to_i %></td>
+                </tr>
+                <tr>
+                  <td><h5 class="color"><%= live_event[:event].opponent_team.short_name %></h5></td>
+                  <td><%= live_event[:event].scoreboards.where(event_inning_id: @o).last&.run.nil? ? 0 : @or1=live_event[:event].scoreboards.where(event_inning_id: @o).last&.run %></td>
+                  <td><%= live_event[:event].scoreboards.where(event_inning_id: @o1).last&.run.nil? ? 0 : @or2=live_event[:event].scoreboards.where(event_inning_id: @o1).last&.run %></td>
+                  <td><%= live_event[:event].scoreboards.where(event_inning_id: @o2).last&.run.nil? ? 0 : @or3=live_event[:event].scoreboards.where(event_inning_id: @o2).last&.run %></td>
+                  <td><%= live_event[:event].scoreboards.where(event_inning_id: @o3).last&.run.nil? ? 0 : @or4=live_event[:event].scoreboards.where(event_inning_id: @o3).last&.run %></td>
+                  <td><%= live_event[:event].scoreboards.where(event_inning_id: @o4).last&.run.nil? ? 0 : @or5=live_event[:event].scoreboards.where(event_inning_id: @o4).last&.run %></td>
+                  <td><%= live_event[:event].scoreboards.where(event_inning_id: @o5).last&.run.nil? ? 0 : @or6=live_event[:event].scoreboards.where(event_inning_id: @o5).last&.run %></td>
+                  <td><%= live_event[:event].scoreboards.where(event_inning_id: @o6).last&.run.nil? ? 0 : @or7=live_event[:event].scoreboards.where(event_inning_id: @o6).last&.run %></td>
+                  <td><%= live_event[:event].scoreboards.where(event_inning_id: @o7).last&.run.nil? ? 0 : @or8=live_event[:event].scoreboards.where(event_inning_id: @o7).last&.run %></td>
+                  <td><%= live_event[:event].scoreboards.where(event_inning_id: @o8).last&.run.nil? ? 0 : @or9=live_event[:event].scoreboards.where(event_inning_id: @o8).last&.run %></td>
+                  <td><%= @or1.to_i+@or2.to_i+@or3.to_i+@or4.to_i+@or5.to_i+@or6.to_i+@or7.to_i+@or8.to_i+@or9.to_i %></td>
+                </tr>
+              </tbody>
+            </table>
+          </a>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>

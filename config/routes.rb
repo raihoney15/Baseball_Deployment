@@ -55,6 +55,7 @@ resources :batting_stats
  
   root 'pages#home'
   devise_for :users, controllers: { registrations: 'users/registrations' }
+  
   get "/verify" => "verify#edit", :as => "verify"
   get "/verify" => "verify#new", :as => "new_verify"
   put "/verify" => "verify#update", :as => "update_verify"
