@@ -42,11 +42,12 @@ end
 def update
   if @rooster.update(rooster_params)
     flash[:success] = "Rooster was successfully updated."
-    redirect_to tournament_team_path(@tournament, @team)
+    redirect_to tournament_team_rooster_path(@tournament,@team,rooster)
   else
     render "edit"
   end
 end
+
 
 def destroy
   @rooster.destroy

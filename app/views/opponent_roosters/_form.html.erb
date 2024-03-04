@@ -15,7 +15,7 @@
           </div>
           <div class="form-group">
             <%= form.label :jersey_number %><span class="required">*</span>
-            <%= form.text_field :jersey_number, class: "form-control", autocomplete: 'off' %>
+            <%= form.number_field :jersey_number, class: "form-control", autocomplete: 'off' %>
             <% if @opponent_rooster.errors[:jersey_number].any? %>
             <div class="error-message", style="color: #f4340a;">
               <b><%= "jersey_number " + @opponent_rooster.errors[:jersey_number].join(", ") %></b>

@@ -34,24 +34,26 @@ end
 def create
     @opponent_rooster = current_user.opponent_roosters.build(opponent_rooster_params.merge(opponent_team_id:@opponent_team.id ).merge(tournament_id:@tournament.id))
     if @opponent_rooster.save
-        redirect_to tournament_opponent_team_path(@tournament,@opponent_team)
+      flash[:success] = "Opponent Rooster was successfully created."
+      redirect_to tournament_opponent_team_path(@tournament, @opponent_team)
     else
-        render "new"
+      render "new"
     end
-
 end
 
 def update
     if @opponent_rooster.update(opponent_rooster_params)
-        redirect_to tournament_opponent_team_path(@tournament,@opponent_team)
+      flash[:success] = "Opponent Rooster was successfully updated."
+      redirect_to tournament_opponent_team_rooster_path(@tournament,@team,opponent_rooster)
     else
-        render "edit"
+      render "edit"
     end
 end
 
 def destroy
     @opponent_rooster.destroy
-    redirect_to tournament_opponent_team_path(@tournament,@opponent_team)
+    flash[:success] = "Rooster was successfully deleted."
+  redirect_to tournament_opponent_team_path(@tournament, @opponent_team)
 end
 
   private
@@ -75,4 +77,3 @@ end
 
 end
 
-I want to show flash message on creating and updating flashmessage should be shown on opponent_rooster show page on deleting rooster flashmessage should be shown on opponent_team show page.

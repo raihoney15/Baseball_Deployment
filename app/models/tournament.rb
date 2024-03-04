@@ -18,7 +18,7 @@ class Tournament < ApplicationRecord
 
   def start_date_cannot_be_in_the_past
     if start_date.present? && start_date.past?
-      errors.add(:start_date, "can't be in the past")
+      errors.add(:start_date, " can't be in the past")
     end
   end
 
@@ -28,18 +28,18 @@ class Tournament < ApplicationRecord
     return if end_date.blank? || start_date.blank?
 
     if end_date < start_date
-      errors.add(:end_date, "cannot be before the start date")
+      errors.add(:end_date, " cannot be before the start date")
     end
   end
 
   def name_and_location_cannot_start_with_numbers
     if name.present? && name.match?(/\A\d/)
       
-      errors.add(:name, "cannot start with a number")
+      errors.add(:name, " cannot start with a number")
     end
 
     if location.present? && location.match?(/\A\d/)
-      errors.add(:location, "cannot start with a number")
+      errors.add(:location, " cannot start with a number")
     end
   end
 

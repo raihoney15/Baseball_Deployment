@@ -148,13 +148,13 @@
 <div style="margin-left: 100px; text-align: center;">
     <% if @event.event_innings.last.inning_number > 9 %>
         <h3> This match is over , Winning Team is 
-        <% binding.pry %>
+        <%  %>
         <% if @event.team.id == @event.winning_team_id %>
         <%= @event.team.name %>
-        with <%= @run %> runs.
+        with <%= @orun %> runs.
         <% else %>
         <%= @event.opponent_team.name %>
-        with <%= @orun %> runs.
+        with <%= @run %> runs.
         <% end %>
         </h3>
     <% else %>
@@ -190,26 +190,26 @@
                           </tr>
                         </thead>
                         <tbody>
-                          <% positions = ["first_base", "second_base", "third_base", "fourth_base", "catcher", "pitcher", "shortstop", "rightfield", "leftfield", "centerfield"] %>
-                          <% positions.each do |position| %>
-                            <tr>
-                              <td><%= position.titleize %></td>
-                              <td>
-                                <% if @event.scoreboards.last.home_team? %>
-                                  <% if ["first_base", "second_base", "third_base", "fourth_base"].include?(position) %>
-                                    <% rooster = OpponentRooster.find_by(id: rooster_position.send(position)) %>
-                                  <% else %>
-                                    <% rooster = Rooster.find_by(id: rooster_position.send(position)) %>
-                                  <% end %>
-                                <% else %>
-                                  <% if ["first_base", "second_base", "third_base", "fourth_base"].include?(position) %>
-                                    <% rooster = Rooster.find_by(id: rooster_position.send(position)) %>
-                                  <% else %>
-                                    <% rooster = OpponentRooster.find_by(id: rooster_position.send(position)) %>
-                                  <% end %>
-                                <% end %>
-                                <%= rooster ? rooster.name : "N/A" %>
-                              </td>
+                        <% positions = ["first_base", "second_base", "third_base", "fourth_base", "catcher", "pitcher", "shortstop", "rightfield", "leftfield", "centerfield"] %>
+                        <% positions.each do |position| %>
+                        <tr>
+                        <td><%= position.titleize %></td>
+                        <td>
+                        <% if @event.scoreboards.last.home_team? %>
+                          <% if ["first_base", "second_base", "third_base", "fourth_base"].include?(position) %>
+                            <% rooster = OpponentRooster.find_by(id: rooster_position.send(position)) %>
+                          <% else %>
+                            <% rooster = Rooster.find_by(id: rooster_position.send(position)) %>
+                          <% end %>
+                        <% else %>
+                          <% if ["first_base", "second_base", "third_base", "fourth_base"].include?(position) %>
+                            <% rooster = Rooster.find_by(id: rooster_position.send(position)) %>
+                          <% else %>
+                            <% rooster = OpponentRooster.find_by(id: rooster_position.send(position)) %>
+                          <% end %>
+                        <% end %>
+                        <%= rooster ? rooster.name : "N/A" %>
+                      </td>
                             </tr>
                           <% end %>
                         </tbody>
@@ -248,8 +248,8 @@
   $(document).ready(function() {
     if (<%= @event.event_innings.last.inning_number %> > 9) {
       var winningTeamName = "<%= @event.winning_team_id %>";
-      var winningTeamRuns = "<%= @run %>";
-      var losingTeamRuns = "<%= @orun %>";
+      var winningTeamRuns = "<%= @orun %>";
+      var losingTeamRuns = "<%= @run %>";
       var modalContent;
 
       if (winningTeamName == "<%= @event.team.id %>") {

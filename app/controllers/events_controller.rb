@@ -7,16 +7,21 @@ class EventsController < ApplicationController
 
   def start
     if @event.is_live?
+    elsif !@event.is_live? && @event.event_innings.exists?(inning_number: 9)
+      flash[:notice] = "Event is Over."
     else
+      flash[:notice] = "Event is started."
       StartEventService.new(find_event_by_id, current_user).call
     end
-    @rooster_position = RoosterPosition.find_by(scoreboard_id: @event.scoreboards.last.id)
 
+    @rooster_position = RoosterPosition.find_by(scoreboard_id: @event.scoreboards.last.id)
+  
     render 'start'
   end
 
   def resume
     @event = find_event_by_id
+    flash[:notice] = "Event is Resumed."
     render 'start'
   end
 
@@ -61,8 +66,11 @@ class EventsController < ApplicationController
     flash.now[:notice] = flash[:notice] if flash[:notice].present?
   end
   
+  def my_events
+    @events = current_user.events
+    # @events = current_user.tournaments.events.find(params[:id])
+  end
   
-
 
   def new
     @tournament = Tournament.find(params[:tournament_id])
@@ -109,6 +117,8 @@ class EventsController < ApplicationController
     end
 
     def set_tournament
+      return unless params[:tournament_id].present?
+  
       @tournament = Tournament.find(params[:tournament_id])
     end
 

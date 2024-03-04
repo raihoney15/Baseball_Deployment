@@ -7,11 +7,8 @@ class OpponentTeamLineUp < ApplicationRecord
   has_many :positions
   validates :batter_order, :opponent_rooster_id, :position_id, presence: true
   validates :batter_order, numericality: { less_than_or_equal_to: 10 }
-  # def complete?
-  #   all_positions = Position.pluck(:id)
-  #   selected_positions = self.opponent_team_line_ups.pluck(:position_id)
-  #   all_positions.sort == selected_positions.sort
-  # end
+  validates :batter_order, uniqueness: { scope: :event_id, message: "already taken." }
+
 
   def complete?
     all_positions = Position.count
@@ -20,3 +17,4 @@ class OpponentTeamLineUp < ApplicationRecord
   end
 
 end
+

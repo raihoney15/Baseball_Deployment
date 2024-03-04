@@ -15,8 +15,12 @@
           <% end %>      
           <%= form.label :batter_order %>
           <%= form.number_field :batter_order, in: 1..10, required: true, class: "form-control", autocomplete: 'off' %><br/>
-        
-          <%= form.label :rooster_id %>
+          <% @team_line_up.errors.full_messages.each do |msg| %>         
+            <li><%= msg %></li>      
+            <% end %>
+            
+            <%= form.label :rooster_id %>
+            <% %>
           <%= form.collection_select :rooster_id, @final, :id, :name, { prompt: "Select rooster" }, required: true, class: "form-select", autocomplete:'off' %><br />
         
           <%= form.label :position_id %>
@@ -63,3 +67,5 @@
     
   </div>
 </div>
+
+           

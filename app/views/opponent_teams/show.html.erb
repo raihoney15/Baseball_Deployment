@@ -20,24 +20,22 @@
 
 
 
-      <% if can? :update, @team %>
+     
             <%= link_to edit_tournament_opponent_team_path(@opponent_team.tournament, @opponent_team) do %>
               <%= image_tag("edit.png", alt: "edit", style: "width: 20px; height: 20px; object-fit: cover;") %> |
               <% end %>
               <%#= link_to "Edit this team", edit_tournament_team_path(@team.tournament, @team), class: "btn btn-primary" %> 
-      <% end %>
-
-
-      <% if can? :destroy, @team %>
+              <%= link_to tournaments_path(@tournament) do %>
+                <%= image_tag("back.png", alt: "back", style: "width: 20px; height: 20px; object-fit: cover;") %> |
+                <% end %>
+                <div style=" margin-left:105px; margin-top: -25px;">
             <%= button_to tournament_path,method: :delete, data: { confirm: "Are you sure?" } do %>
-              <%= image_tag("empty.png", alt: "edit", style: "width: 20px; height: 20px; object-fit: cover;") %> |
+              <%= image_tag("empty.png", alt: "edit", style: "width: 20px; height: 20px; object-fit: cover;") %> 
               <% end %>
               <%#= button_to "Destroy", [@team.tournament, @team], method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger" %>
-      <% end %>
+ </div>
 
-            <%= link_to tournaments_path(@tournament) do %>
-            <%= image_tag("back.png", alt: "back", style: "width: 20px; height: 20px; object-fit: cover;") %> 
-            <% end %>
+
             <%#= link_to "Back to Tournament", tournament_path(@tournament), class: "btn btn-secondary" %>
     
   </div>

@@ -11,9 +11,11 @@ class TeamLineUpsController < ApplicationController
         @tournament = Tournament.find(params[:tournament_id])
         @event = Event.find(params[:event_id])
         @team_line_up = TeamLineUp.new   
+        
         a = @event.team.roosters.pluck(:id)
         b = @event.team_line_ups.pluck(:rooster_id)
         final = a - b
+        
         @final =  Rooster.find(final)
 
         all_positions = Position.all.pluck(:id)
@@ -44,14 +46,17 @@ class TeamLineUpsController < ApplicationController
     end
 
     def create
-
-      @team_line_up = current_user.team_line_ups.build(team_line_up_params.merge(event_id: @event.id, tournament_id: @tournament.id, team_id: @team_id))
+      
+      @team_line_up = current_user.team_line_ups.build(team_line_up_params.merge(event_id: @event.id, tournament_id: @tournament.id, team_id: @event.team_id))
       if @team_line_up.save
-        redirect_to new_tournament_event_team_line_up_path ,notice: 'Team lineup was successfully created.'
+        flash[:notice] = "TeamLineUp was successfully created."
+        redirect_to new_tournament_event_team_line_up_path 
       else
-        render :new
+        flash[:alert] = @team_line_up.errors.full_messages[0]
+        redirect_to new_tournament_event_team_line_up_path 
       end
     end
+
 
 
     def update
@@ -59,9 +64,11 @@ class TeamLineUpsController < ApplicationController
     end
 
     def destroy
+      
       @team_line_up = TeamLineUp.find(params[:id])
       @team_line_up.destroy
-      redirect_to new_tournament_event_team_line_up_path(@tournament, @event), notice: 'Team lineup was successfully deleted.'
+      flash[:notice] = "TeamLineUp was successfully deleted."
+      redirect_to new_tournament_event_team_line_up_path(@tournament, @event)
     end
     private
 
@@ -89,8 +96,6 @@ end
 
 
 
-
-
-
+  
 
 

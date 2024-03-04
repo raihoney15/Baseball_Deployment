@@ -30,13 +30,15 @@ class ChangeRoosterPositionsService
         end
      
         private
-        def handle_out_move(rooster_position)
-          
-        
+        def handle_out_move(rooster_position)        
           if @event.scoreboards.last.home_team?
             a1 = @event.scoreboards.last.rooster_positions.last.first_base
             current_batter_order = @event.opponent_team_line_ups.where(opponent_rooster_id: a1).first.batter_order
+            if current_batter_order == 10  
+              next_batter_order = @event.opponent_team_line_ups.find_by(batter_order: 1)
+            else
             next_batter_order = @event.opponent_team_line_ups.find_by(batter_order: current_batter_order + 1)
+            end
             next_batter = next_batter_order.opponent_rooster_id
             scoreboard = @event.scoreboards.last
           end
@@ -44,10 +46,15 @@ class ChangeRoosterPositionsService
           if @event.scoreboards.last.home_away?
               a1 = @event.scoreboards.last.rooster_positions.last.first_base
               current_batter_order = @event.team_line_ups.where(rooster_id: a1).first.batter_order
+              if current_batter_order == 10 
+                next_batter_order = @event.team_line_ups.find_by(batter_order: 1)
+              else
               next_batter_order = @event.team_line_ups.find_by(batter_order: current_batter_order + 1)
+              end
               next_batter = next_batter_order.rooster_id
               scoreboard = @event.scoreboards.last
           end
+          
 
           if next_batter
             
@@ -130,80 +137,24 @@ class ChangeRoosterPositionsService
                 
               new_scoreboard.strike = 0
               new_scoreboard.save!
-              new_rooster_position.scoreboard_id = @event.scoreboards.last.id	
-              new_rooster_position.save
+              # rooster_position = RoosterPosition.where(scoreboard_id: @event.scoreboards.last.id, user_id: @current_user_id.id)
+              rooster_position.update(scoreboard_id: @event.scoreboards.last.id	) 
+             
           else 
-	          new_rooster_position.scoreboard_id = @event.scoreboards.last.id	
-            new_rooster_position.save
+
           end
         end
 
-        # def handle_balls_move(rooster_position)
-        #   if @event.scoreboards.last.home_team?
-        #     a1 = @event.scoreboards.last.rooster_positions.last.first_base
-        #     current_batter_order = @event.opponent_team_line_ups.where(opponent_rooster_id: a1).first.batter_order
-        #     next_batter_order = @event.opponent_team_line_ups.find_by(batter_order: current_batter_order + 1)
-        #     next_batter = next_batter_order.opponent_rooster_id
-        #     scoreboard = @event.scoreboards.last
-        #   end
-            
-        #   if @event.scoreboards.last.home_away?
-        #       a1 = @event.scoreboards.last.rooster_positions.last.first_base
-        #       current_batter_order = @event.team_line_ups.where(rooster_id: a1).first.batter_order
-        #       next_batter_order = @event.team_line_ups.find_by(batter_order: current_batter_order + 1)
-        #       next_batter = next_batter_order.rooster_id
 
-        #   end
-        #   r = @event.scoreboards.last
-        #   new_scoreboard = Scoreboard.new(
-        #     r.attributes.slice("balls","run","strike","out","home_team","home_away","event_id","event_inning_id")
-        #     )
-        #   new_scoreboard.balls += 1
-        #   new_scoreboard.save
-
-        #   p = @event.pitching_stats.last
-        #   new_pitching_stat = PitchingStat.new(
-        #   p.attributes.slice("pitch","event_id","scoreboard_id","team_id","opponent_team_id","rooster_id","opponent_rooster_id")
-        #   )
-        #   new_pitching_stat.pitch += 1
-        #   new_pitching_stat.save!
-
-        #   new_rooster_position = RoosterPosition.new(
-        #     rooster_position.attributes.slice("scoreboard_id", "user_id", "catcher", "fourth_base", "first_base", "second_base", "third_base", "pitcher", "shortstop", "rightfield", "leftfield", "centerfield"))        
-
-        #   if r.balls >= 4
-        #     r = @event.scoreboards.last
-        #     new_scoreboard = Scoreboard.new(
-        #       r.attributes.slice("balls","run","strike","out","home_team","home_away","event_id","event_inning_id")
-        #       )
-        #     new_scoreboard.balls = 0
-        #     new_scoreboard.run += 1
-        #     new_scoreboard.save
-        #     new_scoreboard = Scoreboard.new(
-        #       r.attributes.slice("balls","run","strike","out","home_team","home_away","event_id","event_inning_id")
-        #       )
-        #     new_scoreboard.ball = 0
-        #     new_scoreboard.save
-        #     b = @event.batting_stats.first
-        #     new_batting_stats = BattingStat.new(
-        #       b.attributes.slice("run","event_id","scoreboard_id","team_id","opponent_team_id","rooster_id","opponent_rooster_id")
-        #       )
-        #       new_batting_stats.run += 1
-        #       new_batting_stats.opponent_rooster_id = rooster_position.fourth_base
-        #       new_batting_stats.save!
-        #     handle_single_move(rooster_position)
-        #   else 
-        #     new_rooster_position.scoreboard_id = @event.scoreboards.last.id
-        #     new_rooster_position.save
-        #   end
-        #   new_rooster_position.scoreboard_id = @event.scoreboards.last.id
-        #   new_rooster_position.save
-        # end
         def handle_balls_move(rooster_position)
           if @event.scoreboards.last.home_team?
             a1 = @event.scoreboards.last.rooster_positions.last.first_base
             current_batter_order = @event.opponent_team_line_ups.where(opponent_rooster_id: a1).first.batter_order
+            if current_batter_order == 10  
+              next_batter_order = @event.opponent_team_line_ups.find_by(batter_order: 1)
+            else
             next_batter_order = @event.opponent_team_line_ups.find_by(batter_order: current_batter_order + 1)
+            end
             next_batter = next_batter_order.opponent_rooster_id
             scoreboard = @event.scoreboards.last
           end
@@ -211,9 +162,13 @@ class ChangeRoosterPositionsService
           if @event.scoreboards.last.home_away?
               a1 = @event.scoreboards.last.rooster_positions.last.first_base
               current_batter_order = @event.team_line_ups.where(rooster_id: a1).first.batter_order
+              if current_batter_order == 10 
+                next_batter_order = @event.team_line_ups.find_by(batter_order: 1)
+              else
               next_batter_order = @event.team_line_ups.find_by(batter_order: current_batter_order + 1)
+              end
               next_batter = next_batter_order.rooster_id
-
+              scoreboard = @event.scoreboards.last
           end
           r = @event.scoreboards.last
           new_scoreboard = Scoreboard.new(
@@ -225,21 +180,19 @@ class ChangeRoosterPositionsService
 
 
           new_rooster_position = RoosterPosition.new(
-            rooster_position.attributes.slice("scoreboard_id", "user_id", "catcher", "fourth_base", "first_base", "second_base", "third_base", "pitcher", "shortstop", "rightfield", "leftfield", "centerfield"))        
-           
+          rooster_position.attributes.slice("scoreboard_id", "user_id", "catcher", "fourth_base", "first_base", "second_base", "third_base", "pitcher", "shortstop", "rightfield", "leftfield", "centerfield"))        
+          new_rooster_position.scoreboard_id = @event.scoreboards.last.id
+          new_rooster_position.save
             r = @event.scoreboards.last
           if r.balls >= 4
-            
             r = @event.scoreboards.last
             new_scoreboard = Scoreboard.new(
               r.attributes.slice("balls","run","strike","out","home_team","home_away","event_id","event_inning_id")
               )
             new_scoreboard.balls = 0
-            new_scoreboard.run += 1
             new_scoreboard.save
             new_rooster_position.scoreboard_id = @event.scoreboards.last.id
             new_rooster_position.save
-            
             handle_single_move(rooster_position)
 
           else 
@@ -259,16 +212,25 @@ class ChangeRoosterPositionsService
           if @event.scoreboards.last.home_team?
             a1 = @event.scoreboards.last.rooster_positions.last.first_base
             current_batter_order = @event.opponent_team_line_ups.where(opponent_rooster_id: a1).first.batter_order
+            if current_batter_order == 10  
+              next_batter_order = @event.opponent_team_line_ups.find_by(batter_order: 1)
+            else
             next_batter_order = @event.opponent_team_line_ups.find_by(batter_order: current_batter_order + 1)
+            end
             next_batter = next_batter_order.opponent_rooster_id
-           
+            scoreboard = @event.scoreboards.last
           end
             
           if @event.scoreboards.last.home_away?
               a1 = @event.scoreboards.last.rooster_positions.last.first_base
               current_batter_order = @event.team_line_ups.where(rooster_id: a1).first.batter_order
+              if current_batter_order == 10 
+                next_batter_order = @event.team_line_ups.find_by(batter_order: 1)
+              else
               next_batter_order = @event.team_line_ups.find_by(batter_order: current_batter_order + 1)
+              end
               next_batter = next_batter_order.rooster_id
+              scoreboard = @event.scoreboards.last
           end
 
           p = @event.pitching_stats.last
@@ -325,7 +287,11 @@ class ChangeRoosterPositionsService
           if @event.scoreboards.last.home_team?
             a1 = @event.scoreboards.last.rooster_positions.last.first_base
             current_batter_order = @event.opponent_team_line_ups.where(opponent_rooster_id: a1).first.batter_order
+            if current_batter_order == 10  
+              next_batter_order = @event.opponent_team_line_ups.find_by(batter_order: 1)
+            else
             next_batter_order = @event.opponent_team_line_ups.find_by(batter_order: current_batter_order + 1)
+            end
             next_batter = next_batter_order.opponent_rooster_id
             scoreboard = @event.scoreboards.last
           end
@@ -333,7 +299,11 @@ class ChangeRoosterPositionsService
           if @event.scoreboards.last.home_away?
               a1 = @event.scoreboards.last.rooster_positions.last.first_base
               current_batter_order = @event.team_line_ups.where(rooster_id: a1).first.batter_order
+              if current_batter_order == 10 
+                next_batter_order = @event.team_line_ups.find_by(batter_order: 1)
+              else
               next_batter_order = @event.team_line_ups.find_by(batter_order: current_batter_order + 1)
+              end
               next_batter = next_batter_order.rooster_id
               scoreboard = @event.scoreboards.last
           end
@@ -426,36 +396,30 @@ class ChangeRoosterPositionsService
 
         def handle_single_move(rooster_position)
           
+        
           if @event.scoreboards.last.home_team?
             a1 = @event.scoreboards.last.rooster_positions.last.first_base
             current_batter_order = @event.opponent_team_line_ups.where(opponent_rooster_id: a1).first.batter_order
-            
-            if current_batter_order.nil?
+            if current_batter_order == 10  
               next_batter_order = @event.opponent_team_line_ups.find_by(batter_order: 1)
             else
-              next_batter_order = @event.opponent_team_line_ups.find_by(batter_order: current_batter_order + 1)
+            next_batter_order = @event.opponent_team_line_ups.find_by(batter_order: current_batter_order + 1)
             end
-            
-            if next_batter_order.nil?
-              next_batter = nil
-            else
-              next_batter = next_batter_order.opponent_rooster_id
-            end
-            
+            next_batter = next_batter_order.opponent_rooster_id
+            scoreboard = @event.scoreboards.last
           end
-          
             
           if @event.scoreboards.last.home_away?
-            a1 = @event.scoreboards.last.rooster_positions.last.first_base
-            current_batter_order = @event.team_line_ups.where(rooster_id: a1).first.batter_order
-            if current_batter_order.nil?
-              next_batter_order = @event.team_line_ups.find_by(batter_order: 1)
-            else
+              a1 = @event.scoreboards.last.rooster_positions.last.first_base
+              current_batter_order = @event.team_line_ups.where(rooster_id: a1).first.batter_order
+              if current_batter_order == 10 
+                next_batter_order = @event.team_line_ups.find_by(batter_order: 1)
+              else
               next_batter_order = @event.team_line_ups.find_by(batter_order: current_batter_order + 1)
-            end
-            next_batter = next_batter_order.rooster_id
+              end
+              next_batter = next_batter_order.rooster_id
+              scoreboard = @event.scoreboards.last
           end
-          
           
           r = @event.scoreboards.last
           new_scoreboard = Scoreboard.new(
@@ -522,17 +486,25 @@ class ChangeRoosterPositionsService
           if @event.scoreboards.last.home_team?
             a1 = @event.scoreboards.last.rooster_positions.last.first_base
             current_batter_order = @event.opponent_team_line_ups.where(opponent_rooster_id: a1).first.batter_order
+            if current_batter_order == 10  
+              next_batter_order = @event.opponent_team_line_ups.find_by(batter_order: 1)
+            else
             next_batter_order = @event.opponent_team_line_ups.find_by(batter_order: current_batter_order + 1)
+            end
             next_batter = next_batter_order.opponent_rooster_id
             scoreboard = @event.scoreboards.last
           end
-        
+            
           if @event.scoreboards.last.home_away?
-            a1 = @event.scoreboards.last.rooster_positions.last.first_base
-            current_batter_order = @event.team_line_ups.where(rooster_id: a1).first.batter_order
-            next_batter_order = @event.team_line_ups.find_by(batter_order: current_batter_order + 1)
-            next_batter = next_batter_order.rooster_id
-            scoreboard = @event.scoreboards.last
+              a1 = @event.scoreboards.last.rooster_positions.last.first_base
+              current_batter_order = @event.team_line_ups.where(rooster_id: a1).first.batter_order
+              if current_batter_order == 10 
+                next_batter_order = @event.team_line_ups.find_by(batter_order: 1)
+              else
+              next_batter_order = @event.team_line_ups.find_by(batter_order: current_batter_order + 1)
+              end
+              next_batter = next_batter_order.rooster_id
+              scoreboard = @event.scoreboards.last
           end
         
           r = @event.scoreboards.last

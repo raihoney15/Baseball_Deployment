@@ -45,7 +45,7 @@ class AfterOpponentOutService
           end
         end
     
-        binding.pry
+        
         if @event.event_innings.last.inning_number > 9 
           GameOverService.new(@event, @current_user).call
           redirect_to start_tournament_event_path(@tournament, @event)

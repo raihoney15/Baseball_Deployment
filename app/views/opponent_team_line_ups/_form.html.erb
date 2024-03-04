@@ -15,7 +15,15 @@
           <% end %>      
           <%= form.label :batter_order %>
           <%= form.number_field :batter_order, in: 1..10, required: true, class: "form-control", autocomplete: 'off' %><br/>
-          
+          <% if @opponent_team_line_up.errors[:batter_order].any? %>
+          <div class="error-message", style="color: #f4340a;">
+            <b><%= "batter_order" + @opponent_team_line_up.errors[:batter_order].join(", ") %></b>
+          </div>
+        <% elsif @event.opponent_team_line_ups.exists?(batter_order: form.object.batter_order) %>
+          <div class="error-message", style="color: #f4340a;">
+            <b><%= "batter_order has already been taken" %></b>
+          </div>
+        <% end %>
           <%= form.label :opponent_rooster_id %>
           <%= form.collection_select :opponent_rooster_id, @final1, :id, :name, { prompt: "Select rooster" }, required: true ,class: "form-select", autocomplete:'off' %><br />
         

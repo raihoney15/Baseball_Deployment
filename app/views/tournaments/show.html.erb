@@ -85,22 +85,28 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <% @events.each do |event| %>
-                        <tr>
-                            <td>
-                                <p><%= event.game_type %></p>
-                            </td>
-                            <td>
-                                <%= link_to tournament_event_path(@tournament, event) do %>
-                                    <%= image_tag("show.png", alt: "show", style: "width: 20px; height: 20px; object-fit: cover;") %> |
-                                <% end %>
-                                <%= link_to edit_tournament_event_path(@tournament, event) do %>
-                                    <%= image_tag("edit.png", alt: "show", style: "width: 20px; height: 20px; object-fit: cover;") %>
-                                <% end %>  
-                            </td>
-                        </tr>
-                    <% end %>
-                </tbody>
+                <% @events.each do |event| %>
+                  <tr>
+                    <td>
+                      <p><%= event.game_type %></p>
+                    </td>
+                    <td>
+                      <%= link_to tournament_event_path(@tournament, event) do %>
+                        <%= image_tag("show.png", alt: "show", style: "width: 20px; height: 20px; object-fit: cover;") %> |
+                      <% end %>
+                      <%= link_to edit_tournament_event_path(@tournament, event) do %>
+                        <%= image_tag("edit.png", alt: "show", style: "width: 20px; height: 20px; object-fit: cover;") %> |
+                      <% end %>
+                      <div style=" margin-left:65px; margin-top: -25px;">
+                      <%= button_to tournament_event_path(@tournament, event), method: :delete, data: { confirm: "Are you sure?" } do %>
+                        <%= image_tag("empty.png", alt: "delete", style: "width: 20px; height: 20px; object-fit: cover;") %>
+                      <% end %>
+                      </div>
+                    </td>
+                  </tr>
+                <% end %>
+              </tbody>
+              
             </table>
             </div>
         </div>

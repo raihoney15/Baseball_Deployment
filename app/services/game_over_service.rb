@@ -5,7 +5,7 @@ class GameOverService
     end
   
     def call
-        binding.pry
+        
          @s = @event.event_innings.where(inning_number: 1,top:true).ids 
          @s1 = @event.event_innings.where(inning_number: 2,top:true).ids 
          @s2 = @event.event_innings.where(inning_number: 3,top:true).ids 
@@ -49,11 +49,13 @@ class GameOverService
          @orun = @or1.to_i+@or2.to_i+@or3.to_i+@or4.to_i+@or5.to_i+@or6.to_i+@or7.to_i+@or8.to_i+@or9.to_i
         
 
-        binding.pry
-        winning_team_id = @event.team_id if @run > @orun
-        winning_team_id = @event.opponent_team_id if @run < @orun
-        save = @event.update(is_live: false, winning_team_id: winning_team_id)
-        save!
+        
+        winning_team_id = @event.team_id if @run < @orun
+        winning_team_id = @event.opponent_team_id if @run > @orun
+        @event.update!(is_live: false, winning_team_id: winning_team_id)
+
+        
+       
         
       
     end

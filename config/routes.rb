@@ -37,10 +37,6 @@ Rails.application.routes.draw do
     resources :invitations, only: [:new, :create]
   end
   
-  # resources :invitations, only: [] do
-  #   get 'accept', on: :collection
-  # end
-  
   resources :invitations, only: [:new, :create] do
     member do
       get 'accept'
@@ -50,9 +46,9 @@ Rails.application.routes.draw do
 
 resources :pitching_stats
 resources :batting_stats
+get 'my_events', to: 'events#my_events'
 
-  
- 
+
   root 'pages#home'
   devise_for :users, controllers: { registrations: 'users/registrations' }
   

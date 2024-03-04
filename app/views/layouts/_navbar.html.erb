@@ -18,13 +18,10 @@
       <li class="nav-item">
         <%= link_to "Tournaments", tournaments_path, class: "nav-link" %>
       </li>
-    <% if false %>
+ 
       <li class="nav-item">
-      <%= link_to "Events", tournament_events_path(@tournament), class: "nav-link" %>
-      </li>
-    <% end %>
-
-
+      <%= link_to "My Events", my_events_path, class: "nav-link" %>
+    </li>
 
       <% if current_user&.roles&.exists?(role_name:'admin') %>   
       <li class="nav-item">                
@@ -57,3 +54,7 @@
     </ul>
   </div>
 </nav>
+
+
+  
+  

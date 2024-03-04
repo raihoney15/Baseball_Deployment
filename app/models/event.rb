@@ -5,7 +5,7 @@ class Event < ApplicationRecord
   has_one_attached :image 
   belongs_to :opponent_team, :optional => true
   has_many :team_line_ups, dependent: :destroy
-  has_many :moves, dependent: :destroy
+  has_many :moves
   has_many :opponent_team_line_ups
   has_many :scoreboards, dependent: :destroy
   has_many :event_setup, dependent: :destroy
