@@ -14,8 +14,8 @@
             </div>
           <% end %>      
           <%= form.label :batter_order %>
-          <%= form.text_field :batter_order, required: true , class: "form-control", autocomplete:'off' %><br/>
-        
+          <%= form.number_field :batter_order, in: 1..10, required: true, class: "form-control", autocomplete: 'off' %><br/>
+          
           <%= form.label :opponent_rooster_id %>
           <%= form.collection_select :opponent_rooster_id, @final1, :id, :name, { prompt: "Select rooster" }, required: true ,class: "form-select", autocomplete:'off' %><br />
         
@@ -42,6 +42,7 @@
               <th>Position</th>
               <th>Opponent Rooster</th>
               <th>Batter Order</th>
+              <th>Action</th>
             </tr>
           </thead>
           <tbody>
@@ -50,6 +51,7 @@
                 <td><%= Position.find(opponent_team_line_up.position_id).position_name %></td>
                 <td><%= opponent_team_line_up.opponent_rooster.name %></td>
                 <td><%= opponent_team_line_up.batter_order %></td>
+                <td><%= button_to 'Delete', [@tournament, @event, opponent_team_line_up], method: :delete, data: { confirm: 'Are you sure?' } %></td>
               </tr>
             <% end %>
           </tbody>
@@ -58,3 +60,4 @@
     </div>
   </div>
 </div>
+

@@ -10,13 +10,19 @@
     <div style="flex: 40%;">
       <div class="container">
 
-      <% if @event.is_live.nil? %>
-      <%= link_to "START", start_tournament_event_path(@tournament, @event), style: "margin-left: 10px;", class: "btn btn-outline-primary" %>
-    <% else %>
+      <% if @show_resume_button %>
       <%= link_to "RESUME", resume_tournament_event_path(@tournament, @event), style: "margin-left: 10px;", class: "btn btn-outline-primary" %>
-    <% end %>
+      <% elsif @show_start_button %>
+        <%= link_to "START", start_tournament_event_path(@tournament, @event), style: "margin-left: 10px;", class: "btn btn-outline-primary" %>
+      <% end %>
     
-        
+
+    <% if false %>
+      <% if @event.is_live.nil? && @team_line_up_complete && @opponent_team_line_up_complete %>
+      <%= link_to "START", start_tournament_event_path(@tournament, @event), style: "margin-left: 10px;", class: "btn btn-outline-primary" %>
+      <% elsif @event.is_live.present? && @team_line_up_complete && @opponent_team_line_up_complete %>
+        <%= link_to "RESUME", resume_tournament_event_path(@tournament, @event), style: "margin-left: 10px;", class: "btn btn-outline-primary" %>
+      <% end %>
         <div style="display: flex; align-items: center;">
           <h4 style="margin-left: 10px;">TeamLineUp</h4> 
           <% if @event.is_live.nil? %>
@@ -28,7 +34,6 @@
               <%= image_tag("check.jpg", alt: "completed", style: "width: 25px; height: 25px; object-fit: cover; margin-left: 20px;") %>
               <% end %>
             <% end %>
-         
         </div>
 
         <div style="display: flex; align-items: center;">
@@ -42,9 +47,33 @@
             <%= image_tag("check.jpg", alt: "completed", style: "width: 25px; height: 25px; object-fit: cover; margin-left: 20px;") %>
           <% end %>
           <% end %>
+    <% end %>   
+    
+      <div style="display: flex; align-items: center;">
+        <h4 style="margin-left: 10px;">TeamLineUp</h4> 
+        <% if @show_start_button %>
+        <%= link_to tournament_event_team_line_ups_path(@event.tournament, @event) do %>
+        <%= image_tag("check.jpg", alt: "completed", style: "width: 25px; height: 25px; object-fit: cover; margin-left: 20px;") %>
+        <% end %>
+        <% else %>        
+        <%= link_to new_tournament_event_team_line_up_path(@event.tournament, @event) do %>
+          <%= image_tag("lineup.png", alt: "teamlineup", style: "width: 25px; height: 25px; object-fit: cover;margin-left: 20px;") %>
+          <% end %>
+        <% end %>
+      </div>
 
-          
-        </div>
+      <div style="display: flex; align-items: center;">
+        <h4 style="margin-left: 10px;">Opponent Teamlineup</h4> 
+        <% if @show_start_button %>
+        <%= link_to tournament_event_opponent_team_line_ups_path(@event.tournament, @event) do %>
+          <%= image_tag("check.jpg", alt: "completed", style: "width: 25px; height: 25px; object-fit: cover; margin-left: 20px;") %>
+        <% end %>
+        <% else %> 
+        <%= link_to new_tournament_event_opponent_team_line_up_path(@event.tournament, @event) do %>
+          <%= image_tag("lineup.png", alt: "tournament", style: "width: 25px; height: 25px; object-fit: cover;margin-left: 20px;") %>
+        <% end %>
+       <% end %>   
+      </div>
                 
       </div>
     </div>

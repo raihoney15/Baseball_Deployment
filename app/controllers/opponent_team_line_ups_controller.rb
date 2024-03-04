@@ -20,17 +20,7 @@ class OpponentTeamLineUpsController < ApplicationController
     available_positions = all_positions - selected_positions
     @available_positions = Position.find(available_positions)
   end
-
-
-
-  def self.complete?
-    all_positions = Position.pluck(:id)
-    selected_positions = pluck(:position_id)
-    all_positions.sort == selected_positions.sort
-  end
-
-
-
+  
   def index
 
   end
@@ -57,8 +47,11 @@ class OpponentTeamLineUpsController < ApplicationController
   end
 
   def destroy
-
+    @opponent_team_line_up = OpponentTeamLineUp.find(params[:id])
+    @opponent_team_line_up.destroy
+    redirect_to new_tournament_event_opponent_team_line_up_path(@tournament, @event), notice: 'Opponent Team lineup was successfully deleted.'
   end
+  
 
   private
 

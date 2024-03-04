@@ -19,7 +19,6 @@ class TournamentsController < ApplicationController
   end
 
   def show
-
     ActiveStorage::Current.url_options = {
       host: request.base_url
     }
@@ -44,29 +43,28 @@ class TournamentsController < ApplicationController
   def create
     @tournament = @current_user.tournaments.create(tournament_params)
     if @tournament.save
-      redirect_to tournament_path(@tournament)
+      flash[:success] = "Tournament was successfully created."
+      redirect_to tournaments_path
     else
       render "new"
     end
-
   end
 
   def update
     @tournament = Tournament.find(params[:id])
     if @tournament.update(tournament_params)
-        redirect_to tournament_path
+      flash[:success] = "Tournament was successfully updated."
+      redirect_to tournament_path
     else
-        render "edit"
+      render "edit"
     end
-
-
   end
 
   def destroy
     @tournament = Tournament.find(params[:id])
     @tournament.destroy
+    flash[:success] = "Tournament was successfully deleted."
     redirect_to tournaments_path
-
   end
 
   private
@@ -77,8 +75,4 @@ class TournamentsController < ApplicationController
     def tournament_params
       params.require(:tournament).permit(:name, :start_date, :end_date, :location, :user_id, :image)
     end
-    
-
 end
-
-

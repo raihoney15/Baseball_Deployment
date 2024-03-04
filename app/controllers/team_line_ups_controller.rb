@@ -21,19 +21,11 @@ class TeamLineUpsController < ApplicationController
         available_positions = all_positions - selected_positions
         @available_positions = Position.find(available_positions)
       
-        # c = @available_positions
-        # if c == nil
-        #   flash.now[:alert] = 'teamlineup is complete!'
-        # end
-
-        
-        
-    end
-
-    def self.complete?
-      all_positions = Position.pluck(:id)
-      selected_positions = pluck(:position_id)
-      all_positions.sort == selected_positions.sort
+        c = @available_positions
+        if c == nil
+          flash.now[:alert] = 'teamlineup is complete!'
+        end
+  
     end
 
     def index
@@ -67,7 +59,9 @@ class TeamLineUpsController < ApplicationController
     end
 
     def destroy
-
+      @team_line_up = TeamLineUp.find(params[:id])
+      @team_line_up.destroy
+      redirect_to new_tournament_event_team_line_up_path(@tournament, @event), notice: 'Team lineup was successfully deleted.'
     end
     private
 
@@ -91,7 +85,6 @@ class TeamLineUpsController < ApplicationController
 
       
 end
-
 
 
 

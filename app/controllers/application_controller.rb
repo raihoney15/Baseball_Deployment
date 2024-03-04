@@ -1,15 +1,8 @@
 class ApplicationController < ActionController::Base
-  skip_before_action :verify_authenticity_token
+
   protect_from_forgery with: :exception
     before_action :configure_permitted_parameters, if: :devise_controller?
     protect_from_forgery
-    before_action :redirect_if_unverified
-
-    def redirect_if_unverified
-      return unless signed_in? && !current_user.verified?
-  
-      redirect_to verify_path, notice: "Please verify your email address"
-    end
 
   rescue_from CanCan::AccessDenied do |exception|
     respond_to do |format|

@@ -7,7 +7,7 @@ class InvitationsController < ApplicationController
   def accept
     @invitation = Invitation.find(params[:id])
     if @invitation
-      binding.pry
+      
       user = User.find_by(email: @invitation.email)
       user.assign_tournament_admin_role(@invitation.email) if user
       @invitation.update(accepted: true)

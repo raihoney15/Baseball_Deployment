@@ -1,20 +1,32 @@
-  <%= @opponent_rooster.name %>
-  <br/>
-  <%= @opponent_rooster.jersey_number %>
-  <br/>
-  <% if can? :update, @team %>
-    <%= link_to edit_tournament_opponent_team_opponent_rooster(@tournament,@opponent_team, @opponent_rooster) do %>
-    <%= image_tag("edit.png", alt: "edit", style: "width: 20px; height: 20px; object-fit: cover;") %> |
-    <% end %>
-    <%#= link_to 'Edit', edit_tournament_opponent_team_opponent_rooster(@tournament,@team, @rooster) , class: "btn btn-primary btn-sm"%> 
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-md-6">
+      <h2>Opponent Rooster Details</h2>
+      <div class="profile-picture">
+        <%= image_tag @opponent_rooster.image.url, alt: "Profile Picture", style:"height: 50px;" if @opponent_rooster.image.attached? %>
+      </div>
+      <div class="profile-details">
+        <p>
+          Name: <%= @opponent_rooster.name %><br>
+          Jersey Number: <%= @opponent_rooster.jersey_number %><br>
+        </p>
+      </div>
 
-    <%#= button_to "Destroy", tournament_opponent_team_opponent_rooster_path, method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger" %> <br/>
-    <%= link_to tournament_opponent_team_opponent_rooster_path do %>
-      <%= image_tag("empty.png", alt: "edit", style: "width: 20px; height: 20px; object-fit: cover;") %> |
-      <% end %>
-    <% end%>
+     
+        <div class="btn-group" role="group" aria-label="Opponent Rooster Actions">
+          <%= link_to edit_tournament_opponent_team_opponent_rooster_path(@tournament, @opponent_team, @opponent_rooster), class: "btn btn-sm btn-outline-primary" do %>
+            <%= image_tag("edit.png", alt: "edit", style: "width: 20px; height: 20px; object-fit: cover;") %> Edit
+          <% end %>
 
-    <%#= link_to 'Back to teams' ,tournament_opponent_team_path(@tournament,@opponent_team), class: "btn btn-primary btn-sm"%>
-    <%= link_to tournament_opponent_team_path(@tournament,@opponent_team) do %>
-    <%= image_tag("back.png", alt: "back", style: "width: 20px; height: 20px; object-fit: cover;") %> 
-    <% end %>
+          <%= button_to tournament_opponent_team_opponent_rooster_path(@tournament, @opponent_team, @opponent_rooster), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-sm btn-outline-danger", style: "margin-left: 10px;" do %>
+            <%= image_tag("empty.png", alt: "delete", style: "width: 20px; height: 20px; object-fit: cover;") %> Destroy
+          <% end %>
+
+          <%= link_to tournament_opponent_team_path(@tournament, @opponent_team), class: "btn btn-sm btn-outline-primary" do %>
+            <%= image_tag("back.png", alt: "back", style: "width: 20px; height: 20px; object-fit: cover;") %> Back to Team
+          <% end %>
+        </div>
+      
+    </div>
+  </div>
+</div>

@@ -64,10 +64,7 @@
 
   }
 
-.card:hover {
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  transition: box-shadow 0.3s ease-in-out;
-}
+
 
 
 .live-match .card-title {
@@ -204,6 +201,12 @@ p {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+.container1{
+  margin-top: -60px;
+  margin-left: 200px;
+  margin-right: 200px;
+}
+
 .ui-autocomplete li {
   padding: 5px 10px;
   cursor: pointer;
@@ -226,11 +229,12 @@ p {
 
 /* CSS for Event Status */
 .event-status {
-  background-color: #ec300f; /* Green background color for live event status */
+  background-color: red; /* Green background color for live event status */
   color: white; /* White text color for live event status */
   padding: 5px; /* Add padding to the live event status */
   border-radius: 5px; /* Add border radius to the live event status */
-  margin-bottom: 10px; /* Add margin to the bottom of the live event status */
+  margin-bottom: 10px;
+  width: 100px; /* Add margin to the bottom of the live event status */
 }
 
 /* CSS for Team Names */
@@ -274,7 +278,9 @@ p {
 
 /* CSS for Event Status Text */
 .event-status-text {
-  font-weight: bold; /* Add bold font weight to the event status text */
+  font-weight: bold;
+  
+   /* Add bold font weight to the event status text */
 }
 
 .element {
@@ -283,6 +289,13 @@ p {
 }
 
 .element1{
+  margin-left: 300px;
+  margin-top: -70px;
+  height: 30px;
+
+}
+
+.element2{
   margin-left: 300px;
   margin-top: -70px;
   height: 30px;
@@ -298,4 +311,32 @@ p {
   text-align: center; /* Add margin to the bottom of the inning indicator */
  
 }
+
+.flash-messages {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  border: 2px solid #000;
+  background-color: #fff;
+  z-index: 1000;
+}
+
+.flash-messages .alert {
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.flash-messages .alert-success {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.flash-messages .alert-danger {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
 

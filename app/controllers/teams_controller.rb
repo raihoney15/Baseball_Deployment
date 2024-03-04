@@ -4,17 +4,14 @@ class TeamsController < ApplicationController
   before_action :set_team, only: %i[ show edit update destroy ]
   before_action :set_tournament
 
-
   def index
     @q_teams = Team.ransack(params[:q])
-      if current_user.nil?
-        @teams = @q_teams.result(distinct: true).page(params[:page]).per(3)
-      else
-        @teams = @q_teams.result(distinct: true).where(user_id: current_user.id).page(params[:page]).per(3)
-      end
- 
+    if current_user.nil?
+      @teams = @q_teams.result(distinct: true).page(params[:page]).per(3)
+    else
+      @teams = @q_teams.result(distinct: true).where(user_id: current_user.id).page(params[:page]).per(3)
+    end
   end
- 
 
   def show
     @tournament = Tournament.find(params[:tournament_id]) 
@@ -37,7 +34,8 @@ class TeamsController < ApplicationController
   def create
     @team = current_user.teams.build(team_params.merge(tournament_id:@tournament.id ))
     if @team.save
-      redirect_to tournament_path(@tournament)
+      flash[:notice] = "Team was successfully created."
+      redirect_to tournament_team_path(@tournament,@team)
     else
       render "new"
     end
@@ -45,17 +43,17 @@ class TeamsController < ApplicationController
 
   def update
     if @team.update(team_params)
-        redirect_to tournament_team_path(@tournament, @team)
+      flash[:notice] = "Team was successfully updated."
+      redirect_to tournament_team_path(@tournament, @team)
     else
-        render "edit"
+      render "edit"
     end
- 
   end
 
   def destroy
-
     @team.destroy
-    redirect_to tournament_teams_path
+    flash[:notice] = "Team was successfully deleted."
+    redirect_to tournament_path
   end
 
   private
@@ -67,10 +65,7 @@ class TeamsController < ApplicationController
       @tournament = Tournament.find(params[:tournament_id])
     end
 
-
     def team_params
       params.require(:team).permit(:name, :short_name,:user_id,:tournament_id , :image) 
     end
-
-
 end

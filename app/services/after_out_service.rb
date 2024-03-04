@@ -23,17 +23,15 @@ class AfterOutService
         run: 0
       )
       i = @event.event_innings.last
-      # i.update!(bottom: true, top: false)
       new_inning = EventInning.new(
         i.attributes.slice("inning_number","top","bottom","event_id")
       )
       new_inning.top =  false
       new_inning.bottom =  true
       new_inning.save!
-     
-    # EventInning.create(inning_number: 1, bottom: true, top: false, event_id: @event.id)
-
+    
     scoreboard = Scoreboard.create(balls: 0 ,run: 0, strike: 0, out: 0, event_id: @event.id, event_inning_id: @event.event_innings.last.id, home_team: false,home_away: true)
+    
     team_line_ups = @event.team_line_ups
     first_base_rooster_id = team_line_ups.find_by(batter_order: 1)&.rooster_id
 
@@ -52,6 +50,12 @@ class AfterOutService
       elsif position_name == "fourth_base"
         rooster_position.update(fourth_base: nil)
       end
+    end
+
+    binding.pry
+    if @event.event_innings.last.inning_number > 9 
+      GameOverService.new(@event, scoreboard, @current_user).call
+      redirect_to start_tournament_event_path(@tournament, @event)
     end
 
   end

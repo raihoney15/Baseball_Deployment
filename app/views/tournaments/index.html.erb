@@ -32,6 +32,8 @@
           <td>
             <strong><%= tournament.name %></strong><br>
             <%= tournament.start_date.strftime('%B %e, %Y') %>
+            -
+            <%= tournament.end_date.strftime('%B %e, %Y') %>
           </td>
           <td>
             <%= link_to tournament do %>

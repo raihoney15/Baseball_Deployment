@@ -4,7 +4,7 @@ class Ability
   def initialize(user)
 
     user ||= User.new 
-  binding.pry
+  
     if user.roles.exists?(role_name:'admin')
       can :manage, :all
     elsif user.roles.exists?(role_name:'tournament_owner') || user.roles.exists?(role_name:'team_owner')
@@ -19,7 +19,7 @@ class Ability
       can :manage, OpponentTeamLineUp, user: user
       
     elsif user.roles.exists?(role_name:'tournament_admin')
-      binding.pry
+      
 
       can :show, Tournament
       can :read, Tournament

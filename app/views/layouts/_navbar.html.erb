@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-white">
-  <!-- Replace "Baseball" with the logo -->
+
   <a class="navbar-brand" href="#" style="padding: 0;">
   <%= link_to root_path do %>
     <%= image_tag("Logo.png", alt: "Logo", class: "img-fluid rounded-circle", style: "width: 100px; height: 100px;") %>
@@ -13,12 +13,19 @@
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav ml-auto">
     <li class="nav-item">
-    <%= link_to "Home", root_path, class: "nav-link" %>
-  </li>
+      <%= link_to "Home", root_path, class: "nav-link" %>
+    </li>
       <li class="nav-item">
         <%= link_to "Tournaments", tournaments_path, class: "nav-link" %>
       </li>
-      
+    <% if false %>
+      <li class="nav-item">
+      <%= link_to "Events", tournament_events_path(@tournament), class: "nav-link" %>
+      </li>
+    <% end %>
+
+
+
       <% if current_user&.roles&.exists?(role_name:'admin') %>   
       <li class="nav-item">                
         <%= link_to "All users", users_path, class: "nav-link" %>     

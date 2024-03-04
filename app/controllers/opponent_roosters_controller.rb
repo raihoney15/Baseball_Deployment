@@ -24,6 +24,9 @@ def show
     @tournament = Tournament.find(params[:tournament_id])
     @opponent_team = OpponentTeam.find(params[:opponent_team_id])
     @opponent_rooster = @opponent_team.opponent_roosters.find(params[:id])
+    ActiveStorage::Current.url_options = {
+        host: request.base_url
+      }
 end
 
 
@@ -71,3 +74,5 @@ end
     end
 
 end
+
+I want to show flash message on creating and updating flashmessage should be shown on opponent_rooster show page on deleting rooster flashmessage should be shown on opponent_team show page.
