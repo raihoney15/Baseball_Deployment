@@ -149,11 +149,11 @@
     <% if @event.event_innings.last.inning_number > 9 %>
         <h3> This match is over , Winning Team is 
         <%  %>
-        <% if @event.team.id == @event.winning_team_id %>
-        <%= @event.team.name %>
-        with <%= @orun %> runs.
-        <% else %>
+        <% if @run > @orun %>
         <%= @event.opponent_team.name %>
+        with <%= @run %> runs.
+        <% else %>
+        <%= @event.team.name %>
         with <%= @orun %> runs.
         <% end %>
         </h3>
@@ -244,6 +244,7 @@
   </div>
 </div>
 
+<% if false %>
 <script>
   $(document).ready(function() {
     if (<%= @event.event_innings.last.inning_number %> > 9) {
@@ -263,7 +264,25 @@
     }
   });
 </script>
+<% end %>
+<script>
+  $(document).ready(function() {
+    if (<%= @event.event_innings.last.inning_number %> > 9) {
+      var winningTeamName = "<%= @event.winning_team_id %>";
+      var winningTeamRuns = "<%= @orun %>";
+      var losingTeamRuns = "<%= @run %>";
+      var modalContent;
 
+      if (winningTeamName == "<%= @event.team.id %>") {
+        modalContent = "<p>This Event is over.</p>";
+      } else {
+        modalContent = "<p>This Event is over. </p>";
+      }
 
+      $("#myModal .modal-body").html(modalContent);
+      $("#myModal").modal("show");
+    }
+  });
+</script>
 
 
