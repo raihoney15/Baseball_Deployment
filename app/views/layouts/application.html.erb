@@ -29,6 +29,8 @@
 <br />
 <% if controller_name == 'tournaments' && action_name.in?(['new', 'edit' ,'create','show','index']) %>
   <%= yield %>
+  <% elsif controller_name == 'verify' && action_name.in?(['new' ,'edit','create']) %>
+  <%= yield %>
   <% elsif controller_name == 'teams' && action_name.in?(['new', 'edit' ,'create','show','index']) %>
   <%= yield %>
   <% elsif controller_name == 'opponent_teams' && action_name.in?(['new', 'edit' ,'create','show','index']) %>
@@ -53,8 +55,7 @@
   <%= yield %>
 
   <% else %>
-        <p class="notice"><%= notice %></p>
-        <p class="alert"><%= alert %></p>
+
         <%= yield %>
         <%= render partial: 'layouts/tables' %>
 <% end %>

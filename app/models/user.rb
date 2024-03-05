@@ -11,13 +11,13 @@ class User < ApplicationRecord
   has_many :opponent_roosters,dependent: :destroy
   has_many :team_line_ups,dependent: :destroy
   has_many :opponent_team_line_ups,dependent: :destroy
-  # has_many :staff_invites,dependent: :destroy
   has_many :rooster_positions,dependent: :destroy
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable ,authentication_keys: [:login]
 
-
+  after_create :update_user_verified_column_to_true
+  after_create :send_pin!
 
   validates :email, format: { with: /\A[^@\s]+@[^@\s]+\.[^@\s]+\z/, message: "Invalid email format" }
   validates :username, uniqueness: true
@@ -26,14 +26,6 @@ class User < ApplicationRecord
   validate :blank_space
  
 
-
-  
-    # def generate_invitation_token
-    #   self.invitation_token = SecureRandom.urlsafe_base64
-    #   save
-    # end
-  
-  
    def blank_space
     if password&.include?(' ')
     errors.add(:password, "can't contain spaces")
@@ -41,7 +33,7 @@ class User < ApplicationRecord
   end
 
   def assign_tournament_admin_role(email)
-    
+    binding.pry
     user = User.find_by(email: email)
     return unless user
     self.roles << Role.find_by(role_name: 'tournament_admin')
@@ -74,7 +66,23 @@ class User < ApplicationRecord
     end
   end
 
-
+  def update_user_verified_column_to_true
+    UpdateUserJob.perform_now(self)
+  end
+  
+  def reset_pin!
+    update_column(:pin, rand(1000..9999))
+  end
+  
+  def unverify!
+    update_column(:verified, false)
+  end
+  
+  def send_pin!
+    reset_pin!
+    unverify!
+    SendPinJob.perform_now(self)
+  end
 
 end
 

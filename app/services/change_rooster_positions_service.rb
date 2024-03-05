@@ -307,7 +307,7 @@ class ChangeRoosterPositionsService
               next_batter = next_batter_order.rooster_id
               scoreboard = @event.scoreboards.last
           end
-
+          binding.pry
           r = @event.scoreboards.last
           new_scoreboard = Scoreboard.new(
             r.attributes.slice("balls","run","strike","out","home_team","home_away","event_id","event_inning_id")
@@ -345,6 +345,7 @@ class ChangeRoosterPositionsService
                     new_rooster_position.scoreboard_id = @event.scoreboards.last.id
                     new_rooster_position.first_base = next_batter
                     new_rooster_position.save
+                    binding.pry
                 elsif rooster_position.third_base.present?
                   new_rooster_position.third_base = nil
                   new_rooster_position.second_base = nil

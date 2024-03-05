@@ -110,15 +110,15 @@
                         <td><h5 class="color"><%= @event.opponent_team.short_name %></h5></td>
                         <% end %>
                        
-                        <td><%= @event.scoreboards.where(event_inning_id: @s).last&.run.nil? ? 0 : @r1=@event.scoreboards.where(event_inning_id: @s).last&.run %></td>
-                        <td><%= @event.scoreboards.where(event_inning_id: @s1).last&.run.nil? ? 0 : @r2=@event.scoreboards.where(event_inning_id: @s1).last&.run %></td>
-                        <td><%= @event.scoreboards.where(event_inning_id: @s2).last&.run.nil? ? 0 : @r3=@event.scoreboards.where(event_inning_id: @s2).last&.run %></td>
-                        <td><%= @event.scoreboards.where(event_inning_id: @s3).last&.run.nil? ? 0 : @r4=@event.scoreboards.where(event_inning_id: @s3).last&.run %></td>
-                        <td><%= @event.scoreboards.where(event_inning_id: @s4).last&.run.nil? ? 0 : @r5=@event.scoreboards.where(event_inning_id: @s4).last&.run %></td>
-                        <td><%= @event.scoreboards.where(event_inning_id: @s5).last&.run.nil? ? 0 : @r6=@event.scoreboards.where(event_inning_id: @s5).last&.run %></td>
-                        <td><%= @event.scoreboards.where(event_inning_id: @s6).last&.run.nil? ? 0 : @r7=@event.scoreboards.where(event_inning_id: @s6).last&.run %></td>
-                        <td><%= @event.scoreboards.where(event_inning_id: @s7).last&.run.nil? ? 0 : @r8= @event.scoreboards.where(event_inning_id: @s7).last&.run %></td>
-                        <td><%= @event.scoreboards.where(event_inning_id: @s8).last&.run.nil? ? 0 : @r9=@event.scoreboards.where(event_inning_id: @s8).last&.run %></td>
+                        <td><%= @event.scoreboards.where(event_inning_id: @s).last&.run.nil? ? "-" : @r1=@event.scoreboards.where(event_inning_id: @s).last&.run %></td>
+                        <td><%= @event.scoreboards.where(event_inning_id: @s1).last&.run.nil? ? "-": @r2=@event.scoreboards.where(event_inning_id: @s1).last&.run %></td>
+                        <td><%= @event.scoreboards.where(event_inning_id: @s2).last&.run.nil? ? "-": @r3=@event.scoreboards.where(event_inning_id: @s2).last&.run %></td>
+                        <td><%= @event.scoreboards.where(event_inning_id: @s3).last&.run.nil? ? "-": @r4=@event.scoreboards.where(event_inning_id: @s3).last&.run %></td>
+                        <td><%= @event.scoreboards.where(event_inning_id: @s4).last&.run.nil? ? "-": @r5=@event.scoreboards.where(event_inning_id: @s4).last&.run %></td>
+                        <td><%= @event.scoreboards.where(event_inning_id: @s5).last&.run.nil? ? "-": @r6=@event.scoreboards.where(event_inning_id: @s5).last&.run %></td>
+                        <td><%= @event.scoreboards.where(event_inning_id: @s6).last&.run.nil? ? "-": @r7=@event.scoreboards.where(event_inning_id: @s6).last&.run %></td>
+                        <td><%= @event.scoreboards.where(event_inning_id: @s7).last&.run.nil? ? "-": @r8= @event.scoreboards.where(event_inning_id: @s7).last&.run %></td>
+                        <td><%= @event.scoreboards.where(event_inning_id: @s8).last&.run.nil? ? "-": @r9=@event.scoreboards.where(event_inning_id: @s8).last&.run %></td>
                         <td><%= @run = @r1.to_i+@r2.to_i+@r3.to_i+@r4.to_i+@r5.to_i+@r6.to_i+@r7.to_i+@r8.to_i+@r9.to_i %></td>
 
                     </tr>
@@ -128,15 +128,15 @@
                     <% else %>
                     <td><h5 class="color"><%= @event.team.short_name %></h5></td>
                     <% end %>
-                        <td><%= @event.scoreboards.where(event_inning_id: @o).last&.run.nil? ? 0 : @or1=@event.scoreboards.where(event_inning_id: @o).last&.run %></td>
-                        <td><%= @event.scoreboards.where(event_inning_id: @o1).last&.run.nil? ? 0 : @or2=@event.scoreboards.where(event_inning_id: @o1).last&.run %></td>
-                        <td><%= @event.scoreboards.where(event_inning_id: @o2).last&.run.nil? ? 0 : @or3=@event.scoreboards.where(event_inning_id: @o2).last&.run %></td>
-                        <td><%= @event.scoreboards.where(event_inning_id: @o3).last&.run.nil? ? 0 : @or4=@event.scoreboards.where(event_inning_id: @o3).last&.run %></td>
-                        <td><%= @event.scoreboards.where(event_inning_id: @o4).last&.run.nil? ? 0 : @or5=@event.scoreboards.where(event_inning_id: @o4).last&.run %></td>
-                        <td><%= @event.scoreboards.where(event_inning_id: @o5).last&.run.nil? ? 0 : @or6=@event.scoreboards.where(event_inning_id: @o5).last&.run %></td>                
-                        <td><%= @event.scoreboards.where(event_inning_id: @o6).last&.run.nil? ? 0 : @or7=@event.scoreboards.where(event_inning_id: @o6).last&.run %></td>
-                        <td><%= @event.scoreboards.where(event_inning_id: @o7).last&.run.nil? ? 0 : @or8=@event.scoreboards.where(event_inning_id: @o7).last&.run %></td>
-                        <td><%= @event.scoreboards.where(event_inning_id: @o8).last&.run.nil? ? 0 : @or9=@event.scoreboards.where(event_inning_id: @o8).last&.run %></td>
+                        <td><%= @event.scoreboards.where(event_inning_id: @o).last&.run.nil? ? "-": @or1=@event.scoreboards.where(event_inning_id: @o).last&.run %></td>
+                        <td><%= @event.scoreboards.where(event_inning_id: @o1).last&.run.nil? ? "-": @or2=@event.scoreboards.where(event_inning_id: @o1).last&.run %></td>
+                        <td><%= @event.scoreboards.where(event_inning_id: @o2).last&.run.nil? ? "-": @or3=@event.scoreboards.where(event_inning_id: @o2).last&.run %></td>
+                        <td><%= @event.scoreboards.where(event_inning_id: @o3).last&.run.nil? ? "-": @or4=@event.scoreboards.where(event_inning_id: @o3).last&.run %></td>
+                        <td><%= @event.scoreboards.where(event_inning_id: @o4).last&.run.nil? ? "-": @or5=@event.scoreboards.where(event_inning_id: @o4).last&.run %></td>
+                        <td><%= @event.scoreboards.where(event_inning_id: @o5).last&.run.nil? ? "-": @or6=@event.scoreboards.where(event_inning_id: @o5).last&.run %></td>                
+                        <td><%= @event.scoreboards.where(event_inning_id: @o6).last&.run.nil? ? "-": @or7=@event.scoreboards.where(event_inning_id: @o6).last&.run %></td>
+                        <td><%= @event.scoreboards.where(event_inning_id: @o7).last&.run.nil? ? "-": @or8=@event.scoreboards.where(event_inning_id: @o7).last&.run %></td>
+                        <td><%= @event.scoreboards.where(event_inning_id: @o8).last&.run.nil? ? "-": @or9=@event.scoreboards.where(event_inning_id: @o8).last&.run %></td>
                         <td><%= @orun = @or1.to_i+@or2.to_i+@or3.to_i+@or4.to_i+@or5.to_i+@or6.to_i+@or7.to_i+@or8.to_i+@or9.to_i %></td>
 
                     </tr>
@@ -154,7 +154,7 @@
         with <%= @orun %> runs.
         <% else %>
         <%= @event.opponent_team.name %>
-        with <%= @run %> runs.
+        with <%= @orun %> runs.
         <% end %>
         </h3>
     <% else %>

@@ -215,6 +215,7 @@ p {
 .ui-autocomplete li.ui-state-focus,
 .ui-autocomplete li:hover {
   background-color: #f0f0f0;
+  margin-top: 120px;
 }
 
 /* CSS for Live Event Block */

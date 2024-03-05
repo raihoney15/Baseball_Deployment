@@ -36,6 +36,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   end
 
+  def after_sign_up_path_for(resource)
+    verify_path
+  end
+
   # def dummyy_role
 
   # end
