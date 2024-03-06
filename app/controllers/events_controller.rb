@@ -21,7 +21,6 @@ class EventsController < ApplicationController
 
   def resume
     @event = find_event_by_id
-    flash[:notice] = "Event is Resumed."
     render 'start'
   end
 

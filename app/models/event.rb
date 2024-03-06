@@ -16,12 +16,19 @@ class Event < ApplicationRecord
 
   validates :game_type, :start_date,:location, presence: true
   validate :start_date_cannot_be_in_the_past
+  validate :start_date_within_tournament_dates
 
   def start_date_cannot_be_in_the_past
     if start_date.present? && start_date.past?
-      errors.add(:start_date, " can't be in the past")
+      errors.add(:start_date, "can't be in the past")
     end
   end  
+
+  def start_date_within_tournament_dates
+    unless tournament.nil? || (start_date >= tournament.start_date && start_date <= tournament.end_date)
+      errors.add(:start_date, " must be between tournament's start date and end date")
+    end
+  end
 
   def self.ransackable_attributes(auth_object = nil)
     [ "game_type"]

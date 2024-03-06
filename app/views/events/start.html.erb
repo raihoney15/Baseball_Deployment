@@ -1,7 +1,6 @@
 
-<%= link_to "Back", tournament_event_path(@tournament, @event), class: "btn btn-outline-primary ", style:"margin-left: 1100px;" %>
-
-    <% @s = @event.event_innings.where(inning_number: 1,top:true).ids %>
+<%= link_to "Back", tournament_event_path(@tournament, @event), class: "btn btn-outline-primary ", style:"margin-left: 1100px;" %> 
+<% @s = @event.event_innings.where(inning_number: 1,top:true).ids %>
     <% @s1 = @event.event_innings.where(inning_number: 2,top:true).ids %>
     <% @s2 = @event.event_innings.where(inning_number: 3,top:true).ids %>
     <% @s3 = @event.event_innings.where(inning_number: 4,top:true).ids %>
@@ -145,29 +144,28 @@
         </div>
     </div>
 
-<div style="margin-left: 100px; text-align: center;">
-    <% if @event.event_innings.last.inning_number > 9 %>
-        <h3> This match is over , Winning Team is 
-        <%  %>
+    <div style="margin-left: 100px;margin-right: 100px; text-align: center; margin-top: 50px; margin-bottom: 50px; background-color: #f2f2f2; border-radius: 10px; padding: 20px; font-family: Arial, sans-serif;">
+    <% if @event.event_innings.last.inning_number == 9 && @event.event_innings.last.bottom? %>
+        <h3>This match is over, Winning Team is 
         <% if @run > @orun %>
-        <%= @event.opponent_team.name %>
-        with <%= @run %> runs.
+            <%= @event.opponent_team.name %> with <%= @run %> runs.
         <% else %>
-        <%= @event.team.name %>
-        with <%= @orun %> runs.
+            <%= @event.team.name %> with <%= @orun %> runs.
         <% end %>
         </h3>
     <% else %>
         <%= form_with(model: [@tournament, @event], url: play_tournament_event_path(@tournament, @event)) do |form| %>
             <%= form.hidden_field :move_id, value: params[:move_id] %>
             <div class="form-content">
-            <%= form.label :move_id, class: "form-label" %>
-            <%= form.collection_select :move_id, Move.all, :id, :name, { prompt: "Select move" }, required: true, class: "form-select form-control", autocomplete: 'off' %><br />
-            <%= form.submit "Play", class: "btn btn-outline-primary" %>
+                <%= form.label :move_id, class: "form-label" %>
+                <%= form.collection_select :move_id, Move.all, :id, :name, { prompt: "Select move" }, required: true, class: "form-select form-control", autocomplete: 'off' %><br />
+                <%= form.submit "Play", class: "btn btn-outline-primary" %>
             </div>
         <% end %>   
     <% end %>   
 </div>
+
+
 
 <%  rooster_positions = RoosterPosition.where(scoreboard_id: @event.scoreboards.last.id, user_id: @current_user.id) %>
 <% rooster_position = rooster_positions.last   %>
@@ -226,10 +224,14 @@
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
+
       <div class="modal-header">
-        <h4 class="modal-title" id="myModalLabel">Match Over</h4>   
-          <span aria-hidden="true">&times;</span>
+        <h4 class="modal-title" id="myModalLabel">Match Over</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
       </div>
+
       <div class="modal-body">
       <% if @event.team.id == @event.winning_team_id %>
       <p>This Event is over. The winning team is <%= @event.team.name %> with <%= @run %> runs.</p>
@@ -247,27 +249,7 @@
 <% if false %>
 <script>
   $(document).ready(function() {
-    if (<%= @event.event_innings.last.inning_number %> > 9) {
-      var winningTeamName = "<%= @event.winning_team_id %>";
-      var winningTeamRuns = "<%= @orun %>";
-      var losingTeamRuns = "<%= @run %>";
-      var modalContent;
-
-      if (winningTeamName == "<%= @event.team.id %>") {
-        modalContent = "<p>This Event is over. The winning team is <%= @event.team.name %> with " + winningTeamRuns + " runs.</p>";
-      } else {
-        modalContent = "<p>This Event is over. The winning team is <%= @event.opponent_team.name %> with " + losingTeamRuns + " runs.</p>";
-      }
-
-      $("#myModal .modal-body").html(modalContent);
-      $("#myModal").modal("show");
-    }
-  });
-</script>
-<% end %>
-<script>
-  $(document).ready(function() {
-    if (<%= @event.event_innings.last.inning_number %> > 9) {
+    if ((<%= @event.event_innings.last.inning_number%> == 9) && (<% @event.event_innings.last.bottom? %> )) {
       var winningTeamName = "<%= @event.winning_team_id %>";
       var winningTeamRuns = "<%= @orun %>";
       var losingTeamRuns = "<%= @run %>";
@@ -284,5 +266,27 @@
     }
   });
 </script>
+<% end %>
 
+<script>
+  $(document).ready(function() {
+    var inningNumber = <%= @event.event_innings.last.inning_number %>;
+    var isBottom = <%= @event.event_innings.last.bottom? %>;
 
+    if (inningNumber === 9 && isBottom) {
+      var winningTeamName = "<%= @event.winning_team_id %>";
+      var winningTeamRuns = "<%= @orun %>";
+      var losingTeamRuns = "<%= @run %>";
+      var modalContent;
+
+      if (winningTeamName === "<%= @event.team.id %>") {
+        modalContent = "<p>This Event is over.</p>";
+      } else {
+        modalContent = "<p>This Event is over. </p>";
+      }
+
+      $("#myModal .modal-body").html(modalContent);
+      $("#myModal").modal("show");
+    }
+  });
+</script>
