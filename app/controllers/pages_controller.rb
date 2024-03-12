@@ -20,17 +20,11 @@ class PagesController < ApplicationController
       { event: event, scoreboards: event.scoreboards.last }
     end
 
-   
-    # if current_user.present?
-    #   @upcoming_events = current_user.events.where('start_date > ?', Date.today) 
-    # else
-    #   @upcoming_events = Event.where('start_date > ?', Date.today)
-    # end 
     if current_user.present?
       @upcoming_events = current_user.events.where('start_date > ?', Date.today).where(is_live: nil)
       
     else
-      @upcoming_events = Event.where('start_date > ?', Date.today)..where(is_live: nil)
+      @upcoming_events = Event.where('start_date > ?', Date.today).where(is_live: nil)
     end
     
     
