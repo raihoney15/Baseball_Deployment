@@ -33,7 +33,11 @@
 
       <div class="row">
           <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-            <%= form.submit "Create", class: "btn btn-outline-primary " %>
+          <% if @team.persisted? %>
+          <%= form.submit "Update", class: "btn btn-outline-primary " %>
+        <% else %>
+        <%= form.submit "Create", class: "btn btn-outline-primary " %>
+        <% end %>
             <%= link_to "Back", tournament_path(@tournament), class: "btn btn-outline-primary btn-sm" %>
           </div>
       </div>

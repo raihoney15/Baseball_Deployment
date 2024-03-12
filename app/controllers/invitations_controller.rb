@@ -31,7 +31,7 @@ class InvitationsController < ApplicationController
     if @invitation.save
       
       UserMailer.invite(@invitation, @tournament).deliver_now
-      flash[:success] = "Invitation sent Successfully."
+      flash[:notice] = "Invitation sent Successfully."
       redirect_to @tournament
     else
       render :new

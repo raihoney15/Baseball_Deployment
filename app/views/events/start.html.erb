@@ -145,7 +145,8 @@
     </div>
 
     <div style="margin-left: 100px;margin-right: 100px; text-align: center; margin-top: 50px; margin-bottom: 50px; background-color: #f2f2f2; border-radius: 10px; padding: 20px; font-family: Arial, sans-serif;">
-    <% if @event.event_innings.last.inning_number == 9 && @event.event_innings.last.bottom? %>
+
+    <% if  @event.scoreboards.where(event_inning_id: @o8).last&.out == 3 %>
         <h3>This match is over, Winning Team is 
         <% if @run > @orun %>
             <%= @event.opponent_team.name %> with <%= @run %> runs.
@@ -246,34 +247,13 @@
   </div>
 </div>
 
-<% if false %>
-<script>
-  $(document).ready(function() {
-    if ((<%= @event.event_innings.last.inning_number%> == 9) && (<% @event.event_innings.last.bottom? %> )) {
-      var winningTeamName = "<%= @event.winning_team_id %>";
-      var winningTeamRuns = "<%= @orun %>";
-      var losingTeamRuns = "<%= @run %>";
-      var modalContent;
-
-      if (winningTeamName == "<%= @event.team.id %>") {
-        modalContent = "<p>This Event is over.</p>";
-      } else {
-        modalContent = "<p>This Event is over. </p>";
-      }
-
-      $("#myModal .modal-body").html(modalContent);
-      $("#myModal").modal("show");
-    }
-  });
-</script>
-<% end %>
 
 <script>
   $(document).ready(function() {
     var inningNumber = <%= @event.event_innings.last.inning_number %>;
     var isBottom = <%= @event.event_innings.last.bottom? %>;
-
-    if (inningNumber === 9 && isBottom) {
+    var over = <%= @event.scoreboards.where(event_inning_id: @o8).last&.out %> ;
+    if (over === 3) {
       var winningTeamName = "<%= @event.winning_team_id %>";
       var winningTeamRuns = "<%= @orun %>";
       var losingTeamRuns = "<%= @run %>";

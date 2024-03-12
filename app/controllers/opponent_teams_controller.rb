@@ -15,6 +15,9 @@ class OpponentTeamsController < ApplicationController
   def show
     @tournament = Tournament.find(params[:tournament_id]) 
     @opponent_team = @tournament.opponent_teams.find(params[:id]) 
+    ActiveStorage::Current.url_options = {
+      host: request.base_url
+    }
   end
 
   def new
@@ -38,7 +41,7 @@ class OpponentTeamsController < ApplicationController
   end
 
   def update
-    if @team.update(opponent_team_params)
+    if @opponent_team.update(opponent_team_params)
       flash[:notice] = "Opponent Team was successfully updated."
       redirect_to tournament_opponent_team_path(@tournament, @opponent_team)
     else

@@ -50,8 +50,14 @@ class GameOverService
         
 
         
-        winning_team_id = @event.team_id if @run < @orun
-        winning_team_id = @event.opponent_team_id if @run > @orun
+        # winning_team_id = @event.team_id if @run < @orun
+        # winning_team_id = @event.opponent_team_id if @run > @orun
+        if @run < @orun
+          winning_team_id = @event.team_id
+        else 
+          winning_team_id = @event.opponent_team_id
+        end
+
         @event.update!(is_live: false, winning_team_id: winning_team_id)
 
         

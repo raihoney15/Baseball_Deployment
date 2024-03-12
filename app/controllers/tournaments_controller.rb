@@ -43,7 +43,7 @@ class TournamentsController < ApplicationController
   def create
     @tournament = @current_user.tournaments.create(tournament_params)
     if @tournament.save
-      flash[:success] = "Tournament was successfully created."
+      flash[:notice] = "Tournament was successfully created."
       redirect_to tournaments_path
     else
       render "new"
@@ -53,7 +53,7 @@ class TournamentsController < ApplicationController
   def update
     @tournament = Tournament.find(params[:id])
     if @tournament.update(tournament_params)
-      flash[:success] = "Tournament was successfully updated."
+      flash[:notice] = "Tournament was successfully updated."
       redirect_to tournament_path
     else
       render "edit"
@@ -63,7 +63,7 @@ class TournamentsController < ApplicationController
   def destroy
     @tournament = Tournament.find(params[:id])
     @tournament.destroy
-    flash[:success] = "Tournament was successfully deleted."
+    flash[:notice] = "Tournament was successfully deleted."
     redirect_to tournaments_path
   end
 

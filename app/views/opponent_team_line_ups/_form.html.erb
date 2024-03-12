@@ -54,7 +54,7 @@
             </tr>
           </thead>
           <tbody>
-            <% @event.opponent_team_line_ups.each do |opponent_team_line_up| %>
+            <% @event.opponent_team_line_ups.order(batter_order: :asc).each do |opponent_team_line_up| %>
               <tr>
                 <td><%= Position.find(opponent_team_line_up.position_id).position_name %></td>
                 <td><%= opponent_team_line_up.opponent_rooster.name %></td>

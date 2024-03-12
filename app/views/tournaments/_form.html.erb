@@ -19,7 +19,7 @@
           <%= form.date_field :start_date, class: "form-control", autocomplete: 'off' %>
           <% if @tournament.errors[:start_date].any? %>
           <div class="error-message" , style="color: #f4340a;">
-            <b><%= "start_date" + @tournament.errors[:start_date].join(", ") %></b>
+            <b><%= "start_date" + @tournament.errors[:start_date].join(" , ") %></b>
           </div>
         <% end %>
         </div>
@@ -29,7 +29,7 @@
           <%= form.date_field :end_date, class: "form-control", autocomplete: 'off' %>
           <% if @tournament.errors[:end_date].any? %>
           <div class="error-message", style="color: #f4340a;">
-            <b><%= "end_date" + @tournament.errors[:end_date].join(", ") %></b>
+            <b><%= "end_date" +" " +  @tournament.errors[:end_date].join(" , ") %></b>
           </div>
         <% end %>
         </div>

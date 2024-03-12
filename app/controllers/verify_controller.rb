@@ -25,7 +25,7 @@ class VerifyController < ApplicationController
         render :edit and return
       elsif code.try(:to_i) == current_user.pin
         current_user.update_attribute(:verified, true)
-        flash[:alert] = "Your email address has been verified!"
+        flash[:notice] = "Your email address has been verified!"
         redirect_to root_url
       else
         flash.now[:alert] = "The code you entered is invalid."

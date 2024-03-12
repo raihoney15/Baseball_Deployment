@@ -32,7 +32,7 @@ end
 def create
   @rooster = current_user.roosters.build(rooster_params.merge(team_id: @team.id).merge(tournament_id: @tournament.id))
   if @rooster.save
-    flash[:success] = "Rooster was successfully created."
+    flash[:notice] = "Rooster was successfully created."
     redirect_to tournament_team_path(@tournament, @team)
   else
     render "new"
@@ -41,8 +41,8 @@ end
 
 def update
   if @rooster.update(rooster_params)
-    flash[:success] = "Rooster was successfully updated."
-    redirect_to tournament_team_rooster_path(@tournament,@team,rooster)
+    flash[:notice] = "Rooster was successfully updated."
+    redirect_to tournament_team_rooster_path(@tournament,@team,@rooster)
   else
     render "edit"
   end
@@ -51,7 +51,7 @@ end
 
 def destroy
   @rooster.destroy
-  flash[:success] = "Rooster was successfully deleted."
+  flash[:notice] = "Rooster was successfully deleted."
   redirect_to tournament_team_path(@tournament, @team)
 end
 

@@ -25,7 +25,7 @@ class TeamLineUpsController < ApplicationController
       
         c = @available_positions
         if c == nil
-          flash.now[:alert] = 'teamlineup is complete!'
+          flash.now[:notice] = 'teamlineup is complete!'
         end
   
     end
@@ -42,6 +42,7 @@ class TeamLineUpsController < ApplicationController
       @tournament = Tournament.find(params[:tournament_id])
       @event = Event.find(params[:event_id])
       @team_line_up = TeamLineUp.find(params[:id])
+
        
     end
 
