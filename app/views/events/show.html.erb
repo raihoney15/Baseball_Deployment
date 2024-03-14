@@ -13,12 +13,15 @@
     </div>
     <div style="flex: 40%;">
       <div class="container">
-
-      <% if @show_resume_button %>
-      <%= link_to "RESUME", resume_tournament_event_path(@tournament, @event), style: "margin-left: 10px;", class: "btn btn-outline-primary" %>
-      <% elsif @show_start_button %>
-        <%= link_to "START", start_tournament_event_path(@tournament, @event), style: "margin-left: 10px;", class: "btn btn-outline-primary" %>
-      <% end %>
+     
+        <% @o8 = @event.event_innings.where(inning_number: 9,bottom:true).ids %>
+        <% if @event.scoreboards.where(event_inning_id: @o8).last&.out == 3 %>
+          <%= link_to "RESTART", start_tournament_event_path(@tournament, @event), style: "margin-left: 10px;", class: "btn btn-outline-primary" %>
+        <% elsif @show_resume_button %>
+          <%= link_to "RESUME", resume_tournament_event_path(@tournament, @event), style: "margin-left: 10px;", class: "btn btn-outline-primary" %>
+        <% elsif @show_start_button %>
+          <%= link_to "START", start_tournament_event_path(@tournament, @event), style: "margin-left: 10px;", class: "btn btn-outline-primary" %>
+        <% end %>
     
 
     <% if false %>
@@ -39,7 +42,6 @@
               <% end %>
             <% end %>
         </div>
-
         <div style="display: flex; align-items: center;">
           <h4 style="margin-left: 10px;">Opponent Teamlineup</h4> 
           <% if @event.is_live.nil? %>
@@ -59,10 +61,15 @@
         <%= link_to tournament_event_team_line_ups_path(@event.tournament, @event) do %>
         <%= image_tag("check.jpg", alt: "completed", style: "width: 25px; height: 25px; object-fit: cover; margin-left: 20px;") %>
         <% end %>
+
         <% else %>        
         <%= link_to new_tournament_event_team_line_up_path(@event.tournament, @event) do %>
-          <%= image_tag("lineup.png", alt: "teamlineup", style: "width: 25px; height: 25px; object-fit: cover;margin-left: 20px;") %>
+          <%= image_tag("lineup.png", alt: "teamlineup", style: "width: 25px; height: 25px; object-fit: cover;margin-left: 20px;") %> |
           <% end %>
+          <%= link_to new_tournament_team_rooster_path(@team.tournament, @team) do %>
+            <%= image_tag("addroaster.png", alt: "edit", style: "width: 25px; height: 25px; object-fit: cover;") %> 
+            <% end %>
+
         <% end %>
       </div>
 
@@ -74,13 +81,61 @@
         <% end %>
         <% else %> 
         <%= link_to new_tournament_event_opponent_team_line_up_path(@event.tournament, @event) do %>
-          <%= image_tag("lineup.png", alt: "tournament", style: "width: 25px; height: 25px; object-fit: cover;margin-left: 20px;") %>
+          <%= image_tag("lineup.png", alt: "tournament", style: "width: 25px; height: 25px; object-fit: cover;margin-left: 20px;") %> |
         <% end %>
+        <%= link_to new_tournament_opponent_team_opponent_rooster_path(@opponent_team.tournament, @opponent_team) do %> 
+          <%= image_tag("addroaster.png", alt: "edit", style: "width: 25px; height: 25px; object-fit: cover;") %> 
+          <% end %>
        <% end %>   
       </div>
                 
       </div>
     </div>
+
+    <div class="modal fade" id="addRoasterModal" tabindex="-1" aria-labelledby="addRoasterModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addRoasterModalLabel">Reminder!</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Add a roaster to the team before accessing the team lineup.</p>
+        </div>
+      </div>
+    </div>
   </div>
+  
+  <div class="modal fade" id="addRoasterModal1" tabindex="-1" aria-labelledby="addRoasterModal1Label" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addRoasterModal1Label">Reminder!</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Add an opponent roaster to the opponent team before accessing the opponent team lineup.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+
+
+  </div>
+
+  <script>
+  document.addEventListener("DOMContentLoaded", function() {
+    <% if @show_modal %>
+      $('#addRoasterModal').modal('show');
+    <% elsif @show_modal1 %>
+      $('#addRoasterModal1').modal('show');
+    <% end %>
+  });
+</script>
 
 

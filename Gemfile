@@ -10,6 +10,7 @@ gem "sprockets-rails"
 
 # Use postgresql as the database for Active Record
 gem "pg", "~> 1.1"
+# gem "sqlite3"
 
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", ">= 5.0"
@@ -36,7 +37,7 @@ gem "jbuilder"
 # gem "bcrypt", "~> 3.1.7"
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem "tzinfo-data", platforms: %i[ windows jruby ]
+# gem "tzinfo-data", platforms: %i[ windows jruby ]
 
 gem 'awesome_print', '~> 1.8'
 
@@ -53,6 +54,7 @@ gem 'jquery-rails'
 gem 'jquery-ui-rails'
 # gem 'searchkick'
 gem 'ransack'
+gem 'figaro'
 
 
 # gem 'webpacker', '~> 3.5'
@@ -62,7 +64,7 @@ gem 'webpacker', git: 'https://github.com/rails/webpacker.git'
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
-  gem "debug", platforms: %i[ mri windows ]
+  # gem "debug", platforms: %i[ mri windows ]
   gem "letter_opener"
 end
 
@@ -70,11 +72,6 @@ group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
 
-  # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
-  # gem "rack-mini-profiler"
-
-  # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
-  # gem "spring"
 end
 
 group :test do
@@ -84,3 +81,10 @@ group :test do
 end
 
 gem "devise", "~> 4.9"
+gem 'capistrano', require: false
+gem 'capistrano3-puma', require: false
+gem 'capistrano-rails', require: false
+gem 'capistrano-bundler', require: false
+gem 'capistrano-rvm', require: false
+
+gem "tzinfo-data", platforms: %i[mswin mswin64 mingw x64_mingw jruby ]

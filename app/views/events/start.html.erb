@@ -147,13 +147,19 @@
     <div style="margin-left: 100px;margin-right: 100px; text-align: center; margin-top: 50px; margin-bottom: 50px; background-color: #f2f2f2; border-radius: 10px; padding: 20px; font-family: Arial, sans-serif;">
 
     <% if  @event.scoreboards.where(event_inning_id: @o8).last&.out == 3 %>
-        <h3>This match is over, Winning Team is 
-        <% if @run > @orun %>
-            <%= @event.opponent_team.name %> with <%= @run %> runs.
+        <% if @run == @orun %>
+          <h3> This match is a draw match </h3>
         <% else %>
-            <%= @event.team.name %> with <%= @orun %> runs.
+          <h3>This match is over, Winning Team is 
+          <% if @run > @orun %>
+              <%= @event.opponent_team.name %> with <%= @run %> runs.
+          <% else %>
+              <%= @event.team.name %> with <%= @orun %> runs.
+          <% end %>
         <% end %>
         </h3>
+
+
     <% else %>
         <%= form_with(model: [@tournament, @event], url: play_tournament_event_path(@tournament, @event)) do |form| %>
             <%= form.hidden_field :move_id, value: params[:move_id] %>

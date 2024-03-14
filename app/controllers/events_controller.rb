@@ -63,6 +63,10 @@ class EventsController < ApplicationController
     end
   
     flash.now[:notice] = flash[:notice] if flash[:notice].present?
+    @team = @event.team
+    @opponent_team = @event.opponent_team
+    @show_modal = !@team.roosters.exists?(user_id: current_user.id)
+    @show_modal1 = !@opponent_team.opponent_roosters.exists?(user_id: current_user.id)
   end
   
   def my_events

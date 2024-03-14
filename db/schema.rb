@@ -11,9 +11,6 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[7.1].define(version: 2024_02_28_060550) do
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
-
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -43,8 +40,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_28_060550) do
   end
 
   create_table "assignments", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.bigint "role_id", null: false
+    t.integer "user_id", null: false
+    t.integer "role_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["role_id"], name: "index_assignments_on_role_id"
@@ -53,12 +50,12 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_28_060550) do
 
   create_table "batting_stats", force: :cascade do |t|
     t.integer "run"
-    t.bigint "event_id", null: false
-    t.bigint "scoreboard_id", null: false
-    t.bigint "team_id"
-    t.bigint "opponent_team_id"
-    t.bigint "rooster_id"
-    t.bigint "opponent_rooster_id"
+    t.integer "event_id", null: false
+    t.integer "scoreboard_id", null: false
+    t.integer "team_id"
+    t.integer "opponent_team_id"
+    t.integer "rooster_id"
+    t.integer "opponent_rooster_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["event_id"], name: "index_batting_stats_on_event_id"
@@ -71,9 +68,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_28_060550) do
 
   create_table "commentaries", force: :cascade do |t|
     t.text "text"
-    t.bigint "rooster_id"
-    t.bigint "opponent_rooster_id"
-    t.bigint "event_id", null: false
+    t.integer "rooster_id"
+    t.integer "opponent_rooster_id"
+    t.integer "event_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "rooster_name"
@@ -87,7 +84,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_28_060550) do
     t.integer "inning_number"
     t.boolean "top"
     t.boolean "bottom"
-    t.bigint "event_id", null: false
+    t.integer "event_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["event_id"], name: "index_event_innings_on_event_id"
@@ -95,7 +92,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_28_060550) do
 
   create_table "event_setups", force: :cascade do |t|
     t.integer "inning_rounds"
-    t.bigint "event_id", null: false
+    t.integer "event_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["event_id"], name: "index_event_setups_on_event_id"
@@ -111,10 +108,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_28_060550) do
     t.string "memo"
     t.boolean "is_live"
     t.integer "winning_team_id"
-    t.bigint "user_id", null: false
-    t.bigint "tournament_id", null: false
-    t.bigint "team_id", null: false
-    t.bigint "opponent_team_id", null: false
+    t.integer "user_id", null: false
+    t.integer "tournament_id", null: false
+    t.integer "team_id", null: false
+    t.integer "opponent_team_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["opponent_team_id"], name: "index_events_on_opponent_team_id"
@@ -126,7 +123,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_28_060550) do
   create_table "invitations", force: :cascade do |t|
     t.string "email"
     t.boolean "accepted", default: false
-    t.bigint "tournament_id", null: false
+    t.integer "tournament_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["tournament_id"], name: "index_invitations_on_tournament_id"
@@ -141,9 +138,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_28_060550) do
   create_table "opponent_roosters", force: :cascade do |t|
     t.string "name"
     t.integer "jersey_number"
-    t.bigint "user_id", null: false
-    t.bigint "tournament_id", null: false
-    t.bigint "opponent_team_id", null: false
+    t.integer "user_id", null: false
+    t.integer "tournament_id", null: false
+    t.integer "opponent_team_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["opponent_team_id"], name: "index_opponent_roosters_on_opponent_team_id"
@@ -153,14 +150,14 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_28_060550) do
 
   create_table "opponent_team_line_ups", force: :cascade do |t|
     t.integer "batter_order"
-    t.bigint "event_id", null: false
-    t.bigint "user_id", null: false
-    t.bigint "opponent_rooster_id", null: false
-    t.bigint "opponent_team_id", null: false
-    t.bigint "position_id", null: false
+    t.integer "event_id", null: false
+    t.integer "user_id", null: false
+    t.integer "opponent_rooster_id", null: false
+    t.integer "opponent_team_id", null: false
+    t.integer "position_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "tournament_id", null: false
+    t.integer "tournament_id", null: false
     t.index ["event_id"], name: "index_opponent_team_line_ups_on_event_id"
     t.index ["opponent_rooster_id"], name: "index_opponent_team_line_ups_on_opponent_rooster_id"
     t.index ["opponent_team_id"], name: "index_opponent_team_line_ups_on_opponent_team_id"
@@ -172,9 +169,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_28_060550) do
   create_table "opponent_teams", force: :cascade do |t|
     t.string "name"
     t.string "short_name"
-    t.bigint "user_id", null: false
-    t.bigint "tournament_id", null: false
-    t.bigint "team_id"
+    t.integer "user_id", null: false
+    t.integer "tournament_id", null: false
+    t.integer "team_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["team_id"], name: "index_opponent_teams_on_team_id"
@@ -184,12 +181,12 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_28_060550) do
 
   create_table "pitching_stats", force: :cascade do |t|
     t.integer "pitch"
-    t.bigint "event_id", null: false
-    t.bigint "scoreboard_id", null: false
-    t.bigint "team_id"
-    t.bigint "opponent_team_id"
-    t.bigint "rooster_id"
-    t.bigint "opponent_rooster_id"
+    t.integer "event_id", null: false
+    t.integer "scoreboard_id", null: false
+    t.integer "team_id"
+    t.integer "opponent_team_id"
+    t.integer "rooster_id"
+    t.integer "opponent_rooster_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["event_id"], name: "index_pitching_stats_on_event_id"
@@ -223,8 +220,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_28_060550) do
     t.integer "rightfield"
     t.integer "leftfield"
     t.integer "centerfield"
-    t.bigint "user_id", null: false
-    t.bigint "scoreboard_id", null: false
+    t.integer "user_id", null: false
+    t.integer "scoreboard_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["scoreboard_id"], name: "index_rooster_positions_on_scoreboard_id"
@@ -236,9 +233,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_28_060550) do
     t.integer "jersey_number"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "team_id"
-    t.bigint "user_id"
-    t.bigint "tournament_id"
+    t.integer "team_id"
+    t.integer "user_id"
+    t.integer "tournament_id"
     t.index ["team_id"], name: "index_roosters_on_team_id"
     t.index ["tournament_id"], name: "index_roosters_on_tournament_id"
     t.index ["user_id"], name: "index_roosters_on_user_id"
@@ -251,29 +248,24 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_28_060550) do
     t.integer "out"
     t.boolean "home_team"
     t.boolean "home_away"
-    t.bigint "event_id", null: false
-    t.bigint "event_inning_id", null: false
+    t.integer "event_id", null: false
+    t.integer "event_inning_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["event_id"], name: "index_scoreboards_on_event_id"
     t.index ["event_inning_id"], name: "index_scoreboards_on_event_inning_id"
   end
 
-  create_table "starts", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "team_line_ups", force: :cascade do |t|
     t.integer "batter_order"
-    t.bigint "event_id", null: false
-    t.bigint "user_id", null: false
-    t.bigint "rooster_id", null: false
-    t.bigint "team_id", null: false
-    t.bigint "position_id", null: false
+    t.integer "event_id", null: false
+    t.integer "user_id", null: false
+    t.integer "rooster_id", null: false
+    t.integer "team_id", null: false
+    t.integer "position_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "tournament_id", null: false
+    t.integer "tournament_id", null: false
     t.index ["event_id"], name: "index_team_line_ups_on_event_id"
     t.index ["position_id"], name: "index_team_line_ups_on_position_id"
     t.index ["rooster_id"], name: "index_team_line_ups_on_rooster_id"
@@ -287,8 +279,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_28_060550) do
     t.string "short_name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "user_id"
-    t.bigint "tournament_id"
+    t.integer "user_id"
+    t.integer "tournament_id"
     t.index ["tournament_id"], name: "index_teams_on_tournament_id"
     t.index ["user_id"], name: "index_teams_on_user_id"
   end
@@ -300,7 +292,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_28_060550) do
     t.string "location"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "user_id"
+    t.integer "user_id"
     t.index ["user_id"], name: "index_tournaments_on_user_id"
   end
 
@@ -310,10 +302,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_28_060550) do
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.string "confirmation_token"
-    t.datetime "confirmed_at"
-    t.datetime "confirmation_sent_at"
-    t.string "unconfirmed_email"
     t.integer "role"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

@@ -362,6 +362,13 @@ class ChangeRoosterPositionsService
             r = @event.scoreboards.last
             r.run += 1
             new_rooster_position.first_base = next_batter
+          elsif rooster_position.first_base.present? && rooster_position.fourth_base.present?
+            new_rooster_position.fourth_base = nil
+            new_rooster_position.fourth_base = rooster_position.first_base
+            new_rooster_position.first_base = nil
+            r = @event.scoreboards.last
+            r.run += 1
+            new_rooster_position.first_base = next_batter
           elsif rooster_position.first_base.present? && rooster_position.second_base.present? && rooster_position.third_base.present?
            
             new_rooster_position.fourth_base = rooster_position.first_base
